@@ -1,0 +1,12 @@
+{
+  "name": "assisthealth-sop",
+  "version": "1.0.0",
+  "description": "AssistHealth SOP Training System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "author": "AssistHealth",
+  "license": "MIT"
+}

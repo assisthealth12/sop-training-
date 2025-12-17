@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssistHealth SOP Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* AssistHealth Color Palette */
+        :root {
+            --primary-color: #3D8D7A;
+            --secondary-color: #B3D8A8;
+            --accent-color: #FBFFE4;
+            --light-accent: #A3D1C6;
+            --dark-gray: #333333;
+            --medium-gray: #6c757d;
+            --white: #ffffff;
+            --success: #3D8D7A;
+            --danger: #dc3545;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+        
+        .logo-container {
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            max-width: 100px;
+            height: auto;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            border: 1px solid var(--light-accent);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--light-accent);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(61, 141, 122, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(61, 141, 122, 0.2);
+        }
+
+        button:hover {
+            background-color: #327565;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 141, 122, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .secondary-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            margin-top: 15px;
+        }
+
+        .secondary-btn:hover {
+            background-color: rgba(61, 141, 122, 0.1);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .success {
+            background-color: rgba(61, 141, 122, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkmark {
+            position: absolute;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #f0f0f0;
+        }
+        
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-container .checkmark:after {
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            content: "\f00c";
+            left: 3px;
+            top: -1px;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: 10px;
+        }
+        
+        .forgot-password a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        @media (min-width: 640px) {
+            .container {
+                max-width: 600px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .logo {
+                max-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="./assets/images/AH.png" alt="AssistHealth Logo" class="logo">
+        </div>
+        <h1>AssistHealth SOP Training</h1>
+        <p>Secure login and registration for authorized personnel</p>
+    </header>
+
+    <main class="container">
+        <div class="card" id="loginCard">
+            <h2>Login</h2>
+            <div id="loginMessage"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        <span>Remember me</span>
+                    </label>
+                </div>
+                <button type="submit">Login</button>
+                <div class="forgot-password">
+                    <a href="#" id="forgotPassword">Forgot Password?</a>
+                </div>
+            </form>
+            <button class="secondary-btn" id="showRegisterBtn">Need to Register?</button>
+        </div>
+
+        <div class="card" id="registerCard" style="display: none;">
+            <h2>Register</h2>
+            <div id="registerMessage"></div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <button class="secondary-btn" id="showLoginBtn">Back to Login</button>
+        </div>
+    </main>
+
+    <!-- Firebase SDK -->
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = window.firebaseConfig;
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // DOM Elements
+        const loginCard = document.getElementById('loginCard');
+        const registerCard = document.getElementById('registerCard');
+        const showRegisterBtn = document.getElementById('showRegisterBtn');
+        const showLoginBtn = document.getElementById('showLoginBtn');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginMessage = document.getElementById('loginMessage');
+        const registerMessage = document.getElementById('registerMessage');
+
+        // Toggle between login and register views
+        showRegisterBtn.addEventListener('click', () => {
+            loginCard.style.display = 'none';
+            registerCard.style.display = 'block';
+        });
+
+        showLoginBtn.addEventListener('click', () => {
+            registerCard.style.display = 'none';
+            loginCard.style.display = 'block';
+        });
+        
+        // Forgot password handler
+        document.getElementById('forgotPassword').addEventListener('click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            if (!email) {
+                showMessage(loginMessage, 'Please enter your email address first.', 'error');
+                return;
+            }
+            
+            // In a real app, this would trigger a password reset email
+            showMessage(loginMessage, 'Password reset link sent to your email.', 'success');
+        });
+
+        // Login Handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                loginMessage.innerHTML = '';
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Check if user is admin
+                const adminDoc = await db.collection('admins').doc(user.uid).get();
+                if (adminDoc.exists && adminDoc.data().isAdmin) {
+                    console.log('👑 User is admin, redirecting...');
+                    window.location.href = 'admin.html';
+                    return;
+                }
+
+                // Check user role from users collection
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    console.log('👤 User data:', userData);
+                    
+                    // Ensure role exists, default to navigator if missing
+                    const userRole = userData.role || 'navigator';
+                    
+                    console.log('👤 User role:', userRole);
+                    
+                    if (userRole === 'navigator') {
+                        console.log('🧭 Redirecting to Navigator Dashboard...');
+                        window.location.href = 'dashboard.html';
+                    } else if (userRole === 'coordinator') {
+                        console.log('🤝 Redirecting to Community Coordinator Dashboard...');
+                        window.location.href = 'coordinator-dashboard.html';
+                    } else {
+                        console.error('❌ Unknown role:', userRole);
+                        showMessage(loginMessage, `Invalid user role: ${userRole}. Please contact administrator.`, 'error');
+                    }
+                } else {
+                    console.error('❌ User document not found');
+                    showMessage(loginMessage, 'User data not found. Please contact administrator.', 'error');
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                showMessage(loginMessage, error.message, 'error');
+            }
+        });
+
+        // Registration Handler
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            try {
+                registerMessage.innerHTML = '';
+                
+                // Check if email is preapproved
+                const preapprovedDoc = await db.collection('preapprovedEmails').doc(email).get();
+                if (!preapprovedDoc.exists) {
+                    throw new Error('Email not preapproved for registration. Please contact your administrator.');
+                }
+
+                // Get preapproved data
+                const preapprovedData = preapprovedDoc.data();
+                
+                // Create user in Firebase Auth
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Create user document in Firestore
+                const userRole = preapprovedData.role || 'navigator';
+                console.log('📝 Creating user with role:', userRole);
+                
+                await db.collection('users').doc(user.uid).set({
+                    name: name,
+                    email: email,
+                    role: userRole,
+                    status: 'active',
+                    currentChapter: 1,
+                    completedChapters: [],
+                    chapterVersionsCompleted: {},
+                    sopVersionCompleted: 0,
+                    deadline: preapprovedData.deadline,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                // Redirect based on role
+                const redirectRole = preapprovedData.role || 'navigator';
+                if (redirectRole === 'coordinator') {
+                    window.location.href = 'coordinator-dashboard.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.error("Registration error:", error);
+                showMessage(registerMessage, error.message, 'error');
+            }
+        });
+
+        // Utility function to show messages
+        function showMessage(container, message, type) {
+            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html>

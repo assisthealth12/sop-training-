@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - AssistHealth SOP Training</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* AssistHealth Color Palette */
+        :root {
+            --primary-color: #3D8D7A;
+            --secondary-color: #B3D8A8;
+            --accent-color: #FBFFE4;
+            --light-accent: #A3D1C6;
+            --dark-gray: #333333;
+            --medium-gray: #6c757d;
+            --white: #ffffff;
+            --success: #3D8D7A;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--accent-color);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Timer Bar */
+        .timer-bar {
+            position: sticky;
+            top: 0;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            max-width: 40px;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .timer-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .timer-warning {
+            color: var(--warning);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-accent);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(61, 141, 122, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin: 0 20px 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--light-accent);
+        }
+
+        .quiz-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .quiz-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .question-count {
+            color: var(--medium-gray);
+        }
+
+        .question-card {
+            background-color: rgba(245, 247, 250, 0.7);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--light-accent);
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .options-container {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option-card {
+            background: var(--white);
+            border: 2px solid var(--light-accent);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(61, 141, 122, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(61, 141, 122, 0.1);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(61, 141, 122, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #327565;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 141, 122, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(61, 141, 122, 0.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .modal-message {
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+
+        .result-success {
+            color: var(--success);
+        }
+
+        .result-error {
+            color: var(--danger);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        
+        .success {
+            background-color: rgba(61, 141, 122, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        @media (min-width: 640px) {
+            .timer-bar {
+                padding: 15px 30px;
+            }
+            
+            header {
+                margin: 30px;
+            }
+            
+            .quiz-container {
+                padding: 30px;
+                margin: 0 30px 30px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .quiz-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Timer Bar -->
+    <div class="timer-bar">
+        <div>Quiz Timer</div>
+        <div class="timer-text" id="timer">15:00</div>
+    </div>
+
+    <header>
+        <div class="logo-container">
+            <img src="./assets/images/AH.png" alt="AssistHealth Logo" class="logo">
+            <h1>Chapter Quiz</h1>
+        </div>
+        <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Chapter</button>
+    </header>
+
+    <main>
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h2 class="quiz-title" id="quizTitle">Loading Quiz...</h2>
+                <div class="question-count" id="questionCount">Question 0 of 0</div>
+            </div>
+            
+            <div id="quizMessage"></div>
+            
+            <div class="question-card" id="questionCard" style="display: none;">
+                <div class="question-text" id="questionText"></div>
+                <div class="options-container" id="optionsContainer"></div>
+            </div>
+            
+            <div class="navigation">
+                <button class="btn btn-secondary" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="btn" id="nextBtn">Next <i class="fas fa-arrow-right"></i></button>
+                <button class="btn" id="submitBtn" style="display: none;"><i class="fas fa-paper-plane"></i> Submit Quiz</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Submit Quiz</h3>
+            <p class="modal-message">Are you sure you want to submit your quiz answers?</p>
+            <button class="btn" id="confirmSubmitBtn">Yes, Submit</button>
+            <button class="btn btn-secondary" id="cancelSubmitBtn">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h3 class="modal-title" id="resultTitle">Quiz Result</h3>
+            <p class="modal-message" id="resultMessage"></p>
+            <button class="btn" id="resultBtn">Continue</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = window.firebaseConfig;
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // DOM Elements
+        const timerElement = document.getElementById('timer');
+        const backBtn = document.getElementById('backBtn');
+        const quizTitle = document.getElementById('quizTitle');
+        const questionCount = document.getElementById('questionCount');
+        const questionCard = document.getElementById('questionCard');
+        const questionText = document.getElementById('questionText');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const quizMessage = document.getElementById('quizMessage');
+        const confirmModal = document.getElementById('confirmModal');
+        const resultModal = document.getElementById('resultModal');
+        const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+        const cancelSubmitBtn = document.getElementById('cancelSubmitBtn');
+        const resultBtn = document.getElementById('resultBtn');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultMessage = document.getElementById('resultMessage');
+
+        // Quiz state
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+        let timerInterval;
+
+        // Get chapter ID and role from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const chapterId = urlParams.get('chapter');
+        const userRole = urlParams.get('role') || 'navigator';
+
+        // Check authentication state
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            if (!chapterId) {
+                showMessage(quizMessage, 'No chapter specified for quiz.', 'error');
+                return;
+            }
+
+            try {
+                // Check user deadline
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    if (userData.deadline) {
+                        const deadlineDate = userData.deadline.toDate();
+                        if (new Date() > deadlineDate) {
+                            showMessage(quizMessage, 'Your training deadline has passed. You cannot take this quiz.', 'error');
+                            return;
+                        }
+                    }
+                }
+
+                // Load quiz data
+                await loadQuiz(chapterId);
+                
+                // Start timer
+                startTimer();
+            } catch (error) {
+                console.error("Error loading quiz:", error);
+                showMessage(quizMessage, 'Error loading quiz: ' + error.message, 'error');
+            }
+        });
+
+        // Back to chapter
+        backBtn.addEventListener('click', () => {
+            window.location.href = `chapter.html?id=${chapterId}&role=${userRole}`;
+        });
+
+        // Previous question
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                saveAnswer();
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        });
+
+        // Next question
+        nextBtn.addEventListener('click', () => {
+            saveAnswer();
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        });
+
+        // Submit quiz
+        submitBtn.addEventListener('click', () => {
+            saveAnswer();
+            confirmModal.style.display = 'flex';
+        });
+
+        // Confirm submit
+        confirmSubmitBtn.addEventListener('click', submitQuiz);
+
+        // Cancel submit
+        cancelSubmitBtn.addEventListener('click', () => {
+            confirmModal.style.display = 'none';
+        });
+
+        // Result button
+        resultBtn.addEventListener('click', () => {
+            resultModal.style.display = 'none';
+            if (userRole === 'coordinator') {
+                window.location.href = 'coordinator-dashboard.html';
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        });
+
+        // Load quiz data
+        async function loadQuiz(chapterId) {
+            try {
+                // ---------------------------------------------------------
+                // START OF FIX: Handle Quiz Path (Absolute vs Relative)
+                // ---------------------------------------------------------
+                let quizPath = `./quizzes/${userRole}/chapter${chapterId}.json`;
+                
+                // If for some reason we need to handle absolute paths in the future
+                // This turns "/quizzes/navigator/..." into "./quizzes/navigator/..."
+                if (quizPath.startsWith('/')) {
+                    console.log(`⚠️ Fixing absolute quiz path: Changing ${quizPath} to .${quizPath}`);
+                    quizPath = '.' + quizPath;
+                }
+                
+                console.log('📄 Final Quiz Source:', quizPath);
+                // ---------------------------------------------------------
+                // END OF FIX
+                // ---------------------------------------------------------
+                
+                // Fetch quiz JSON - role-specific path
+                const response = await fetch(quizPath);
+                if (!response.ok) {
+                    throw new Error(`Failed to load quiz data for chapter ${chapterId}`);
+                }
+                
+                const quizData = await response.json();
+                questions = quizData.questions || [];
+                
+                if (questions.length === 0) {
+                    throw new Error('No questions found in quiz data');
+                }
+                
+                quizTitle.textContent = `Chapter ${chapterId} Quiz`;
+                displayQuestion();
+                
+                // Show question card
+                questionCard.style.display = 'block';
+            } catch (error) {
+                console.error("Error loading quiz:", error);
+                showMessage(quizMessage, 'Error loading quiz: ' + error.message, 'error');
+            }
+        }
+
+        // Display current question
+        function displayQuestion() {
+            if (questions.length === 0) return;
+            
+            const question = questions[currentQuestionIndex];
+            questionText.textContent = question.question;
+            questionCount.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            
+            // Clear options
+            optionsContainer.innerHTML = '';
+            
+            // Add options
+            const options = ['A', 'B', 'C', 'D'];
+            options.forEach(option => {
+                const optionValue = question[`option${option}`];
+                if (optionValue) {
+                    const optionCard = document.createElement('div');
+                    optionCard.className = 'option-card';
+                    if (userAnswers[question.id] === option) {
+                        optionCard.classList.add('selected');
+                    }
+                    
+                    optionCard.innerHTML = `
+                        <div class="option-label">
+                            <span class="option-letter">${option}</span>
+                            <span>${optionValue}</span>
+                        </div>
+                    `;
+                    
+                    optionCard.addEventListener('click', () => {
+                        // Remove selected class from all options
+                        document.querySelectorAll('.option-card').forEach(card => {
+                            card.classList.remove('selected');
+                        });
+                        
+                        // Add selected class to clicked option
+                        optionCard.classList.add('selected');
+                        
+                        // Save answer
+                        userAnswers[question.id] = option;
+                    });
+                    
+                    optionsContainer.appendChild(optionCard);
+                }
+            });
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'block';
+            submitBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+        }
+
+        // Save current answer
+        function saveAnswer() {
+            // Answer is already saved when option is selected
+        }
+
+        // Start timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                
+                // Update timer display
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                // Change color when time is running out
+                if (timeLeft <= 5 * 60) { // 5 minutes
+                    timerElement.classList.add('timer-warning');
+                }
+                
+                // Auto-submit when time runs out
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        // Submit quiz - FIXED VERSION
+        async function submitQuiz() {
+            clearInterval(timerInterval);
+            confirmModal.style.display = 'none';
+            
+            try {
+                console.log('📝 Starting quiz submission...');
+                console.log('📝 Chapter ID:', chapterId);
+                console.log('📝 User answers:', userAnswers);
+                
+                // Calculate score
+                let correctAnswers = 0;
+                questions.forEach(question => {
+                    const userAnswer = userAnswers[question.id];
+                    const isCorrect = userAnswer === question.correct;
+                    console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
+                    if (isCorrect) {
+                        correctAnswers++;
+                    }
+                });
+                
+                const score = Math.round((correctAnswers / questions.length) * 100);
+                const passed = score >= 70;
+                
+                console.log(`📊 Score: ${score}% (${correctAnswers}/${questions.length})`);
+                console.log(`📊 Passed: ${passed}`);
+                
+                // If passed, update user progress BEFORE showing result
+                if (passed) {
+                    console.log('✅ Quiz passed! Updating user progress...');
+                    
+                    const userId = auth.currentUser.uid;
+                    console.log('👤 User ID:', userId);
+                    
+                    // Determine collection based on role
+                    const collectionName = userRole === 'coordinator' ? 'coordinatorChapters' : 'chapters';
+                    
+                    // Get current chapter version
+                    console.log('📖 Fetching chapter data from collection:', collectionName);
+                    const chapterDoc = await db.collection(collectionName).doc(String(chapterId)).get();
+                    
+                    if (!chapterDoc.exists) {
+                        console.error('❌ Chapter document not found!');
+                        throw new Error('Chapter data not found');
+                    }
+                    
+                    const chapterData = chapterDoc.data();
+                    const chapterVersion = chapterData.version || 1;
+                    console.log('📖 Chapter version:', chapterVersion);
+                    
+                    // Get current user data to determine next chapter
+                    console.log('👤 Fetching user data...');
+                    const userDoc = await db.collection('users').doc(userId).get();
+                    
+                    if (!userDoc.exists) {
+                        console.error('❌ User document not found!');
+                        throw new Error('User data not found');
+                    }
+                    
+                    const userData = userDoc.data();
+                    console.log('👤 Current user data:', userData);
+                    
+                    const currentChapterNum = userData.currentChapter || 1;
+                    const completedChapterInt = parseInt(chapterId);
+                    const nextChapter = Math.max(currentChapterNum, completedChapterInt + 1);
+                    
+                    console.log('📈 Current chapter:', currentChapterNum);
+                    console.log('📈 Completed chapter:', completedChapterInt);
+                    console.log('📈 Next chapter will be:', nextChapter);
+                    
+                    // Build update object - FIXED: No more FieldValue.max!
+                    const updateObject = {
+                        completedChapters: firebase.firestore.FieldValue.arrayUnion(completedChapterInt),
+                        currentChapter: nextChapter
+                    };
+                    
+                    // Add chapter version to the update object
+                    const versionField = 'chapterVersionsCompleted.' + chapterId;
+                    updateObject[versionField] = chapterVersion;
+                    
+                    console.log('💾 Update object:', updateObject);
+                    console.log('💾 Updating user document...');
+                    
+                    // Update user document
+                    await db.collection('users').doc(userId).update(updateObject);
+                    
+                    console.log('✅ User progress updated successfully!');
+                    
+                    // Verify the update
+                    const updatedUserDoc = await db.collection('users').doc(userId).get();
+                    const updatedUserData = updatedUserDoc.data();
+                    console.log('✅ Updated user data:', updatedUserData);
+                    console.log('✅ Completed chapters:', updatedUserData.completedChapters);
+                    console.log('✅ Current chapter:', updatedUserData.currentChapter);
+                } else {
+                    console.log('❌ Quiz failed - no progress updated');
+                }
+                
+                // Update UI and show result modal
+                resultTitle.textContent = 'Quiz Result';
+                resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
+                resultMessage.innerHTML = `
+                    You scored <strong>${score}%</strong> (${correctAnswers} out of ${questions.length} correct)<br/>
+                    ${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}
+                `;
+                resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
+                resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
+                
+                // Show result modal
+                resultModal.style.display = 'flex';
+                
+            } catch (error) {
+                console.error("❌ Error submitting quiz:", error);
+                console.error("❌ Error name:", error.name);
+                console.error("❌ Error message:", error.message);
+                console.error("❌ Error stack:", error.stack);
+                
+                resultTitle.textContent = 'Submission Error';
+                resultTitle.className = 'modal-title result-error';
+                resultMessage.textContent = 'Error submitting quiz: ' + error.message + '. Please try again or contact support.';
+                resultMessage.className = 'modal-message result-error';
+                resultBtn.textContent = 'Try Again';
+                resultModal.style.display = 'flex';
+            }
+        }
+
+        // Utility function to show messages
+        function showMessage(container, message, type) {
+            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html>

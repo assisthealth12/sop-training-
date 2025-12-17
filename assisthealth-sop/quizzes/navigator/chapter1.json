@@ -1,0 +1,49 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the primary purpose of the AssistHealth SOP training program?",
+      "optionA": "To increase hospital revenue",
+      "optionB": "To provide standardized procedures for healthcare navigation",
+      "optionC": "To replace medical professionals",
+      "optionD": "To reduce patient care quality",
+      "correct": "B"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is a core value of AssistHealth?",
+      "optionA": "Profit maximization",
+      "optionB": "Patient-centered care",
+      "optionC": "Competitive exclusion",
+      "optionD": "Minimal documentation",
+      "correct": "B"
+    },
+    {
+      "id": 3,
+      "question": "What is the role of a Navigator in the healthcare system?",
+      "optionA": "Performing surgical procedures",
+      "optionB": "Facilitating patient access to healthcare services",
+      "optionC": "Managing hospital finances",
+      "optionD": "Conducting medical research",
+      "correct": "B"
+    },
+    {
+      "id": 4,
+      "question": "Why is standardized documentation important?",
+      "optionA": "To increase paperwork",
+      "optionB": "To ensure consistency and quality of care",
+      "optionC": "To complicate processes",
+      "optionD": "To reduce communication",
+      "correct": "B"
+    },
+    {
+      "id": 5,
+      "question": "What does SOP stand for?",
+      "optionA": "Standard Operating Procedure",
+      "optionB": "Specialized Operational Protocol",
+      "optionC": "Systematic Operational Plan",
+      "optionD": "Structured Operational Process",
+      "correct": "A"
+    }
+  ]
+}

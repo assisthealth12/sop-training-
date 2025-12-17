@@ -1,0 +1,2826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AssistHealth SOP Training</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* AssistHealth Color Palette */
+        :root {
+            --primary-color: #3D8D7A;
+            --secondary-color: #B3D8A8;
+            --accent-color: #FBFFE4;
+            --light-accent: #A3D1C6;
+            --dark-gray: #333333;
+            --medium-gray: #6c757d;
+            --white: #ffffff;
+            --success: #3D8D7A;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 16px;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            
+            /* Additional colors for UI enhancements */
+            --success-light: #e8f5e9;
+            --warning-light: #fff3cd;
+            --danger-light: #f8d7da;
+            --info-light: #d1ecf1;
+            --progress-bg: #e9ecef;
+            --progress-height: 8px;
+            --badge-padding: 4px 8px;
+            --badge-font-size: 12px;
+            --section-spacing: 30px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--accent-color);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Sidebar Styles */
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-color) 0%, #2a6a5d 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            max-width: 40px;
+            height: auto;
+        }
+
+        .app-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        /* Active indicator for main menu items */
+        .sidebar-menu li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 20px;
+            background-color: white;
+            border-radius: 2px;
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sidebar-menu li.active::before {
+            opacity: 1;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            border-radius: 0 30px 30px 0;
+            margin-right: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(2px);
+        }
+
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 600;
+        }
+
+        .sidebar-menu a i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .sidebar-menu a:hover i {
+            transform: translateX(1px);
+        }
+
+        /* Submenu Styles */
+        .submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .submenu.show {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .submenu li {
+            margin: 0;
+            position: relative;
+        }
+
+        /* Active indicator for submenu items */
+        .submenu li::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .submenu li.active::before {
+            opacity: 1;
+        }
+
+        .submenu a {
+            padding: 10px 20px 10px 40px;
+            font-size: 14px;
+            border-radius: 0 30px 30px 0;
+            margin-right: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.2s ease-in-out;
+            display: block;
+        }
+
+        .submenu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(2px);
+        }
+
+        .submenu a.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 500;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 15px 20px;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-accent);
+        }
+
+        .header-title {
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: var(--border-radius-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Summary Styles */
+        .dashboard-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 20px;
+            border: 1px solid var(--light-accent);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .summary-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(61, 141, 122, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .summary-icon i {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .summary-content h3 {
+            color: var(--dark-gray);
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            font-weight: 600;
+        }
+
+        .summary-count {
+            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .summary-label {
+            color: var(--medium-gray);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--medium-gray);
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-button {
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .modal-button:hover {
+            background-color: #327565;
+            transform: translateY(-2px);
+        }
+
+        .modal-button.secondary {
+            background-color: var(--secondary-color);
+            color: var(--dark-gray);
+        }
+
+        .modal-button.secondary:hover {
+            background-color: #a0c595;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--light-accent);
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--medium-gray);
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--primary-color);
+            background-color: rgba(61, 141, 122, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--light-accent);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--light-accent);
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(61, 141, 122, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: #327565;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background-color: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(61, 141, 122, 0.1);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background-color: #bd2130;
+            transform: translateY(-2px);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            flex: 1;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--light-accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: rgba(61, 141, 122, 0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Alternating row colors for better readability */
+        tbody tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        /* Hover effect for table rows */
+        tbody tr:hover {
+            background-color: rgba(61, 141, 122, 0.05) !important;
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+        
+        /* Column borders for better separation */
+        td, th {
+            border-right: 1px solid #eee;
+        }
+        
+        td:last-child, th:last-child {
+            border-right: none;
+        }
+                .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Progress Bars */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-text {
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: var(--progress-height);
+            background-color: var(--progress-bg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-fill.success {
+            background-color: var(--success);
+        }
+        
+        .progress-fill.warning {
+            background-color: var(--warning);
+        }
+        
+        .progress-fill.danger {
+            background-color: var(--danger);
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: var(--badge-padding);
+            border-radius: 12px;
+            font-size: var(--badge-font-size);
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            transition: all 0.2s ease;
+        }
+        
+        .status-badge.active {
+            background-color: var(--success-light);
+            color: var(--success);
+        }
+        
+        .status-badge.needs-retake {
+            background-color: var(--warning-light);
+            color: #856404;
+        }
+        
+        .status-badge.overdue {
+            background-color: var(--danger-light);
+            color: var(--danger);
+        }
+        
+        .status-badge.up-to-date {
+            background-color: var(--success-light);
+            color: var(--success);
+        }
+        
+        .status-badge .badge-icon {
+            margin-right: 4px;
+        }
+        
+        /* Form Enhancements */
+        .form-group.floating-label {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .form-group.floating-label input,
+        .form-group.floating-label select {
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+        
+        .form-group.floating-label label {
+            position: absolute;
+            top: 15px;
+            left: 12px;
+            font-size: 14px;
+            color: var(--medium-gray);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+        
+        .form-group.floating-label input:focus + label,
+        .form-group.floating-label input:not(:placeholder-shown) + label,
+        .form-group.floating-label select:focus + label,
+        .form-group.floating-label select:not([value=""]) + label {
+            top: 5px;
+            font-size: 12px;
+            color: var(--primary-color);
+        }
+        
+        .form-group.floating-label .validation-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--success);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .form-group.floating-label.valid .validation-icon {
+            opacity: 1;
+        }
+        
+        .form-group.floating-label .required-asterisk {
+            color: var(--danger);
+        }
+        
+        /* Section Headers with Icons */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-accent);
+        }
+        
+        .section-header i {
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 22px;
+        }
+        
+        /* Card Spacing and Dividers */
+        .card {
+            margin-bottom: var(--section-spacing);
+        }
+        
+        .card-divider {
+            height: 1px;
+            background-color: var(--light-accent);
+            margin: 20px 0;
+        }
+        
+        /* Loading Skeletons */
+        .skeleton-loader {
+            display: inline-block;
+            height: 1em;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+        }
+        
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        
+        .toast {
+            padding: 15px 20px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+        
+        .toast.success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .toast.error {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .toast .toast-icon {
+            font-size: 20px;
+        }
+        
+        /* Button Loading States */
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        .btn-loading .btn-text {
+            visibility: hidden;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Micro-interactions */
+        .summary-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .refresh-btn.rotating {
+            animation: rotate 0.5s ease;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Deadline Highlighting */
+        .deadline-overdue {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .deadline-warning {
+            color: var(--warning);
+            font-weight: bold;
+        }        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+            font-size: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            background-color: rgba(61, 141, 122, 0.1);
+            transform: scale(1.1);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .success {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .sidebar .logo-container span,
+            .sidebar .app-name,
+            .sidebar-menu a span,
+            .sidebar-header .user-info {
+                display: none;
+            }
+            
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 15px;
+                border-radius: 10px;
+                margin: 0 10px 5px;
+            }
+            
+            .sidebar-menu a i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 15px 0;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .sidebar-menu li {
+                margin: 5px;
+            }
+            
+            .sidebar-menu a {
+                border-radius: 30px;
+                margin: 0 5px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="./assets/images/AH.png" alt="AssistHealth Logo" class="logo">
+                    <span class="app-name">AssistHealth</span>
+                </div>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#" class="active" data-menu="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-menu="users">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                    <ul class="submenu" id="users-submenu">
+                        <li><a href="#" data-tab="navigators"><i class="fas fa-user"></i> Navigators</a></li>
+                        <li><a href="#" data-tab="coordinators"><i class="fas fa-user-friends"></i> Coordinators</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-menu="chapters">
+                        <i class="fas fa-book-open"></i>
+                        <span>Chapters</span>
+                    </a>
+                    <ul class="submenu" id="chapters-submenu">
+                        <li><a href="#" data-tab="chapters"><i class="fas fa-book"></i> Navigator Chapters</a></li>
+                        <li><a href="#" data-tab="coordinatorChapters"><i class="fas fa-book-reader"></i> Coordinator Chapters</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-menu="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <ul class="submenu" id="settings-submenu">
+                        <li><a href="#" data-tab="settings"><i class="fas fa-sliders-h"></i> System Settings</a></li>
+                    </ul>
+                </li>
+                
+                <div class="sidebar-divider"></div>
+                
+                <li>
+                    <a href="#">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="header">
+                <h1 class="header-title">Admin Dashboard</h1>
+                <div class="header-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="userAvatar">A</div>
+                        <span id="userName">Admin</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn" title="Sign out of the admin dashboard">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Summary Cards -->
+            <div class="dashboard-summary">
+                <div class="summary-card" id="navigatorsSummaryCard">
+                    <div class="summary-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Navigators</h3>
+                        <p class="summary-count" id="navigatorsCount">0</p>
+                        <p class="summary-label">Total Users</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card" id="coordinatorsSummaryCard">
+                    <div class="summary-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Coordinators</h3>
+                        <p class="summary-count" id="coordinatorsCount">0</p>
+                        <p class="summary-label">Total Users</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Navigator Chapters</h3>
+                        <p class="summary-count" id="navigatorChaptersCount">0</p>
+                        <p class="summary-label">Total Chapters</p>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-icon">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <div class="summary-content">
+                        <h3>Coordinator Chapters</h3>
+                        <p class="summary-count" id="coordinatorChaptersCount">0</p>
+                        <p class="summary-label">Total Chapters</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Welcome Message -->
+            <div class="card">
+                <h2>Welcome to the Admin Dashboard</h2>
+                <p>Use the navigation menu on the left to manage users, chapters, and system settings.</p>
+                <p>Click on the summary cards above to quickly access user management sections.</p>
+            </div>
+
+            <!-- Users Tabs -->
+            <div class="tabs" id="usersTabs" style="display: none;">
+                <button class="tab active" data-tab="navigators" title="Manage navigators and their training progress"><i class="fas fa-users"></i> Navigators</button>
+                <button class="tab" data-tab="coordinators" title="Manage community coordinators and their training progress"><i class="fas fa-user-friends"></i> Coordinators</button>
+            </div>
+            
+            <!-- Chapters Tabs -->
+            <div class="tabs" id="chaptersTabs" style="display: none;">
+                <button class="tab active" data-tab="chapters" title="Manage chapters for navigator training"><i class="fas fa-book"></i> Navigator Chapters</button>
+                <button class="tab" data-tab="coordinatorChapters" title="Manage chapters for coordinator training"><i class="fas fa-book-reader"></i> Coordinator Chapters</button>
+            </div>
+        <!-- Navigators Tab -->
+        <div class="tab-content active" id="navigatorsTab" style="display: none;">
+            <div class="card">
+                <h2>Add New Navigator</h2>
+                <div id="addNavigatorMessage"></div>
+                <form id="addNavigatorForm">
+                    <div class="form-group">
+                        <label for="navigatorName">Full Name</label>
+                        <input type="text" id="navigatorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="navigatorEmail">Email</label>
+                        <input type="email" id="navigatorEmail" required>
+                    </div>
+                    <button type="submit" title="Add a new navigator to the system"><i class="fas fa-user-plus"></i> Add Navigator</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Navigators List</h2>
+                <div class="search-container">
+                    <input type="text" id="searchNavigators" placeholder="Search navigators...">
+                    <button id="refreshNavigators" title="Refresh navigators list"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div id="navigatorsMessage"></div>
+                <div class="table-container">
+                    <table id="navigatorsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody id="navigatorsTableBody">
+                            <!-- Navigator rows will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coordinators Tab -->
+        <div class="tab-content" id="coordinatorsTab" style="display: none;">
+            <div class="card">
+                <h2>Add New Community Coordinator</h2>
+                <div id="addCoordinatorMessage"></div>
+                <form id="addCoordinatorForm">
+                    <div class="form-group">
+                        <label for="coordinatorName">Full Name</label>
+                        <input type="text" id="coordinatorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorEmail">Email</label>
+                        <input type="email" id="coordinatorEmail" required>
+                    </div>
+                    <button type="submit" title="Add a new community coordinator to the system"><i class="fas fa-user-plus"></i> Add Community Coordinator</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Community Coordinators List</h2>
+                <div class="search-container">
+                    <input type="text" id="searchCoordinators" placeholder="Search coordinators...">
+                    <button id="refreshCoordinators" title="Refresh coordinators list"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div id="coordinatorsMessage"></div>
+                <div class="table-container">
+                    <table id="coordinatorsTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Deadline</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coordinatorsTableBody">
+                            <!-- Coordinator rows will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapters Tab -->
+        <div class="tab-content" id="chaptersTab" style="display: none;">
+            <div class="card">
+                <h2>Create/Edit Chapter</h2>
+                <div id="chapterFormMessage"></div>
+                <form id="chapterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chapterId">Chapter ID</label>
+                            <input type="number" id="chapterId" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chapterOrder">Order</label>
+                            <input type="number" id="chapterOrder" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterTitle">Title</label>
+                        <input type="text" id="chapterTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterPdfUrl">PDF URL</label>
+                        <input type="text" id="chapterPdfUrl" placeholder="/pdfs/chapter1.pdf">
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterVersion">Version</label>
+                        <input type="number" id="chapterVersion" min="1" value="1" required>
+                    </div>
+                    <button type="submit" id="saveChapterBtn" title="Save chapter information"><i class="fas fa-save"></i> Save Chapter</button>
+                    <button type="button" class="btn-secondary" id="incrementVersionBtn" title="Increment chapter version number"><i class="fas fa-plus-circle"></i> Increment Version</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Chapters List</h2>
+                <div class="search-container">
+                    <input type="text" id="searchChapters" placeholder="Search chapters...">
+                    <button id="refreshChapters" title="Refresh chapters list"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div id="chaptersMessage"></div>
+                <div class="table-container">
+                    <table id="chaptersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Order</th>
+                                <th>Version</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="chaptersTableBody">
+                            <!-- Chapter rows will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coordinator Chapters Tab -->
+        <div class="tab-content" id="coordinatorChaptersTab" style="display: none;">
+            <div class="card">
+                <h2>Create/Edit Coordinator Chapter</h2>
+                <div id="coordinatorChapterFormMessage"></div>
+                <form id="coordinatorChapterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="coordinatorChapterId">Chapter ID</label>
+                        <input type="number" id="coordinatorChapterId" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coordinatorChapterOrder">Order</label>
+                            <input type="number" id="coordinatorChapterOrder" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorChapterTitle">Title</label>
+                        <input type="text" id="coordinatorChapterTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorChapterPdfUrl">PDF URL</label>
+                        <input type="text" id="coordinatorChapterPdfUrl" placeholder="/pdfs/coordinator/chapter1.pdf">
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorChapterVersion">Version</label>
+                        <input type="number" id="coordinatorChapterVersion" min="1" value="1" required>
+                    </div>
+                    <button type="submit" id="saveCoordinatorChapterBtn" title="Save chapter information"><i class="fas fa-save"></i> Save Chapter</button>
+                    <button type="button" class="btn-secondary" id="incrementCoordinatorVersionBtn" title="Increment chapter version number"><i class="fas fa-plus-circle"></i> Increment Version</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Coordinator Chapters List</h2>
+                <div class="search-container">
+                    <input type="text" id="searchCoordinatorChapters" placeholder="Search chapters...">
+                    <button id="refreshCoordinatorChapters" title="Refresh coordinator chapters list"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+                <div id="coordinatorChaptersMessage"></div>
+                <div class="table-container">
+                    <table id="coordinatorChaptersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Order</th>
+                                <th>Version</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="coordinatorChaptersTableBody">
+                            <!-- Chapter rows will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-content" id="settingsTab" style="display: none;">
+            <div class="card">
+                <h2>Navigator SOP Settings</h2>
+                <div id="settingsMessage"></div>
+                <div class="form-group">
+                    <label for="currentSopVersion">Current SOP Version</label>
+                    <input type="number" id="currentSopVersion" min="1" value="1">
+                </div>
+                <button id="updateSopVersion" title="Update the current SOP version for all navigators"><i class="fas fa-upload"></i> Update SOP Version</button>
+            </div>
+            
+            <div class="card">
+                <h2>Community Coordinator SOP Settings</h2>
+                <div id="coordinatorSettingsMessage"></div>
+                <div class="form-group">
+                    <label for="currentCoordinatorSopVersion">Current SOP Version</label>
+                    <input type="number" id="currentCoordinatorSopVersion" min="1" value="1">
+                </div>
+                <button id="updateCoordinatorSopVersion" title="Update the current SOP version for all coordinators"><i class="fas fa-upload"></i> Update SOP Version</button>
+            </div>
+        </div>
+
+        </main>
+        
+        <!-- Floating Action Button -->
+        <button class="fab" id="fabButton" title="Add new user or chapter">
+            <i class="fas fa-plus"></i>
+        </button>
+        
+        <!-- Add User/Chapter Modal -->
+        <div class="modal" id="addModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Add New Item</h2>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-buttons">
+                    <button class="modal-button" id="addNavigatorModalBtn">
+                        <i class="fas fa-user"></i> Add Navigator
+                    </button>
+                    <button class="modal-button" id="addCoordinatorModalBtn">
+                        <i class="fas fa-user-friends"></i> Add Coordinator
+                    </button>
+                    <button class="modal-button secondary" id="addChapterModalBtn">
+                        <i class="fas fa-book"></i> Add Navigator Chapter
+                    </button>
+                    <button class="modal-button secondary" id="addCoordinatorChapterModalBtn">
+                        <i class="fas fa-book-reader"></i> Add Coordinator Chapter
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = window.firebaseConfig;
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // DOM Elements
+        const logoutBtn = document.getElementById('logoutBtn');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Summary elements
+        const navigatorsCount = document.getElementById('navigatorsCount');
+        const coordinatorsCount = document.getElementById('coordinatorsCount');
+        const navigatorChaptersCount = document.getElementById('navigatorChaptersCount');
+        const coordinatorChaptersCount = document.getElementById('coordinatorChaptersCount');
+        const navigatorsSummaryCard = document.getElementById('navigatorsSummaryCard');
+        const coordinatorsSummaryCard = document.getElementById('coordinatorsSummaryCard');
+        
+        // Navigator elements
+        const addNavigatorForm = document.getElementById('addNavigatorForm');
+        const addNavigatorMessage = document.getElementById('addNavigatorMessage');
+        const searchNavigators = document.getElementById('searchNavigators');
+        const refreshNavigators = document.getElementById('refreshNavigators');
+        const navigatorsTableBody = document.getElementById('navigatorsTableBody');
+        const navigatorsMessage = document.getElementById('navigatorsMessage');
+        
+        // Chapter elements
+        const chapterForm = document.getElementById('chapterForm');
+        const chapterFormMessage = document.getElementById('chapterFormMessage');
+        const searchChapters = document.getElementById('searchChapters');
+        const refreshChapters = document.getElementById('refreshChapters');
+        const chaptersTableBody = document.getElementById('chaptersTableBody');
+        const chaptersMessage = document.getElementById('chaptersMessage');
+        const incrementVersionBtn = document.getElementById('incrementVersionBtn');
+        
+        // Coordinator elements
+        const addCoordinatorForm = document.getElementById('addCoordinatorForm');
+        const addCoordinatorMessage = document.getElementById('addCoordinatorMessage');
+        const searchCoordinators = document.getElementById('searchCoordinators');
+        const refreshCoordinators = document.getElementById('refreshCoordinators');
+        const coordinatorsTableBody = document.getElementById('coordinatorsTableBody');
+        const coordinatorsMessage = document.getElementById('coordinatorsMessage');
+        
+        // Settings elements
+        const currentSopVersion = document.getElementById('currentSopVersion');
+        const updateSopVersion = document.getElementById('updateSopVersion');
+        const settingsMessage = document.getElementById('settingsMessage');
+        const currentCoordinatorSopVersion = document.getElementById('currentCoordinatorSopVersion');
+        const updateCoordinatorSopVersion = document.getElementById('updateCoordinatorSopVersion');
+        const coordinatorSettingsMessage = document.getElementById('coordinatorSettingsMessage');
+        
+        // Coordinator Chapter elements
+        const coordinatorChapterForm = document.getElementById('coordinatorChapterForm');
+        const coordinatorChapterFormMessage = document.getElementById('coordinatorChapterFormMessage');
+        const searchCoordinatorChapters = document.getElementById('searchCoordinatorChapters');
+        const refreshCoordinatorChapters = document.getElementById('refreshCoordinatorChapters');
+        const coordinatorChaptersTableBody = document.getElementById('coordinatorChaptersTableBody');
+        const coordinatorChaptersMessage = document.getElementById('coordinatorChaptersMessage');
+        const incrementCoordinatorVersionBtn = document.getElementById('incrementCoordinatorVersionBtn');
+
+        // Utility functions for showing/hiding sections
+        function hideAllSections() {
+            // Hide dashboard summary cards and welcome message
+            document.querySelector('.dashboard-summary').style.display = 'none';
+            document.querySelector('.card').style.display = 'none'; // Welcome message card
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Hide all tab bars
+            document.getElementById('usersTabs').style.display = 'none';
+            document.getElementById('chaptersTabs').style.display = 'none';
+            
+            // Hide settings section
+            document.getElementById('settingsTab').style.display = 'none';
+        }
+        
+        function showDashboardOverview() {
+            hideAllSections();
+            
+            // Show dashboard summary cards and welcome message
+            document.querySelector('.dashboard-summary').style.display = 'grid';
+            document.querySelector('.card').style.display = 'block'; // Welcome message card
+        }
+        
+        function showUsersSection() {
+            hideAllSections();
+            
+            // Show tabs bar for users section
+            document.getElementById('usersTabs').style.display = 'flex';
+            
+            // Activate the first user tab (navigators)
+            document.querySelector('[data-tab="navigators"]').classList.add('active');
+            document.getElementById('navigatorsTab').style.display = 'block';
+        }
+        
+        function showChaptersSection() {
+            hideAllSections();
+            
+            // Show tabs bar for chapters section
+            document.getElementById('chaptersTabs').style.display = 'flex';
+            
+            // Activate the first chapter tab (navigator chapters)
+            document.querySelector('[data-tab="chapters"]').classList.add('active');
+            document.getElementById('chaptersTab').style.display = 'block';
+        }
+        
+        function showSettingsSection() {
+            hideAllSections();
+            
+            // Show settings tab directly (no tabs bar needed)
+            document.getElementById('settingsTab').style.display = 'block';
+        }
+        
+        // Initialize dashboard state - show only dashboard overview
+        function initializeDashboard() {
+            showDashboardOverview();
+        }
+
+        // Load initial data for dashboard summary
+        async function loadDashboardData() {
+            try {
+                // Load navigator count
+                const navigatorsSnapshot = await db.collection('users').where('role', '==', 'navigator').get();
+                if (navigatorsCount) {
+                    navigatorsCount.textContent = navigatorsSnapshot.size;
+                }
+                
+                // Load coordinator count
+                const coordinatorsSnapshot = await db.collection('users').where('role', '==', 'coordinator').get();
+                if (coordinatorsCount) {
+                    coordinatorsCount.textContent = coordinatorsSnapshot.size;
+                }
+                
+                // Load navigator chapters count
+                const chaptersSnapshot = await db.collection('chapters').get();
+                if (navigatorChaptersCount) {
+                    navigatorChaptersCount.textContent = chaptersSnapshot.size;
+                }
+                
+                // Load coordinator chapters count
+                const coordinatorChaptersSnapshot = await db.collection('coordinatorChapters').get();
+                if (coordinatorChaptersCount) {
+                    coordinatorChaptersCount.textContent = coordinatorChaptersSnapshot.size;
+                }
+            } catch (error) {
+                console.error("Error loading dashboard data:", error);
+            }
+        }
+
+        // Check authentication state
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Check if user is admin
+                const adminDoc = await db.collection('admins').doc(user.uid).get();
+                if (!adminDoc.exists || !adminDoc.data().isAdmin) {
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+
+                // Update user info in header
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    const userNameText = userData.name || 'Admin';
+                    document.getElementById('userName').textContent = userNameText;
+                    
+                    // Set user avatar
+                    const initials = userNameText.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    document.getElementById('userAvatar').textContent = initials;
+                }
+
+                // Load initial dashboard data
+                loadDashboardData();
+                
+                // Initialize dashboard state
+                initializeDashboard();
+            } catch (error) {
+                console.error("Error loading admin dashboard:", error);
+            }
+        });
+        // Add event listeners to summary cards
+        if (navigatorsSummaryCard) {
+            navigatorsSummaryCard.addEventListener('click', () => {
+                // Navigate to users section and show navigators
+                document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+                
+                const usersMenu = document.querySelector('[data-menu="users"]');
+                if (usersMenu) {
+                    usersMenu.classList.add('active');
+                    usersMenu.parentElement.classList.add('active');
+                    showUsersSection();
+                    document.getElementById('users-submenu').classList.add('show');
+                    // Activate navigators submenu item and tab
+                    const navigatorLink = document.querySelector('#users-submenu a[data-tab="navigators"]');
+                    navigatorLink.classList.add('active');
+                    navigatorLink.parentElement.classList.add('active');
+                    document.querySelector('#usersTabs .tab[data-tab="navigators"]').classList.add('active');
+                    document.getElementById('navigatorsTab').style.display = 'block';
+                }
+            });
+        }
+        
+        if (coordinatorsSummaryCard) {
+            coordinatorsSummaryCard.addEventListener('click', () => {
+                // Navigate to users section and show coordinators
+                document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+                
+                const usersMenu = document.querySelector('[data-menu="users"]');
+                if (usersMenu) {
+                    usersMenu.classList.add('active');
+                    usersMenu.parentElement.classList.add('active');
+                    showUsersSection();
+                    document.getElementById('users-submenu').classList.add('show');
+                    // Activate coordinators submenu item and tab
+                    const coordinatorLink = document.querySelector('#users-submenu a[data-tab="coordinators"]');
+                    coordinatorLink.classList.add('active');
+                    coordinatorLink.parentElement.classList.add('active');
+                    document.querySelector('#usersTabs .tab[data-tab="coordinators"]').classList.add('active');
+                    document.getElementById('coordinatorsTab').style.display = 'block';
+                }
+            });
+        }
+        
+        // Sidebar menu functionality
+        document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const menuType = this.getAttribute('data-menu');
+                
+                // Remove active class from all main menu items
+                document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked menu item and its parent li
+                this.classList.add('active');
+                this.parentElement.classList.add('active');
+                
+                // Hide all submenus
+                document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+                
+                // Handle menu type specific behavior
+                switch(menuType) {
+                    case 'dashboard':
+                        showDashboardOverview();
+                        break;
+                    case 'users':
+                        showUsersSection();
+                        document.getElementById('users-submenu').classList.add('show');
+                        // Activate the first submenu item (navigators)
+                        document.querySelector('#users-submenu a[data-tab="navigators"]').classList.add('active');
+                        document.querySelector('#users-submenu a[data-tab="navigators"]').parentElement.classList.add('active');
+                        // Reset tab states
+                        document.querySelectorAll('#usersTabs .tab').forEach(tab => tab.classList.remove('active'));
+                        document.querySelector('#usersTabs .tab[data-tab="navigators"]').classList.add('active');
+                        break;
+                    case 'chapters':
+                        showChaptersSection();
+                        document.getElementById('chapters-submenu').classList.add('show');
+                        // Activate the first submenu item (navigator chapters)
+                        document.querySelector('#chapters-submenu a[data-tab="chapters"]').classList.add('active');
+                        document.querySelector('#chapters-submenu a[data-tab="chapters"]').parentElement.classList.add('active');
+                        // Reset tab states
+                        document.querySelectorAll('#chaptersTabs .tab').forEach(tab => tab.classList.remove('active'));
+                        document.querySelector('#chaptersTabs .tab[data-tab="chapters"]').classList.add('active');
+                        break;
+                    case 'settings':
+                        showSettingsSection();
+                        document.getElementById('settings-submenu').classList.add('show');
+                        break;
+                }
+            });
+        });        
+        // Submenu item click handling
+        document.querySelectorAll('.submenu a[data-tab]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all submenu items
+                document.querySelectorAll('.submenu li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.submenu a[data-tab]').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked submenu item and its parent li
+                this.classList.add('active');
+                this.parentElement.classList.add('active');
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                
+                // Activate the corresponding tab
+                const tabName = this.getAttribute('data-tab');
+                const tabElement = document.querySelector(`[data-tab="${tabName}"]`);
+                if (tabElement) {
+                    tabElement.classList.add('active');
+                    // Hide all tab contents first
+                    document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+                    // Show the selected tab content
+                    document.getElementById(`${tabName}Tab`).style.display = 'block';
+                }
+            });
+        });
+        // Logout handler
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await auth.signOut();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Logout error:", error);
+                showMessage(addNavigatorMessage, 'Logout failed: ' + error.message, 'error');
+            }
+        });
+
+        // Add navigator form submission
+        addNavigatorForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('navigatorName').value;
+            const email = document.getElementById('navigatorEmail').value;
+
+            try {
+                addNavigatorMessage.innerHTML = '';
+                
+                // Calculate deadline (15 days from now)
+                const deadline = new Date();
+                deadline.setDate(deadline.getDate() + 15);
+                
+                // Add to preapproved emails collection
+                await db.collection('preapprovedEmails').doc(email).set({
+                    name: name,
+                    email: email,
+                    role: 'navigator',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    deadline: firebase.firestore.Timestamp.fromDate(deadline)
+                });
+                
+                showMessage(addNavigatorMessage, 'Navigator added successfully!', 'success');
+                addNavigatorForm.reset();
+                loadNavigators(); // Refresh the list
+            } catch (error) {
+                console.error("Error adding navigator:", error);
+                showMessage(addNavigatorMessage, 'Error adding navigator: ' + error.message, 'error');
+            }
+        });
+
+        // Refresh navigators
+        refreshNavigators.addEventListener('click', function() {
+            animateRefreshButton(this);
+            loadNavigators();
+        });        
+        // Search navigators
+        searchNavigators.addEventListener('input', loadNavigators);
+
+        // Refresh chapters
+        refreshChapters.addEventListener('click', function() {
+            animateRefreshButton(this);
+            loadChapters();
+        });        
+        // Search chapters
+        searchChapters.addEventListener('input', loadChapters);
+        
+        // Refresh coordinator chapters
+        refreshCoordinatorChapters.addEventListener('click', function() {
+                    animateRefreshButton(this);
+                    loadCoordinatorChapters();
+                });
+        // Search coordinator chapters
+        searchCoordinatorChapters.addEventListener('input', loadCoordinatorChapters);
+        
+        // Refresh coordinators
+        refreshCoordinators.addEventListener('click', function() {
+                    animateRefreshButton(this);
+                    loadCoordinators();
+                });
+        // Search coordinators
+        searchCoordinators.addEventListener('input', loadCoordinators);
+        
+        // Add coordinator form submission
+        addCoordinatorForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('coordinatorName').value;
+            const email = document.getElementById('coordinatorEmail').value;
+
+            try {
+                addCoordinatorMessage.innerHTML = '';
+                
+                // Calculate deadline (15 days from now)
+                const deadline = new Date();
+                deadline.setDate(deadline.getDate() + 15);
+                
+                // Add to preapproved emails collection
+                await db.collection('preapprovedEmails').doc(email).set({
+                    name: name,
+                    email: email,
+                    role: 'coordinator',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    deadline: firebase.firestore.Timestamp.fromDate(deadline)
+                });
+                
+                showMessage(addCoordinatorMessage, 'Community Coordinator added successfully!', 'success');
+                addCoordinatorForm.reset();
+                loadCoordinators(); // Refresh the list
+            } catch (error) {
+                console.error("Error adding coordinator:", error);
+                showMessage(addCoordinatorMessage, 'Error adding coordinator: ' + error.message, 'error');
+            }
+        });
+
+        // Chapter form submission
+        chapterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const chapterId = document.getElementById('chapterId').value;
+            const chapterOrder = parseInt(document.getElementById('chapterOrder').value);
+            const chapterTitle = document.getElementById('chapterTitle').value;
+            const chapterPdfUrl = document.getElementById('chapterPdfUrl').value || `/pdfs/chapter${chapterId}.pdf`;
+            const chapterVersion = parseInt(document.getElementById('chapterVersion').value);
+
+            try {
+                chapterFormMessage.innerHTML = '';
+                
+                // Save chapter - ensure chapterId is string
+                await db.collection('chapters').doc(String(chapterId)).set({
+                    title: chapterTitle,
+                    order: chapterOrder,
+                    pdfUrl: chapterPdfUrl,
+                    version: chapterVersion
+                });
+                
+                showMessage(chapterFormMessage, 'Chapter saved successfully!', 'success');
+                loadChapters(); // Refresh the list
+            } catch (error) {
+                console.error("Error saving chapter:", error);
+                showMessage(chapterFormMessage, 'Error saving chapter: ' + error.message, 'error');
+            }
+        });
+
+        // Increment chapter version
+        incrementVersionBtn.addEventListener('click', async () => {
+            const chapterId = document.getElementById('chapterId').value;
+            if (!chapterId) {
+                showMessage(chapterFormMessage, 'Please enter a chapter ID first.', 'error');
+                return;
+            }
+
+            try {
+                chapterFormMessage.innerHTML = '';
+                
+                // Get current chapter data
+                const chapterDoc = await db.collection('chapters').doc(String(chapterId)).get();
+                if (!chapterDoc.exists) {
+                    showMessage(chapterFormMessage, 'Chapter not found.', 'error');
+                    return;
+                }
+                
+                const chapterData = chapterDoc.data();
+                
+                // Update version
+                await db.collection('chapters').doc(String(chapterId)).update({
+                    version: chapterData.version + 1
+                });
+                
+                // Update form with new version
+                document.getElementById('chapterVersion').value = chapterData.version + 1;
+                
+                showMessage(chapterFormMessage, 'Chapter version incremented successfully!', 'success');
+                loadChapters(); // Refresh the list
+            } catch (error) {
+                console.error("Error incrementing chapter version:", error);
+                showMessage(chapterFormMessage, 'Error incrementing chapter version: ' + error.message, 'error');
+            }
+        });
+        
+        // Coordinator Chapter form submission
+        coordinatorChapterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const chapterId = document.getElementById('coordinatorChapterId').value;
+            const chapterOrder = parseInt(document.getElementById('coordinatorChapterOrder').value);
+            const chapterTitle = document.getElementById('coordinatorChapterTitle').value;
+            const chapterPdfUrl = document.getElementById('coordinatorChapterPdfUrl').value || `/pdfs/coordinator/chapter${chapterId}.pdf`;
+            const chapterVersion = parseInt(document.getElementById('coordinatorChapterVersion').value);
+
+            try {
+                coordinatorChapterFormMessage.innerHTML = '';
+                
+                // Save chapter - ensure chapterId is string
+                await db.collection('coordinatorChapters').doc(String(chapterId)).set({
+                    title: chapterTitle,
+                    order: chapterOrder,
+                    pdfUrl: chapterPdfUrl,
+                    version: chapterVersion
+                });
+                
+                showMessage(coordinatorChapterFormMessage, 'Chapter saved successfully!', 'success');
+                loadCoordinatorChapters(); // Refresh the list
+            } catch (error) {
+                console.error("Error saving chapter:", error);
+                showMessage(coordinatorChapterFormMessage, 'Error saving chapter: ' + error.message, 'error');
+            }
+        });
+        
+        // Increment coordinator chapter version
+        incrementCoordinatorVersionBtn.addEventListener('click', async () => {
+            const chapterId = document.getElementById('coordinatorChapterId').value;
+            if (!chapterId) {
+                showMessage(coordinatorChapterFormMessage, 'Please enter a chapter ID first.', 'error');
+                return;
+            }
+
+            try {
+                coordinatorChapterFormMessage.innerHTML = '';
+                
+                // Get current chapter data
+                const chapterDoc = await db.collection('coordinatorChapters').doc(String(chapterId)).get();
+                if (!chapterDoc.exists) {
+                    showMessage(coordinatorChapterFormMessage, 'Chapter not found.', 'error');
+                    return;
+                }
+                
+                const chapterData = chapterDoc.data();
+                
+                // Update version
+                await db.collection('coordinatorChapters').doc(String(chapterId)).update({
+                    version: chapterData.version + 1
+                });
+                
+                // Update form with new version
+                document.getElementById('coordinatorChapterVersion').value = chapterData.version + 1;
+                
+                showMessage(coordinatorChapterFormMessage, 'Chapter version incremented successfully!', 'success');
+                loadCoordinatorChapters(); // Refresh the list
+            } catch (error) {
+                console.error("Error incrementing chapter version:", error);
+                showMessage(coordinatorChapterFormMessage, 'Error incrementing chapter version: ' + error.message, 'error');
+            }
+        });
+
+        // Update SOP version
+        updateSopVersion.addEventListener('click', async () => {
+            const version = parseInt(currentSopVersion.value);
+
+            try {
+                settingsMessage.innerHTML = '';
+                
+                // Update SOP version
+                await db.collection('settings').doc('sop').set({
+                    currentSopVersion: version
+                }, { merge: true });
+                
+                showMessage(settingsMessage, 'SOP version updated successfully!', 'success');
+            } catch (error) {
+                console.error("Error updating SOP version:", error);
+                showMessage(settingsMessage, 'Error updating SOP version: ' + error.message, 'error');
+            }
+        });
+        
+        // Update Coordinator SOP version
+        updateCoordinatorSopVersion.addEventListener('click', async () => {
+            const version = parseInt(currentCoordinatorSopVersion.value);
+
+            try {
+                coordinatorSettingsMessage.innerHTML = '';
+                
+                // Update Coordinator SOP version
+                await db.collection('settings').doc('coordinatorSop').set({
+                    currentSopVersion: version
+                }, { merge: true });
+                
+                showMessage(coordinatorSettingsMessage, 'Coordinator SOP version updated successfully!', 'success');
+            } catch (error) {
+                console.error("Error updating Coordinator SOP version:", error);
+                showMessage(coordinatorSettingsMessage, 'Error updating Coordinator SOP version: ' + error.message, 'error');
+            }
+        });
+
+        // Load navigators
+        async function loadNavigators() {
+            try {
+                navigatorsMessage.innerHTML = '';
+                navigatorsTableBody.innerHTML = '<tr><td colspan="7"><div class="skeleton-loader" style="width: 100%; height: 20px;"></div></td></tr>';
+                
+                // Get search term
+                const searchTerm = searchNavigators.value.toLowerCase();
+                
+                // Get all users with role 'navigator'
+                let usersQuery = db.collection('users').where('role', '==', 'navigator');
+                
+                const usersSnapshot = await usersQuery.get();
+                
+                // Update navigator count
+                if (navigatorsCount) {
+                    navigatorsCount.textContent = usersSnapshot.size;
+                }
+                
+                navigatorsTableBody.innerHTML = '';
+                
+                if (usersSnapshot.empty) {
+                    navigatorsTableBody.innerHTML = '<tr><td colspan="7">No navigators found</td></tr>';
+                    return;
+                }
+                
+                // Filter results based on search term
+                const filteredDocs = usersSnapshot.docs.filter(doc => {
+                    const user = doc.data();
+                    return !searchTerm || 
+                           (user.name && user.name.toLowerCase().includes(searchTerm)) || 
+                           (user.email && user.email.toLowerCase().includes(searchTerm));
+                });
+                
+                if (filteredDocs.length === 0) {
+                    navigatorsTableBody.innerHTML = '<tr><td colspan="7">No navigators found matching your search</td></tr>';
+                    return;
+                }
+                
+                // Process each user asynchronously
+                for (const doc of filteredDocs) {
+                    const user = doc.data();
+                    const row = document.createElement('tr');
+                    
+                    // Format deadline
+                    let deadlineText = 'Not set';
+                    let deadlineClass = '';
+                    if (user.deadline) {
+                        const deadlineDate = user.deadline.toDate();
+                        deadlineText = deadlineDate.toLocaleDateString();
+                        
+                        // Add highlighting for overdue or soon-to-expire deadlines
+                        const today = new Date();
+                        const timeDiff = deadlineDate.getTime() - today.getTime();
+                        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                        
+                        if (daysDiff < 0) {
+                            deadlineClass = 'deadline-overdue';
+                        } else if (daysDiff <= 3) {
+                            deadlineClass = 'deadline-warning';
+                        }
+                    }
+                    
+                    // Get total chapters count
+                    let totalChapters = 0;
+                    let completedCount = 0;
+                    let needsRetakeCount = 0;
+                    let needsSopRetake = false;
+                    let progressHtml = '';
+                    let statusBadge = '';
+                    let sopStatus = '';
+                    
+                    try {
+                        const chaptersSnapshot = await db.collection('chapters').orderBy('order').get();
+                        totalChapters = chaptersSnapshot.size;
+                        
+                        // Calculate completed chapters
+                        completedCount = user.completedChapters ? user.completedChapters.length : 0;
+                        progressHtml = createProgressBar(completedCount, totalChapters);
+                        
+                        // Calculate needs retake count
+                        const chaptersData = {};
+                        chaptersSnapshot.forEach(doc => {
+                            chaptersData[doc.id] = doc.data();
+                        });
+                        
+                        for (const chapterId in chaptersData) {
+                            const chapter = chaptersData[chapterId];
+                            const userChapterVersion = (user.chapterVersionsCompleted && user.chapterVersionsCompleted[chapterId]) || 0;
+                            if (userChapterVersion < chapter.version) {
+                                // Check if user has completed this chapter
+                                if (user.completedChapters && user.completedChapters.includes(parseInt(chapterId))) {
+                                    needsRetakeCount++;
+                                }
+                            }
+                        }
+                        
+                        // Check SOP version
+                        const settingsDoc = await db.collection('settings').doc('sop').get();
+                        const currentSopVersion = settingsDoc.exists ? settingsDoc.data().currentSopVersion : 0;
+                        needsSopRetake = user.sopVersionCompleted < currentSopVersion;
+                        
+                        // Determine status badge
+                        statusBadge = createStatusBadge(user.status || 'Active');
+                        
+                        // Determine SOP status
+                        sopStatus = needsSopRetake ? createStatusBadge('Needs Retake') : createStatusBadge('Up to Date');
+                    } catch (error) {
+                        console.error("Error calculating user progress:", error);
+                        progressHtml = 'Error calculating progress';
+                        statusBadge = createStatusBadge('Error');
+                        sopStatus = createStatusBadge('Error');
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${user.name || 'N/A'}</td>
+                        <td>${user.email || 'N/A'}</td>
+                        <td>${statusBadge}</td>
+                        <td>${progressHtml}</td>
+                        <td>${createStatusBadge(`Needs Retake: ${needsRetakeCount} Chapters`)}</td>
+                        <td>${sopStatus}</td>
+                        <td class="${deadlineClass}">${deadlineText}</td>
+                    `;
+                    
+                    navigatorsTableBody.appendChild(row);
+                }
+            } catch (error) {
+                console.error("Error loading navigators:", error);
+                navigatorsTableBody.innerHTML = '<tr><td colspan="7">Error loading navigators</td></tr>';
+                showMessage(navigatorsMessage, 'Error loading navigators: ' + error.message, 'error');
+            }
+        }        
+        // Load coordinators
+        async function loadCoordinators() {
+            try {
+                coordinatorsMessage.innerHTML = '';
+                coordinatorsTableBody.innerHTML = '<tr><td colspan="7"><div class="skeleton-loader" style="width: 100%; height: 20px;"></div></td></tr>';
+                
+                // Get search term
+                const searchTerm = searchCoordinators.value.toLowerCase();
+                
+                // Get all users with role 'coordinator'
+                let usersQuery = db.collection('users').where('role', '==', 'coordinator');
+                
+                const usersSnapshot = await usersQuery.get();
+                
+                // Update coordinator count
+                if (coordinatorsCount) {
+                    coordinatorsCount.textContent = usersSnapshot.size;
+                }
+                
+                coordinatorsTableBody.innerHTML = '';
+                
+                if (usersSnapshot.empty) {
+                    coordinatorsTableBody.innerHTML = '<tr><td colspan="7">No coordinators found</td></tr>';
+                    return;
+                }
+                
+                // Filter results based on search term
+                const filteredDocs = usersSnapshot.docs.filter(doc => {
+                    const user = doc.data();
+                    return !searchTerm || 
+                           (user.name && user.name.toLowerCase().includes(searchTerm)) || 
+                           (user.email && user.email.toLowerCase().includes(searchTerm));
+                });
+                
+                if (filteredDocs.length === 0) {
+                    coordinatorsTableBody.innerHTML = '<tr><td colspan="7">No coordinators found matching your search</td></tr>';
+                    return;
+                }
+                
+                // Process each user asynchronously
+                for (const doc of filteredDocs) {
+                    const user = doc.data();
+                    const row = document.createElement('tr');
+                    
+                    // Format deadline
+                    let deadlineText = 'Not set';
+                    let deadlineClass = '';
+                    if (user.deadline) {
+                        const deadlineDate = user.deadline.toDate();
+                        deadlineText = deadlineDate.toLocaleDateString();
+                        
+                        // Add highlighting for overdue or soon-to-expire deadlines
+                        const today = new Date();
+                        const timeDiff = deadlineDate.getTime() - today.getTime();
+                        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                        
+                        if (daysDiff < 0) {
+                            deadlineClass = 'deadline-overdue';
+                        } else if (daysDiff <= 3) {
+                            deadlineClass = 'deadline-warning';
+                        }
+                    }
+                    
+                    // Get total chapters count
+                    let totalChapters = 0;
+                    let completedCount = 0;
+                    let needsRetakeCount = 0;
+                    let needsSopRetake = false;
+                    let progressHtml = '';
+                    let statusBadge = '';
+                    let sopStatus = '';
+                    
+                    try {
+                        const chaptersSnapshot = await db.collection('coordinatorChapters').orderBy('order').get();
+                        totalChapters = chaptersSnapshot.size;
+                        
+                        // Calculate completed chapters
+                        completedCount = user.completedChapters ? user.completedChapters.length : 0;
+                        progressHtml = createProgressBar(completedCount, totalChapters);
+                        
+                        // Calculate needs retake count
+                        const chaptersData = {};
+                        chaptersSnapshot.forEach(doc => {
+                            chaptersData[doc.id] = doc.data();
+                        });
+                        
+                        for (const chapterId in chaptersData) {
+                            const chapter = chaptersData[chapterId];
+                            const userChapterVersion = (user.chapterVersionsCompleted && user.chapterVersionsCompleted[chapterId]) || 0;
+                            if (userChapterVersion < chapter.version) {
+                                // Check if user has completed this chapter
+                                if (user.completedChapters && user.completedChapters.includes(parseInt(chapterId))) {
+                                    needsRetakeCount++;
+                                }
+                            }
+                        }
+                        
+                        // Check SOP version
+                        const settingsDoc = await db.collection('settings').doc('coordinatorSop').get();
+                        const currentSopVersion = settingsDoc.exists ? settingsDoc.data().currentSopVersion : 0;
+                        needsSopRetake = user.sopVersionCompleted < currentSopVersion;
+                        
+                        // Determine status badge
+                        statusBadge = createStatusBadge(user.status || 'Active');
+                        
+                        // Determine SOP status
+                        sopStatus = needsSopRetake ? createStatusBadge('Needs Retake') : createStatusBadge('Up to Date');
+                    } catch (error) {
+                        console.error("Error calculating user progress:", error);
+                        progressHtml = 'Error calculating progress';
+                        statusBadge = createStatusBadge('Error');
+                        sopStatus = createStatusBadge('Error');
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${user.name || 'N/A'}</td>
+                        <td>${user.email || 'N/A'}</td>
+                        <td>${statusBadge}</td>
+                        <td>${progressHtml}</td>
+                        <td>${createStatusBadge(`Needs Retake: ${needsRetakeCount} Chapters`)}</td>
+                        <td>${sopStatus}</td>
+                        <td class="${deadlineClass}">${deadlineText}</td>
+                    `;
+                    
+                    coordinatorsTableBody.appendChild(row);
+                }
+            } catch (error) {
+                console.error("Error loading coordinators:", error);
+                coordinatorsTableBody.innerHTML = '<tr><td colspan="7">Error loading coordinators</td></tr>';
+                showMessage(coordinatorsMessage, 'Error loading coordinators: ' + error.message, 'error');
+            }
+        }
+        // Load chapters
+        async function loadChapters() {
+            try {
+                chaptersMessage.innerHTML = '';
+                chaptersTableBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+                
+                // Get all chapters ordered by order field
+                const chaptersSnapshot = await db.collection('chapters')
+                    .orderBy('order')
+                    .get();
+                
+                // Update navigator chapters count
+                if (navigatorChaptersCount) {
+                    navigatorChaptersCount.textContent = chaptersSnapshot.size;
+                }
+                
+                chaptersTableBody.innerHTML = '';
+                
+                if (chaptersSnapshot.empty) {
+                    chaptersTableBody.innerHTML = '<tr><td colspan="6">No chapters found</td></tr>';
+                    return;
+                }
+                
+                chaptersSnapshot.forEach(doc => {
+                    const chapter = doc.data();
+                    const chapterId = doc.id;
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${chapterId}</td>
+                        <td>${chapter.title || 'N/A'}</td>
+                        <td>${chapter.order || 'N/A'}</td>
+                        <td>${chapter.version || 'N/A'}</td>
+                        <td class="actions">
+                            <button class="icon-btn edit-chapter" data-id="${chapterId}" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="icon-btn open-pdf" data-url="${chapter.pdfUrl || '/pdfs/chapter' + chapterId + '.pdf'}" title="Open PDF"><i class="fas fa-file-pdf"></i></button>
+                        </td>
+                    `;
+                    
+                    chaptersTableBody.appendChild(row);
+                });
+                
+                // Add event listeners to PDF buttons
+                document.querySelectorAll('.open-pdf').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const pdfUrl = e.target.closest('.open-pdf').getAttribute('data-url');
+                        window.open(pdfUrl, '_blank');
+                    });
+                });
+                
+                // Add event listeners to edit buttons
+                document.querySelectorAll('.edit-chapter').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const chapterId = e.target.closest('.edit-chapter').getAttribute('data-id');
+                        editChapter(chapterId);
+                    });
+                });
+            } catch (error) {
+                console.error("Error loading chapters:", error);
+                chaptersTableBody.innerHTML = '<tr><td colspan="5">Error loading chapters</td></tr>';
+                showMessage(chaptersMessage, 'Error loading chapters: ' + error.message, 'error');
+            }
+        }
+
+        // Edit chapter
+        async function editChapter(chapterId) {
+            try {
+                // First, activate the chapters menu and submenu
+                document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+                
+                const chaptersMenu = document.querySelector('[data-menu="chapters"]');
+                if (chaptersMenu) {
+                    chaptersMenu.classList.add('active');
+                    chaptersMenu.parentElement.classList.add('active');
+                    showChaptersSection();
+                    document.getElementById('chapters-submenu').classList.add('show');
+                    // Activate chapters submenu item and tab
+                    const chapterLink = document.querySelector('#chapters-submenu a[data-tab="chapters"]');
+                    chapterLink.classList.add('active');
+                    chapterLink.parentElement.classList.add('active');
+                    document.querySelector('#chaptersTabs .tab[data-tab="chapters"]').classList.add('active');
+                    document.getElementById('chaptersTab').style.display = 'block';
+                }
+                
+                // Get chapter data
+                const chapterDoc = await db.collection('chapters').doc(String(chapterId)).get();
+                if (!chapterDoc.exists) {
+                    showMessage(chapterFormMessage, 'Chapter not found.', 'error');
+                    return;
+                }
+                
+                const chapter = chapterDoc.data();
+                
+                // Populate form
+                document.getElementById('chapterId').value = chapterId;
+                document.getElementById('chapterOrder').value = chapter.order || '';
+                document.getElementById('chapterTitle').value = chapter.title || '';
+                document.getElementById('chapterPdfUrl').value = chapter.pdfUrl || '';
+                document.getElementById('chapterVersion').value = chapter.version || '';
+                
+                // Scroll to form
+                document.getElementById('chapterForm').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error("Error editing chapter:", error);
+                showMessage(chapterFormMessage, 'Error loading chapter: ' + error.message, 'error');
+            }
+        }        
+        // Edit coordinator chapter
+        async function editCoordinatorChapter(chapterId) {
+            try {
+                // First, activate the chapters menu and submenu
+                document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+                
+                const chaptersMenu = document.querySelector('[data-menu="chapters"]');
+                if (chaptersMenu) {
+                    chaptersMenu.classList.add('active');
+                    chaptersMenu.parentElement.classList.add('active');
+                    showChaptersSection();
+                    document.getElementById('chapters-submenu').classList.add('show');
+                    // Activate coordinator chapters submenu item and tab
+                    const coordinatorChapterLink = document.querySelector('#chapters-submenu a[data-tab="coordinatorChapters"]');
+                    coordinatorChapterLink.classList.add('active');
+                    coordinatorChapterLink.parentElement.classList.add('active');
+                    document.querySelector('#chaptersTabs .tab[data-tab="coordinatorChapters"]').classList.add('active');
+                    document.getElementById('coordinatorChaptersTab').style.display = 'block';
+                }
+                
+                // Get chapter data
+                const chapterDoc = await db.collection('coordinatorChapters').doc(String(chapterId)).get();
+                if (!chapterDoc.exists) {
+                    showMessage(coordinatorChapterFormMessage, 'Chapter not found.', 'error');
+                    return;
+                }
+                
+                const chapter = chapterDoc.data();
+                
+                // Populate form
+                document.getElementById('coordinatorChapterId').value = chapterId;
+                document.getElementById('coordinatorChapterOrder').value = chapter.order || '';
+                document.getElementById('coordinatorChapterTitle').value = chapter.title || '';
+                document.getElementById('coordinatorChapterPdfUrl').value = chapter.pdfUrl || '';
+                document.getElementById('coordinatorChapterVersion').value = chapter.version || '';
+                
+                // Scroll to form
+                document.getElementById('coordinatorChapterForm').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error("Error editing chapter:", error);
+                showMessage(coordinatorChapterFormMessage, 'Error loading chapter: ' + error.message, 'error');
+            }
+        }
+        
+        // Load coordinator chapters
+        async function loadCoordinatorChapters() {
+            try {
+                coordinatorChaptersMessage.innerHTML = '';
+                coordinatorChaptersTableBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+                
+                // Get search term
+                const searchTerm = searchCoordinatorChapters.value.toLowerCase();
+                
+                // Get all chapters ordered by order field
+                const chaptersSnapshot = await db.collection('coordinatorChapters')
+                    .orderBy('order')
+                    .get();
+                
+                // Update coordinator chapters count
+                if (coordinatorChaptersCount) {
+                    coordinatorChaptersCount.textContent = chaptersSnapshot.size;
+                }
+                
+                coordinatorChaptersTableBody.innerHTML = '';
+                
+                if (chaptersSnapshot.empty) {
+                    coordinatorChaptersTableBody.innerHTML = '<tr><td colspan="6">No chapters found</td></tr>';
+                    return;
+                }
+                
+                // Filter results based on search term
+                const filteredDocs = chaptersSnapshot.docs.filter(doc => {
+                    const chapter = doc.data();
+                    const chapterId = doc.id;
+                    return !searchTerm || 
+                           (chapter.title && chapter.title.toLowerCase().includes(searchTerm)) || 
+                           chapterId.toString().includes(searchTerm);
+                });
+                
+                if (filteredDocs.length === 0) {
+                    coordinatorChaptersTableBody.innerHTML = '<tr><td colspan="6">No chapters found matching your search</td></tr>';
+                    return;
+                }
+                
+                filteredDocs.forEach(doc => {
+                    const chapter = doc.data();
+                    const chapterId = doc.id;
+                    const row = document.createElement('tr');
+                    
+                    row.innerHTML = `
+                        <td>${chapterId}</td>
+                        <td>${chapter.title || 'N/A'}</td>
+                        <td>${chapter.order || 'N/A'}</td>
+                        <td>${chapter.version || 'N/A'}</td>
+                        <td class="actions">
+                            <button class="icon-btn edit-coordinator-chapter" data-id="${chapterId}" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="icon-btn open-coordinator-pdf" data-url="${chapter.pdfUrl || '/pdfs/coordinator/chapter' + chapterId + '.pdf'}" title="Open PDF"><i class="fas fa-file-pdf"></i></button>
+                        </td>
+                    `;
+                    
+                    coordinatorChaptersTableBody.appendChild(row);
+                });
+                
+                // Add event listeners to PDF buttons
+                document.querySelectorAll('.open-coordinator-pdf').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const pdfUrl = e.target.closest('.open-coordinator-pdf').getAttribute('data-url');
+                        window.open(pdfUrl, '_blank');
+                    });
+                });
+                
+                // Add event listeners to edit buttons
+                document.querySelectorAll('.edit-coordinator-chapter').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const chapterId = e.target.closest('.edit-coordinator-chapter').getAttribute('data-id');
+                        editCoordinatorChapter(chapterId);
+                    });
+                });
+            } catch (error) {
+                console.error("Error loading chapters:", error);
+                coordinatorChaptersTableBody.innerHTML = '<tr><td colspan="5">Error loading chapters</td></tr>';
+                showMessage(coordinatorChaptersMessage, 'Error loading chapters: ' + error.message, 'error');
+            }
+        }
+
+        // Load settings
+        async function loadSettings() {
+            try {
+                settingsMessage.innerHTML = '';
+                coordinatorSettingsMessage.innerHTML = '';
+                
+                // Get SOP settings
+                const settingsDoc = await db.collection('settings').doc('sop').get();
+                if (settingsDoc.exists) {
+                    const settings = settingsDoc.data();
+                    currentSopVersion.value = settings.currentSopVersion || 1;
+                }
+                
+                // Get Coordinator SOP settings
+                const coordinatorSettingsDoc = await db.collection('settings').doc('coordinatorSop').get();
+                if (coordinatorSettingsDoc.exists) {
+                    const settings = coordinatorSettingsDoc.data();
+                    currentCoordinatorSopVersion.value = settings.currentSopVersion || 1;
+                }
+            } catch (error) {
+                console.error("Error loading settings:", error);
+                showMessage(settingsMessage, 'Error loading settings: ' + error.message, 'error');
+            }
+        }
+
+        // Utility function to show messages
+        function showMessage(container, message, type) {
+            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+        
+        // Function to create progress bar HTML
+        function createProgressBar(completed, total) {
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            let fillColorClass = 'success';
+            
+            if (percentage < 30) {
+                fillColorClass = 'danger';
+            } else if (percentage < 70) {
+                fillColorClass = 'warning';
+            }
+            
+            return `
+                <div class="progress-container">
+                    <div class="progress-text">${completed} of ${total} chapters</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill ${fillColorClass}" style="width: ${percentage}%"></div>
+                    </div>
+                    <div class="progress-text">${percentage}%</div>
+                </div>
+            `;
+        }
+        
+        // Function to create status badge HTML
+        function createStatusBadge(status) {
+            let badgeClass = '';
+            let icon = '';
+            
+            switch (status.toLowerCase()) {
+                case 'active':
+                    badgeClass = 'active';
+                    icon = '<i class="fas fa-check-circle badge-icon"></i>';
+                    break;
+                case 'needs retake':
+                    badgeClass = 'needs-retake';
+                    icon = '<i class="fas fa-exclamation-triangle badge-icon"></i>';
+                    break;
+                case 'overdue':
+                    badgeClass = 'overdue';
+                    icon = '<i class="fas fa-exclamation-circle badge-icon"></i>';
+                    break;
+                case 'up to date':
+                    badgeClass = 'up-to-date';
+                    icon = '<i class="fas fa-check-circle badge-icon"></i>';
+                    break;
+                default:
+                    badgeClass = 'active';
+                    icon = '<i class="fas fa-check-circle badge-icon"></i>';
+            }
+            
+            return `<span class="status-badge ${badgeClass}">${icon}${status}</span>`;
+        }
+        
+        // Function to add toast notification
+        function showToast(message, type) {
+            const toastContainer = document.querySelector('.toast-container') || (() => {
+                const container = document.createElement('div');
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+                return container;
+            })();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                ${type === 'success' ? '<i class="fas fa-check-circle toast-icon"></i>' : '<i class="fas fa-exclamation-circle toast-icon"></i>'}
+                ${message}
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto remove toast after animation completes
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+        
+        // Function to add loading state to button
+        function setButtonLoading(button, loading) {
+            if (loading) {
+                button.classList.add('btn-loading');
+            } else {
+                button.classList.remove('btn-loading');
+            }
+        }
+        
+        // Function to add rotating animation to refresh button
+        function animateRefreshButton(button) {
+            button.classList.add('rotating');
+            setTimeout(() => {
+                button.classList.remove('rotating');
+            }, 500);
+        }        
+        // Floating Action Button functionality
+        const fabButton = document.getElementById('fabButton');
+        const addModal = document.getElementById('addModal');
+        const closeModal = document.getElementById('closeModal');
+        
+        // Show modal when FAB is clicked
+        fabButton.addEventListener('click', () => {
+            addModal.classList.add('show');
+        });
+        
+        // Close modal when close button is clicked
+        closeModal.addEventListener('click', () => {
+            addModal.classList.remove('show');
+        });
+        
+        // Close modal when clicking outside the modal content
+        addModal.addEventListener('click', (e) => {
+            if (e.target === addModal) {
+                addModal.classList.remove('show');
+            }
+        });
+        
+        // Modal button handlers
+        document.getElementById('addNavigatorModalBtn').addEventListener('click', () => {
+            // Navigate to users section and show navigators
+            document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+            
+            const usersMenu = document.querySelector('[data-menu="users"]');
+            if (usersMenu) {
+                usersMenu.classList.add('active');
+                usersMenu.parentElement.classList.add('active');
+                showUsersSection();
+                document.getElementById('users-submenu').classList.add('show');
+                // Activate navigators submenu item and tab
+                const navigatorLink = document.querySelector('#users-submenu a[data-tab="navigators"]');
+                navigatorLink.classList.add('active');
+                navigatorLink.parentElement.classList.add('active');
+                document.querySelector('#usersTabs .tab[data-tab="navigators"]').classList.add('active');
+                document.getElementById('navigatorsTab').style.display = 'block';
+            }
+            
+            // Close modal
+            addModal.classList.remove('show');
+        });
+        
+        document.getElementById('addCoordinatorModalBtn').addEventListener('click', () => {
+            // Navigate to users section and show coordinators
+            document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+            
+            const usersMenu = document.querySelector('[data-menu="users"]');
+            if (usersMenu) {
+                usersMenu.classList.add('active');
+                usersMenu.parentElement.classList.add('active');
+                showUsersSection();
+                document.getElementById('users-submenu').classList.add('show');
+                // Activate coordinators submenu item and tab
+                const coordinatorLink = document.querySelector('#users-submenu a[data-tab="coordinators"]');
+                coordinatorLink.classList.add('active');
+                coordinatorLink.parentElement.classList.add('active');
+                document.querySelector('#usersTabs .tab[data-tab="coordinators"]').classList.add('active');
+                document.getElementById('coordinatorsTab').style.display = 'block';
+            }
+            
+            // Close modal
+            addModal.classList.remove('show');
+        });
+        
+        document.getElementById('addChapterModalBtn').addEventListener('click', () => {
+            // Navigate to chapters section
+            document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+            
+            const chaptersMenu = document.querySelector('[data-menu="chapters"]');
+            if (chaptersMenu) {
+                chaptersMenu.classList.add('active');
+                chaptersMenu.parentElement.classList.add('active');
+                showChaptersSection();
+                document.getElementById('chapters-submenu').classList.add('show');
+                // Activate navigator chapters submenu item and tab
+                const chapterLink = document.querySelector('#chapters-submenu a[data-tab="chapters"]');
+                chapterLink.classList.add('active');
+                chapterLink.parentElement.classList.add('active');
+                document.querySelector('#chaptersTabs .tab[data-tab="chapters"]').classList.add('active');
+                document.getElementById('chaptersTab').style.display = 'block';
+            }
+            
+            // Close modal
+            addModal.classList.remove('show');
+        });
+        
+        document.getElementById('addCoordinatorChapterModalBtn').addEventListener('click', () => {
+            // Navigate to chapters section
+            document.querySelectorAll('.sidebar-menu > li').forEach(li => li.classList.remove('active'));
+            document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.submenu').forEach(submenu => submenu.classList.remove('show'));
+            
+            const chaptersMenu = document.querySelector('[data-menu="chapters"]');
+            if (chaptersMenu) {
+                chaptersMenu.classList.add('active');
+                chaptersMenu.parentElement.classList.add('active');
+                showChaptersSection();
+                document.getElementById('chapters-submenu').classList.add('show');
+                // Activate coordinator chapters submenu item and tab
+                const coordinatorChapterLink = document.querySelector('#chapters-submenu a[data-tab="coordinatorChapters"]');
+                coordinatorChapterLink.classList.add('active');
+                coordinatorChapterLink.parentElement.classList.add('active');
+                document.querySelector('#chaptersTabs .tab[data-tab="coordinatorChapters"]').classList.add('active');
+                document.getElementById('coordinatorChaptersTab').style.display = 'block';
+            }
+            
+            // Close modal
+            addModal.classList.remove('show');
+        });
+    </script>
+</body>
+</html>

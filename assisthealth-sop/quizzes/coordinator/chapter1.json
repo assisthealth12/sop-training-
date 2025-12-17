@@ -1,0 +1,49 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the primary role of a Community Coordinator in healthcare settings?",
+      "optionA": "To provide direct patient care",
+      "optionB": "To lead community health initiatives and programs",
+      "optionC": "To manage hospital finances",
+      "optionD": "To conduct medical research",
+      "correct": "B"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is a key component of strategic planning?",
+      "optionA": "Random decision-making",
+      "optionB": "Setting clear goals and objectives",
+      "optionC": "Ignoring community needs",
+      "optionD": "Working in isolation",
+      "correct": "B"
+    },
+    {
+      "id": 3,
+      "question": "What is the most effective approach to team building?",
+      "optionA": "Authoritarian leadership",
+      "optionB": "Clear communication and shared vision",
+      "optionC": "Micromanagement",
+      "optionD": "Avoiding feedback",
+      "correct": "B"
+    },
+    {
+      "id": 4,
+      "question": "Why is stakeholder engagement important in community health programs?",
+      "optionA": "To reduce program costs",
+      "optionB": "To ensure program success and sustainability",
+      "optionC": "To limit participation",
+      "optionD": "To create competition",
+      "correct": "B"
+    },
+    {
+      "id": 5,
+      "question": "Which ethical principle involves treating all community members fairly?",
+      "optionA": "Beneficence",
+      "optionB": "Non-maleficence",
+      "optionC": "Justice",
+      "optionD": "Autonomy",
+      "correct": "C"
+    }
+  ]
+}
