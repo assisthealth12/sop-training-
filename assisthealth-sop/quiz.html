@@ -152,6 +152,16 @@
             font-weight: 500;
             margin-bottom: 20px;
         }
+        
+        .section-header {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
 
         .options-container {
             display: grid;
@@ -425,6 +435,20 @@
         let userAnswers = {};
         let timeLeft = 15 * 60; // 15 minutes in seconds
         let timerInterval;
+        
+        // Section mode state
+        let isSectionMode = false;
+        let sections = {};
+        let sectionKeys = [];
+        let currentSectionIndex = 0;
+        let totalCorrect = 0;
+        let totalQuestions = 0;
+        
+        // Per-section timing
+        let sectionTimes = {}; // Track time remaining for each section
+        
+        // Original quiz data for reshuffling
+        let originalQuizData = null;
 
         // Get chapter ID and role from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
@@ -475,20 +499,67 @@
 
         // Previous question
         prevBtn.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                saveAnswer();
-                currentQuestionIndex--;
-                displayQuestion();
+            saveAnswer();
+            
+            if (isSectionMode) {
+                // Section mode navigation
+                if (currentQuestionIndex > 0) {
+                    // Move to previous question in current section
+                    currentQuestionIndex--;
+                } else if (currentSectionIndex > 0) {
+                    // Save current section's remaining time
+                    sectionTimes[sectionKeys[currentSectionIndex]] = timeLeft;
+                    
+                    // Move to previous section
+                    currentSectionIndex--;
+                    questions = sections[sectionKeys[currentSectionIndex]];
+                    currentQuestionIndex = questions.length - 1;
+                    
+                    // Reset timer for new section
+                    timeLeft = sectionTimes[sectionKeys[currentSectionIndex]];
+                    startTimer();
+                }
+            } else {
+                // Standard mode navigation
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                }
             }
+            
+            displayQuestion();
         });
 
         // Next question
         nextBtn.addEventListener('click', () => {
             saveAnswer();
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                displayQuestion();
+            
+            if (isSectionMode) {
+                // Section mode navigation
+                if (currentQuestionIndex < questions.length - 1) {
+                    // Move to next question in current section
+                    currentQuestionIndex++;
+                } else if (currentSectionIndex < sectionKeys.length - 1) {
+                    // Move to next section
+                    // Save current section's remaining time
+                    sectionTimes[sectionKeys[currentSectionIndex]] = timeLeft;
+                    
+                    // Move to next section
+                    currentSectionIndex++;
+                    questions = sections[sectionKeys[currentSectionIndex]];
+                    currentQuestionIndex = 0;
+                    
+                    // Reset timer for new section
+                    timeLeft = sectionTimes[sectionKeys[currentSectionIndex]];
+                    startTimer();
+                }
+            } else {
+                // Standard mode navigation
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                }
             }
+            
+            displayQuestion();
         });
 
         // Submit quiz
@@ -508,10 +579,21 @@
         // Result button
         resultBtn.addEventListener('click', () => {
             resultModal.style.display = 'none';
-            if (userRole === 'coordinator') {
-                window.location.href = 'coordinator-dashboard.html';
+            
+            // If failed and user wants to retake
+            if (resultBtn.textContent === 'Try Again') {
+                // Reset quiz state for retake
+                resetQuizState();
+                displayQuestion();
+                questionCard.style.display = 'block';
+                startTimer();
             } else {
-                window.location.href = 'dashboard.html';
+                // Go to dashboard
+                if (userRole === 'coordinator') {
+                    window.location.href = 'coordinator-dashboard.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
             }
         });
 
@@ -542,10 +624,58 @@
                 }
                 
                 const quizData = await response.json();
-                questions = quizData.questions || [];
                 
-                if (questions.length === 0) {
-                    throw new Error('No questions found in quiz data');
+                // Store original quiz data for reshuffling on retake
+                if (quizData.questions) {
+                    // Standard mode
+                    isSectionMode = false;
+                    originalQuizData = { questions: [...quizData.questions] }; // Store copy of original
+                    questions = quizData.questions || [];
+                    
+                    // Randomize questions for standard mode
+                    questions = shuffleArray(questions);
+                    
+                    if (questions.length === 0) {
+                        throw new Error('No questions found in quiz data');
+                    }
+                } else if (quizData.sections) {
+                    // Section mode
+                    isSectionMode = true;
+                    // Store copy of original sections
+                    originalQuizData = { sections: {} };
+                    for (const sectionKey in quizData.sections) {
+                        originalQuizData.sections[sectionKey] = [...quizData.sections[sectionKey]];
+                    }
+                    
+                    sections = quizData.sections || {};
+                    sectionKeys = Object.keys(sections);
+                    
+                    if (sectionKeys.length === 0) {
+                        throw new Error('No sections found in quiz data');
+                    }
+                    
+                    // Initialize section times (15 minutes each)
+                    sectionTimes = {};
+                    for (const sectionKey of sectionKeys) {
+                        sectionTimes[sectionKey] = 15 * 60; // 15 minutes per section
+                    }
+                    
+                    // Randomize questions in each section independently
+                    for (const sectionKey of sectionKeys) {
+                        sections[sectionKey] = shuffleArray(sections[sectionKey]);
+                    }
+                    
+                    // Set questions to the first section's questions
+                    questions = sections[sectionKeys[0]] || [];
+                    
+                    // Set initial time to first section's time
+                    timeLeft = sectionTimes[sectionKeys[0]];
+                    
+                    if (questions.length === 0) {
+                        throw new Error('No questions found in first section');
+                    }
+                } else {
+                    throw new Error('Invalid quiz data format: missing "questions" or "sections"');
                 }
                 
                 quizTitle.textContent = `Chapter ${chapterId} Quiz`;
@@ -564,27 +694,70 @@
             if (questions.length === 0) return;
             
             const question = questions[currentQuestionIndex];
-            questionText.textContent = question.question;
-            questionCount.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            
+            // Create a map to track option mappings for this question
+            if (!question.optionMap) {
+                question.optionMap = {};
+            }
+            
+            // Show section header in section mode
+            if (isSectionMode) {
+                // Find existing section header or create new one
+                let sectionHeader = questionText.parentNode.querySelector('.section-header');
+                if (!sectionHeader) {
+                    sectionHeader = document.createElement('div');
+                    sectionHeader.className = 'section-header';
+                    questionText.parentNode.insertBefore(sectionHeader, questionText);
+                }
+                
+                // Update section header content (replace, don't append)
+                sectionHeader.textContent = `Section ${sectionKeys[currentSectionIndex]}`;
+                
+                // Update question text
+                questionText.textContent = question.question;
+                
+                // Update question count with section info
+                questionCount.textContent = `Section ${sectionKeys[currentSectionIndex]} - Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            } else {
+                // Standard mode
+                questionText.textContent = question.question;
+                questionCount.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+                
+                // Remove any existing section header in standard mode
+                const existingSectionHeader = questionText.parentNode.querySelector('.section-header');
+                if (existingSectionHeader) {
+                    existingSectionHeader.remove();
+                }
+            }
             
             // Clear options
             optionsContainer.innerHTML = '';
             
-            // Add options
-            const options = ['A', 'B', 'C', 'D'];
-            options.forEach(option => {
-                const optionValue = question[`option${option}`];
-                if (optionValue) {
+            // Shuffle options for this question
+            const shuffledOptions = shuffleOptions(question);
+            
+            // Update the option map to track original labels
+            question.optionMap = {};
+            shuffledOptions.forEach(option => {
+                question.optionMap[option.label] = option.originalLabel;
+            });
+            
+            // Add shuffled options
+            shuffledOptions.forEach(option => {
+                if (option.value) {
                     const optionCard = document.createElement('div');
                     optionCard.className = 'option-card';
-                    if (userAnswers[question.id] === option) {
+                    
+                    // Map the user's previous answer to the new label
+                    const mappedOriginalLabel = question.optionMap[option.label];
+                    if (userAnswers[question.id] === mappedOriginalLabel) {
                         optionCard.classList.add('selected');
                     }
                     
                     optionCard.innerHTML = `
                         <div class="option-label">
-                            <span class="option-letter">${option}</span>
-                            <span>${optionValue}</span>
+                            <span class="option-letter">${option.label}</span>
+                            <span>${option.value}</span>
                         </div>
                     `;
                     
@@ -597,8 +770,8 @@
                         // Add selected class to clicked option
                         optionCard.classList.add('selected');
                         
-                        // Save answer
-                        userAnswers[question.id] = option;
+                        // Save answer with the ORIGINAL label (as stored in JSON)
+                        userAnswers[question.id] = question.optionMap[option.label];
                     });
                     
                     optionsContainer.appendChild(optionCard);
@@ -606,9 +779,78 @@
             });
             
             // Update navigation buttons
-            prevBtn.disabled = currentQuestionIndex === 0;
-            nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'block';
-            submitBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+            updateNavigationButtons();
+        }
+
+        // Update navigation buttons based on current state
+        function updateNavigationButtons() {
+            if (isSectionMode) {
+                // Section mode navigation
+                // Previous button disabled only on first question of first section
+                prevBtn.disabled = currentSectionIndex === 0 && currentQuestionIndex === 0;
+                
+                // Next/Submit button logic
+                if (currentQuestionIndex < questions.length - 1) {
+                    // Not the last question in current section
+                    nextBtn.style.display = 'block';
+                    nextBtn.textContent = 'Next Question';
+                    submitBtn.style.display = 'none';
+                } else if (currentSectionIndex < sectionKeys.length - 1) {
+                    // Last question in current section, but not the last section
+                    nextBtn.style.display = 'block';
+                    nextBtn.textContent = 'Next Section';
+                    submitBtn.style.display = 'none';
+                } else {
+                    // Last question in last section
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'block';
+                }
+            } else {
+                // Standard mode navigation
+                prevBtn.disabled = currentQuestionIndex === 0;
+                nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'block';
+                nextBtn.textContent = 'Next';
+                submitBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+            }
+        }
+
+        // Reset quiz state for retake
+        function resetQuizState() {
+            // Reset standard quiz state
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            
+            // Reset section mode state if in section mode
+            if (isSectionMode) {
+                currentSectionIndex = 0;
+                
+                // Reset section times (15 minutes each)
+                sectionTimes = {};
+                for (const sectionKey of sectionKeys) {
+                    sectionTimes[sectionKey] = 15 * 60; // 15 minutes per section
+                }
+                
+                // Set initial time to first section's time
+                timeLeft = sectionTimes[sectionKeys[0]];
+                
+                // Reshuffle questions for each section using original data
+                for (const sectionKey of sectionKeys) {
+                    sections[sectionKey] = shuffleArray(originalQuizData.sections[sectionKey]);
+                }
+                questions = sections[sectionKeys[0]] || [];
+                totalCorrect = 0;
+                totalQuestions = 0;
+            } else {
+                // Reshuffle questions for standard mode using original data
+                questions = shuffleArray(originalQuizData.questions);
+                timeLeft = 15 * 60; // Reset timer to 15 minutes
+            }
+            
+            // Clear any existing section headers
+            const existingSectionHeader = questionText.parentNode.querySelector('.section-header');
+            if (existingSectionHeader) {
+                existingSectionHeader.remove();
+            }
         }
 
         // Save current answer
@@ -618,13 +860,20 @@
 
         // Start timer
         function startTimer() {
+            // Clear any existing timer
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            // Reset timer display
+            updateTimerDisplay();
+            timerElement.classList.remove('timer-warning');
+            
             timerInterval = setInterval(() => {
                 timeLeft--;
                 
                 // Update timer display
-                const minutes = Math.floor(timeLeft / 60);
-                const seconds = timeLeft % 60;
-                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                updateTimerDisplay();
                 
                 // Change color when time is running out
                 if (timeLeft <= 5 * 60) { // 5 minutes
@@ -637,6 +886,20 @@
                     submitQuiz();
                 }
             }, 1000);
+        }
+        
+        // Update timer display with section information
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            if (isSectionMode) {
+                // Show section-specific timer info
+                timerElement.textContent = `Section ${sectionKeys[currentSectionIndex]} - ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            } else {
+                // Standard mode timer display
+                timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            }
         }
 
         // Submit quiz - FIXED VERSION
@@ -651,19 +914,44 @@
                 
                 // Calculate score
                 let correctAnswers = 0;
-                questions.forEach(question => {
-                    const userAnswer = userAnswers[question.id];
-                    const isCorrect = userAnswer === question.correct;
-                    console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
-                    if (isCorrect) {
-                        correctAnswers++;
-                    }
-                });
+                let totalQuestionsCount = 0;
                 
-                const score = Math.round((correctAnswers / questions.length) * 100);
+                if (isSectionMode) {
+                    // Section mode: calculate score across all sections
+                    console.log('📝 Section mode: calculating score across all sections');
+                    
+                    // Loop through all sections to calculate total score
+                    for (const sectionKey of sectionKeys) {
+                        const sectionQuestions = sections[sectionKey];
+                        sectionQuestions.forEach(question => {
+                            totalQuestionsCount++;
+                            const userAnswer = userAnswers[question.id];
+                            const isCorrect = userAnswer === question.correct;
+                            console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
+                            if (isCorrect) {
+                                correctAnswers++;
+                            }
+                        });
+                    }
+                } else {
+                    // Standard mode: calculate score for current questions
+                    console.log('📝 Standard mode: calculating score for current questions');
+                    
+                    questions.forEach(question => {
+                        totalQuestionsCount++;
+                        const userAnswer = userAnswers[question.id];
+                        const isCorrect = userAnswer === question.correct;
+                        console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
+                        if (isCorrect) {
+                            correctAnswers++;
+                        }
+                    });
+                }
+                
+                const score = Math.round((correctAnswers / totalQuestionsCount) * 100);
                 const passed = score >= 70;
                 
-                console.log(`📊 Score: ${score}% (${correctAnswers}/${questions.length})`);
+                console.log(`📊 Score: ${score}% (${correctAnswers}/${totalQuestionsCount})`);
                 console.log(`📊 Passed: ${passed}`);
                 
                 // If passed, update user progress BEFORE showing result
@@ -741,7 +1029,7 @@
                 resultTitle.textContent = 'Quiz Result';
                 resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
                 resultMessage.innerHTML = `
-                    You scored <strong>${score}%</strong> (${correctAnswers} out of ${questions.length} correct)<br/>
+                    You scored <strong>${score}%</strong> (${correctAnswers} out of ${totalQuestionsCount} correct)<br/>
                     ${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}
                 `;
                 resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
@@ -763,6 +1051,41 @@
                 resultBtn.textContent = 'Try Again';
                 resultModal.style.display = 'flex';
             }
+        }
+
+        // Utility function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            // Create a copy of the array to avoid modifying the original
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Utility function to shuffle question options
+        function shuffleOptions(question) {
+            // Create option objects with their labels and values
+            const options = [
+                { label: 'A', value: question.optionA },
+                { label: 'B', value: question.optionB },
+                { label: 'C', value: question.optionC },
+                { label: 'D', value: question.optionD }
+            ];
+            
+            // Filter out any undefined options
+            const validOptions = options.filter(opt => opt.value !== undefined);
+            
+            // Shuffle the options
+            const shuffledOptions = shuffleArray(validOptions);
+            
+            // Return the shuffled options with updated labels
+            return shuffledOptions.map((opt, index) => ({
+                label: String.fromCharCode(65 + index), // A, B, C, D
+                value: opt.value,
+                originalLabel: opt.label
+            }));
         }
 
         // Utility function to show messages

@@ -2,48 +2,183 @@
   "questions": [
     {
       "id": 1,
-      "question": "What is the primary purpose of the AssistHealth SOP training program?",
-      "optionA": "To increase hospital revenue",
-      "optionB": "To provide standardized procedures for healthcare navigation",
-      "optionC": "To replace medical professionals",
-      "optionD": "To reduce patient care quality",
+      "question": "AssistHealth is best described as:",
+      "optionA": "A hospital chain",
+      "optionB": "A healthcare navigation platform",
+      "optionC": "A diagnostic service",
+      "optionD": "An insurance provider",
       "correct": "B"
     },
     {
       "id": 2,
-      "question": "Which of the following is a core value of AssistHealth?",
-      "optionA": "Profit maximization",
-      "optionB": "Patient-centered care",
-      "optionC": "Competitive exclusion",
-      "optionD": "Minimal documentation",
-      "correct": "B"
+      "question": "The core philosophy of AssistHealth is:",
+      "optionA": "Fast treatment",
+      "optionB": "Affordable healthcare",
+      "optionC": "Clear, coordinated, compassionate care",
+      "optionD": "Digital-first healthcare",
+      "correct": "C"
     },
     {
       "id": 3,
-      "question": "What is the role of a Navigator in the healthcare system?",
-      "optionA": "Performing surgical procedures",
-      "optionB": "Facilitating patient access to healthcare services",
-      "optionC": "Managing hospital finances",
-      "optionD": "Conducting medical research",
-      "correct": "B"
+      "question": "What problem does AssistHealth primarily solve?",
+      "optionA": "Lack of hospitals",
+      "optionB": "High medical costs",
+      "optionC": "Confusion, delays, and lack of guidance in healthcare",
+      "optionD": "Doctor availability",
+      "correct": "C"
     },
     {
       "id": 4,
-      "question": "Why is standardized documentation important?",
-      "optionA": "To increase paperwork",
-      "optionB": "To ensure consistency and quality of care",
-      "optionC": "To complicate processes",
-      "optionD": "To reduce communication",
-      "correct": "B"
+      "question": "Who is the central pillar of AssistHealth services?",
+      "optionA": "Doctors",
+      "optionB": "Hospitals",
+      "optionC": "AssistHealth Navigator",
+      "optionD": "Technology platform",
+      "correct": "C"
     },
     {
       "id": 5,
-      "question": "What does SOP stand for?",
-      "optionA": "Standard Operating Procedure",
-      "optionB": "Specialized Operational Protocol",
-      "optionC": "Systematic Operational Plan",
-      "optionD": "Structured Operational Process",
-      "correct": "A"
+      "question": "What makes AssistHealth different from apps and helplines?",
+      "optionA": "Discounts",
+      "optionB": "24/7 call centre",
+      "optionC": "Dedicated human Navigator",
+      "optionD": "Free consultations",
+      "correct": "C"
+    },
+    {
+      "id": 6,
+      "question": "AssistHealth primarily targets:",
+      "optionA": "Only senior citizens",
+      "optionB": "Only emergency patients",
+      "optionC": "Anyone needing healthcare guidance",
+      "optionD": "Only chronic patients",
+      "correct": "C"
+    },
+    {
+      "id": 7,
+      "question": "Which group is explicitly included in AssistHealth\u2019s target users?",
+      "optionA": "Athletes",
+      "optionB": "Pregnant mothers",
+      "optionC": "Only ICU patients",
+      "optionD": "Medical professionals",
+      "correct": "B"
+    },
+    {
+      "id": 8,
+      "question": "AssistHealth exists to ensure:",
+      "optionA": "Lowest-cost care",
+      "optionB": "Right care, right place, right time",
+      "optionC": "Maximum doctor access",
+      "optionD": "Faster insurance claims",
+      "correct": "B"
+    },
+    {
+      "id": 9,
+      "question": "How does a member usually initiate AssistHealth services?",
+      "optionA": "Hospital referral",
+      "optionB": "Insurance agent",
+      "optionC": "Website, phone, or message",
+      "optionD": "Doctor prescription",
+      "correct": "C"
+    },
+    {
+      "id": 10,
+      "question": "Once a member contacts AssistHealth, what happens next?",
+      "optionA": "They are sent to a hospital",
+      "optionB": "A doctor is assigned",
+      "optionC": "A Navigator is assigned",
+      "optionD": "They receive an app login",
+      "correct": "C"
+    },
+    {
+      "id": 11,
+      "question": "AssistHealth is positioned as:",
+      "optionA": "A replacement for doctors",
+      "optionB": "A parallel healthcare ecosystem",
+      "optionC": "A hospital management system",
+      "optionD": "A telemedicine app",
+      "correct": "B"
+    },
+    {
+      "id": 12,
+      "question": "What does \u201cpremium, personalised, priority care\u201d imply?",
+      "optionA": "Luxury hospitals only",
+      "optionB": "Faster appointments without coordination",
+      "optionC": "Dedicated Navigator-led support",
+      "optionD": "Expensive treatments",
+      "correct": "C"
+    },
+    {
+      "id": 13,
+      "question": "Which is NOT a core AssistHealth principle?",
+      "optionA": "Accountability",
+      "optionB": "Continuity",
+      "optionC": "Guesswork",
+      "optionD": "Clarity",
+      "correct": "C"
+    },
+    {
+      "id": 14,
+      "question": "Trust in AssistHealth is primarily built through:",
+      "optionA": "Branding",
+      "optionB": "Technology",
+      "optionC": "Human Navigator relationship",
+      "optionD": "Hospital tie-ups",
+      "correct": "C"
+    },
+    {
+      "id": 15,
+      "question": "AssistHealth discourages members from relying on:",
+      "optionA": "Doctors",
+      "optionB": "Hospitals",
+      "optionC": "Family, Google, and social media for health decisions",
+      "optionD": "Diagnostics",
+      "correct": "C"
+    },
+    {
+      "id": 16,
+      "question": "AssistHealth ensures members are never:",
+      "optionA": "Treated",
+      "optionB": "Charged",
+      "optionC": "Lost in the system",
+      "optionD": "Hospitalised",
+      "correct": "C"
+    },
+    {
+      "id": 17,
+      "question": "AssistHealth care model emphasises:",
+      "optionA": "Episodic care",
+      "optionB": "One-time service",
+      "optionC": "Continuum of care",
+      "optionD": "Emergency-only care",
+      "correct": "C"
+    },
+    {
+      "id": 18,
+      "question": "Who are the key role players in AssistHealth?",
+      "optionA": "Doctors only",
+      "optionB": "Navigators, tech team, backend team",
+      "optionC": "Insurance agents",
+      "optionD": "Hospital admins",
+      "correct": "B"
+    },
+    {
+      "id": 19,
+      "question": "AssistHealth is designed to reduce:",
+      "optionA": "Hospital staff workload",
+      "optionB": "Patient anxiety and confusion",
+      "optionC": "Diagnostic costs",
+      "optionD": "Medical errors only",
+      "correct": "B"
+    },
+    {
+      "id": 20,
+      "question": "Chapter 1 primarily ensures that Navigators understand:",
+      "optionA": "SOP steps",
+      "optionB": "Medical basics",
+      "optionC": "Why AssistHealth exists and whom it serves",
+      "optionD": "Emergency protocols",
+      "correct": "C"
     }
   ]
 }

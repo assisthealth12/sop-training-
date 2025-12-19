@@ -1,0 +1,184 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "A Navigator is best described as:",
+      "optionA": "Medical advisor",
+      "optionB": "Healthcare guide and coordinator",
+      "optionC": "Diagnostic expert",
+      "optionD": "Insurance consultant",
+      "correct": "B"
+    },
+    {
+      "id": 2,
+      "question": "The Navigator acts as a bridge between:",
+      "optionA": "Patient and insurance",
+      "optionB": "Member, doctor, hospital, diagnostics",
+      "optionC": "Hospital and pharmacy",
+      "optionD": "Doctor and insurance",
+      "correct": "B"
+    },
+    {
+      "id": 3,
+      "question": "Which statement is TRUE?",
+      "optionA": "Navigator can interpret reports",
+      "optionB": "Navigator can suggest medicines",
+      "optionC": "Navigator is not a medical decision-maker",
+      "optionD": "Navigator predicts outcomes",
+      "correct": "C"
+    },
+    {
+      "id": 4,
+      "question": "Which task is part of Care Coordination?",
+      "optionA": "Diagnosing",
+      "optionB": "Prescribing",
+      "optionC": "Booking appointments and diagnostics",
+      "optionD": "Explaining lab values",
+      "correct": "C"
+    },
+    {
+      "id": 5,
+      "question": "What is the Navigator allowed to explain?",
+      "optionA": "What the report means",
+      "optionB": "What the doctor said and next steps",
+      "optionC": "Whether treatment is correct",
+      "optionD": "Severity of illness",
+      "correct": "B"
+    },
+    {
+      "id": 6,
+      "question": "Emotional reassurance by Navigator should be:",
+      "optionA": "Based on medical outcome",
+      "optionB": "Predictive",
+      "optionC": "Supportive without false assurance",
+      "optionD": "Directive",
+      "correct": "C"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is strictly prohibited?",
+      "optionA": "Sending WhatsApp templates",
+      "optionB": "Booking teleconsultation",
+      "optionC": "Saying \u201cthis is not serious\u201d",
+      "optionD": "Clarifying logistics",
+      "correct": "C"
+    },
+    {
+      "id": 8,
+      "question": "A Navigator must escalate immediately if they identify:",
+      "optionA": "High cost",
+      "optionB": "Red-flag symptoms",
+      "optionC": "Delay in appointment",
+      "optionD": "Member dissatisfaction",
+      "correct": "B"
+    },
+    {
+      "id": 9,
+      "question": "Which is considered a red flag?",
+      "optionA": "Mild headache",
+      "optionB": "Chest pain",
+      "optionC": "Routine fever",
+      "optionD": "Scheduled follow-up",
+      "correct": "B"
+    },
+    {
+      "id": 10,
+      "question": "Emergency navigation is:",
+      "optionA": "Medical treatment",
+      "optionB": "Non-medical coordination and escalation",
+      "optionC": "Diagnosis support",
+      "optionD": "Prescription support",
+      "correct": "B"
+    },
+    {
+      "id": 11,
+      "question": "Documentation is required to ensure:",
+      "optionA": "Marketing insights",
+      "optionB": "Legal, clinical, and audit readiness",
+      "optionC": "Navigator evaluation only",
+      "optionD": "Cost tracking",
+      "correct": "B"
+    },
+    {
+      "id": 12,
+      "question": "Data handling must comply with:",
+      "optionA": "Hospital policy",
+      "optionB": "DPDP and confidentiality standards",
+      "optionC": "Insurance norms",
+      "optionD": "CRM rules",
+      "correct": "B"
+    },
+    {
+      "id": 13,
+      "question": "Which communication skill is essential for Navigators?",
+      "optionA": "Medical terminology",
+      "optionB": "Persuasion",
+      "optionC": "Active listening",
+      "optionD": "Negotiation",
+      "correct": "C"
+    },
+    {
+      "id": 14,
+      "question": "What does \u201cnon-judgemental\u201d communication mean?",
+      "optionA": "Agreeing with member always",
+      "optionB": "Avoiding all opinions",
+      "optionC": "Respecting concerns without bias",
+      "optionD": "Giving neutral medical advice",
+      "correct": "C"
+    },
+    {
+      "id": 15,
+      "question": "Navigator flow of work starts with:",
+      "optionA": "Booking service",
+      "optionB": "Asking closed questions",
+      "optionC": "Greeting warmly and listening",
+      "optionD": "Explaining SOP",
+      "correct": "C"
+    },
+    {
+      "id": 16,
+      "question": "A Navigator should NEVER:",
+      "optionA": "Maintain records",
+      "optionB": "Clarify logistics",
+      "optionC": "Predict recovery",
+      "optionD": "Arrange services",
+      "correct": "C"
+    },
+    {
+      "id": 17,
+      "question": "Which action creates legal risk?",
+      "optionA": "Escalating red flags",
+      "optionB": "Giving medical advice",
+      "optionC": "Recording calls",
+      "optionD": "Coordinating care",
+      "correct": "B"
+    },
+    {
+      "id": 18,
+      "question": "Ethics framework requires Navigators to:",
+      "optionA": "Diagnose early",
+      "optionB": "Educate, support, escalate",
+      "optionC": "Decide best treatment",
+      "optionD": "Reduce costs",
+      "correct": "B"
+    },
+    {
+      "id": 19,
+      "question": "Confidentiality means:",
+      "optionA": "Sharing info with family freely",
+      "optionB": "Sharing only with authorised persons",
+      "optionC": "Avoiding documentation",
+      "optionD": "Verbal consent is enough always",
+      "correct": "B"
+    },
+    {
+      "id": 20,
+      "question": "Chapter 2 ensures that Navigators clearly understand:",
+      "optionA": "Medical science",
+      "optionB": "Their authority limits and responsibilities",
+      "optionC": "Hospital operations",
+      "optionD": "Insurance claims",
+      "correct": "B"
+    }
+  ]
+}
