@@ -99,6 +99,16 @@
             color: white;
         }
 
+        /* Section Labels */
+        .sidebar-section-label {
+            padding: 15px 20px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
         .sidebar-menu {
             list-style: none;
             padding: 0;
@@ -106,7 +116,7 @@
         }
 
         .sidebar-menu li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             position: relative;
         }
 
@@ -117,10 +127,10 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 3px;
-            height: 20px;
+            width: 5px;
+            height: 26px;
             background-color: white;
-            border-radius: 2px;
+            border-radius: 3px;
             opacity: 0;
             transition: all 0.2s ease-in-out;
         }
@@ -132,11 +142,11 @@
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 15px 20px;
             color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
+            font-size: 16px;
+            font-weight: 600;
             transition: all 0.2s ease-in-out;
             border-radius: 0 30px 30px 0;
             margin-right: 15px;
@@ -145,15 +155,18 @@
         }
 
         .sidebar-menu a:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            transform: translateX(2px);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .sidebar-menu a.active {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.3);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar-menu a i {
@@ -172,12 +185,14 @@
         .submenu {
             list-style: none;
             padding: 0;
-            margin: 0;
+            margin: 8px 0 15px;
             max-height: 0;
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.15);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
+            border-radius: 0 0 10px 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .submenu.show {
@@ -194,11 +209,11 @@
         .submenu li::before {
             content: '';
             position: absolute;
-            left: 20px;
+            left: 32px;
             top: 50%;
             transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: white;
             border-radius: 50%;
             opacity: 0;
@@ -210,38 +225,43 @@
         }
 
         .submenu a {
-            padding: 10px 20px 10px 40px;
-            font-size: 14px;
+            padding: 12px 20px 12px 45px;
+            font-size: 15px;
             border-radius: 0 30px 30px 0;
-            margin-right: 15px;
-            color: rgba(255, 255, 255, 0.7);
+            margin: 0 15px 2px;
+            color: rgba(255, 255, 255, 0.75);
             transition: all 0.2s ease-in-out;
             display: block;
+            position: relative;
+            font-weight: 500;
         }
 
         .submenu a:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            transform: translateX(2px);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .submenu a.active {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.3);
             color: white;
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar-divider {
             height: 1px;
             background: rgba(255, 255, 255, 0.1);
-            margin: 15px 20px;
+            margin: 20px 20px;
         }
 
         /* Main Content Styles */
         .main-content {
             flex: 1;
             margin-left: var(--sidebar-width);
-            padding: 20px;
+            padding: 30px;
             transition: all 0.3s ease;
         }
 
@@ -249,16 +269,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--light-accent);
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--light-accent);
         }
 
         .header-title {
             color: var(--primary-color);
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             margin: 0;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .header-actions {
@@ -313,10 +335,10 @@
         }
 
         .summary-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-md);
-            padding: 20px;
+            padding: 25px;
             border: 1px solid var(--light-accent);
             display: flex;
             align-items: center;
@@ -337,7 +359,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 20px;
         }
 
         .summary-icon i {
@@ -347,21 +369,21 @@
 
         .summary-content h3 {
             color: var(--dark-gray);
-            font-size: 16px;
-            margin: 0 0 5px 0;
-            font-weight: 600;
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            font-weight: 700;
         }
 
         .summary-count {
             color: var(--primary-color);
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             margin: 0;
         }
 
         .summary-label {
             color: var(--medium-gray);
-            font-size: 14px;
+            font-size: 15px;
             margin: 0;
         }
 
@@ -370,8 +392,8 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 60px;
-            height: 60px;
+            width: 65px;
+            height: 65px;
             background-color: var(--primary-color);
             color: white;
             border: none;
@@ -381,14 +403,36 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 26px;
             transition: all 0.3s ease;
             z-index: 1000;
+            overflow: visible;
         }
 
         .fab:hover {
             transform: scale(1.1);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .fab::after {
+            content: "Add New";
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+        }
+        
+        .fab:hover::after {
+            opacity: 1;
         }
 
         /* Modal Styles */
@@ -482,27 +526,38 @@
             display: flex;
             border-bottom: 2px solid var(--light-accent);
             margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px 12px 0 0;
+            padding: 0 10px;
         }
 
         .tab {
-            padding: 12px 20px;
+            padding: 15px 25px;
             cursor: pointer;
             background-color: transparent;
             border: none;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--medium-gray);
             transition: all 0.3s ease;
+            position: relative;
+            margin: 0 5px;
+            border-radius: 8px 8px 0 0;
         }
 
         .tab.active {
             color: var(--primary-color);
+            background-color: rgba(255, 255, 255, 0.95);
             border-bottom: 3px solid var(--primary-color);
+            font-weight: 700;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         .tab:hover:not(.active) {
             color: var(--primary-color);
-            background-color: rgba(61, 141, 122, 0.05);
+            background-color: rgba(61, 141, 122, 0.1);
+            transform: translateY(-2px);
         }
 
         .tab-content {
@@ -514,19 +569,27 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-md);
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 30px;
+            margin-bottom: 40px;
             border: 1px solid var(--light-accent);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
         h2 {
             color: var(--primary-color);
-            font-size: 22px;
-            margin-bottom: 20px;
-            font-weight: 600;
+            font-size: 26px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         .form-group {
@@ -632,9 +695,15 @@
         .table-container {
             background: white;
             border-radius: var(--border-radius-md);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
             overflow: hidden;
             border: 1px solid var(--light-accent);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .table-container:hover {
+            box-shadow: var(--shadow-lg);
         }
 
         table {
@@ -643,27 +712,34 @@
         }
 
         th, td {
-            padding: 12px 15px;
+            padding: 16px 20px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
         th {
-            background-color: rgba(61, 141, 122, 0.1);
+            background-color: rgba(61, 141, 122, 0.2);
             color: var(--primary-color);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 15px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
         }
         
         /* Alternating row colors for better readability */
         tbody tr:nth-child(even) {
-            background-color: rgba(0, 0, 0, 0.02);
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+        
+        tbody tr:nth-child(odd) {
+            background-color: rgba(255, 255, 255, 0.7);
         }
         
         /* Hover effect for table rows */
         tbody tr:hover {
-            background-color: rgba(61, 141, 122, 0.05) !important;
-            transform: scale(1.01);
+            background-color: rgba(61, 141, 122, 0.1) !important;
+            transform: scale(1.005);
             transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         
         /* Column borders for better separation */
@@ -676,7 +752,8 @@
         }
                 .actions {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            padding: 5px 0;
         }
         
         /* Progress Bars */
@@ -1008,17 +1085,47 @@
             color: var(--success);
             border: 1px solid var(--success);
         }
+        
+        /* Empty State Styling */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--medium-gray);
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--light-accent);
+        }
+        
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+        }
+        
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         /* Responsive Design */
         @media (max-width: 992px) {
             .sidebar {
                 width: 70px;
+                transition: width 0.3s ease;
             }
             
             .sidebar .logo-container span,
             .sidebar .app-name,
             .sidebar-menu a span,
-            .sidebar-header .user-info {
+            .sidebar-header .user-info,
+            .sidebar-section-label {
                 display: none;
             }
             
@@ -1027,6 +1134,7 @@
                 padding: 15px;
                 border-radius: 10px;
                 margin: 0 10px 5px;
+                position: relative;
             }
             
             .sidebar-menu a i {
@@ -1034,8 +1142,31 @@
                 font-size: 20px;
             }
             
+            .sidebar-menu a::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                left: 70px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 14px;
+                white-space: nowrap;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+                pointer-events: none;
+                z-index: 1000;
+            }
+            
+            .sidebar-menu a:hover::after {
+                opacity: 1;
+            }
+            
             .main-content {
                 margin-left: 70px;
+                transition: margin-left 0.3s ease;
             }
         }
 
@@ -1102,45 +1233,51 @@
             
             <ul class="sidebar-menu">
                 <li>
-                    <a href="#" class="active" data-menu="dashboard">
+                    <a href="#" class="active" data-menu="dashboard" data-tooltip="Dashboard">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+                
+                <div class="sidebar-section-label">Users</div>
                 <li>
-                    <a href="#" data-menu="users">
+                    <a href="#" data-menu="users" data-tooltip="Users">
                         <i class="fas fa-users"></i>
                         <span>Users</span>
                     </a>
                     <ul class="submenu" id="users-submenu">
-                        <li><a href="#" data-tab="navigators"><i class="fas fa-user"></i> Navigators</a></li>
-                        <li><a href="#" data-tab="coordinators"><i class="fas fa-user-friends"></i> Coordinators</a></li>
+                        <li><a href="#" data-tab="navigators" data-tooltip="Navigators"><i class="fas fa-user"></i> Navigators</a></li>
+                        <li><a href="#" data-tab="coordinators" data-tooltip="Coordinators"><i class="fas fa-user-friends"></i> Coordinators</a></li>
                     </ul>
                 </li>
+                
+                <div class="sidebar-section-label">Chapters</div>
                 <li>
-                    <a href="#" data-menu="chapters">
+                    <a href="#" data-menu="chapters" data-tooltip="Chapters">
                         <i class="fas fa-book-open"></i>
                         <span>Chapters</span>
                     </a>
                     <ul class="submenu" id="chapters-submenu">
-                        <li><a href="#" data-tab="chapters"><i class="fas fa-book"></i> Navigator Chapters</a></li>
-                        <li><a href="#" data-tab="coordinatorChapters"><i class="fas fa-book-reader"></i> Coordinator Chapters</a></li>
+                        <li><a href="#" data-tab="chapters" data-tooltip="Navigator Chapters"><i class="fas fa-book"></i> Navigator Chapters</a></li>
+                        <li><a href="#" data-tab="coordinatorChapters" data-tooltip="Coordinator Chapters"><i class="fas fa-book-reader"></i> Coordinator Chapters</a></li>
                     </ul>
                 </li>
+                
+                <div class="sidebar-section-label">System</div>
                 <li>
-                    <a href="#" data-menu="settings">
+                    <a href="#" data-menu="settings" data-tooltip="Settings">
                         <i class="fas fa-cog"></i>
                         <span>Settings</span>
                     </a>
                     <ul class="submenu" id="settings-submenu">
-                        <li><a href="#" data-tab="settings"><i class="fas fa-sliders-h"></i> System Settings</a></li>
+                        <li><a href="#" data-tab="settings" data-tooltip="System Settings"><i class="fas fa-sliders-h"></i> System Settings</a></li>
                     </ul>
                 </li>
                 
                 <div class="sidebar-divider"></div>
                 
                 <li>
-                    <a href="#">
+                    <a href="#" data-tooltip="Help">
                         <i class="fas fa-question-circle"></i>
                         <span>Help</span>
                     </a>
@@ -2103,7 +2240,16 @@
                 navigatorsTableBody.innerHTML = '';
                 
                 if (usersSnapshot.empty) {
-                    navigatorsTableBody.innerHTML = '<tr><td colspan="7">No navigators found</td></tr>';
+                    navigatorsTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-users"></i>
+                                    <h3>No Navigators Found</h3>
+                                    <p>There are currently no navigators in the system. Add a new navigator to get started.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
@@ -2116,7 +2262,16 @@
                 });
                 
                 if (filteredDocs.length === 0) {
-                    navigatorsTableBody.innerHTML = '<tr><td colspan="7">No navigators found matching your search</td></tr>';
+                    navigatorsTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-search"></i>
+                                    <h3>No Navigators Found</h3>
+                                    <p>No navigators match your search criteria. Try adjusting your search terms.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
@@ -2235,7 +2390,16 @@
                 coordinatorsTableBody.innerHTML = '';
                 
                 if (usersSnapshot.empty) {
-                    coordinatorsTableBody.innerHTML = '<tr><td colspan="7">No coordinators found</td></tr>';
+                    coordinatorsTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-user-friends"></i>
+                                    <h3>No Coordinators Found</h3>
+                                    <p>There are currently no community coordinators in the system. Add a new coordinator to get started.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
@@ -2248,7 +2412,16 @@
                 });
                 
                 if (filteredDocs.length === 0) {
-                    coordinatorsTableBody.innerHTML = '<tr><td colspan="7">No coordinators found matching your search</td></tr>';
+                    coordinatorsTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <i class="fas fa-search"></i>
+                                    <h3>No Coordinators Found</h3>
+                                    <p>No community coordinators match your search criteria. Try adjusting your search terms.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
@@ -2364,7 +2537,16 @@
                 chaptersTableBody.innerHTML = '';
                 
                 if (chaptersSnapshot.empty) {
-                    chaptersTableBody.innerHTML = '<tr><td colspan="6">No chapters found</td></tr>';
+                    chaptersTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-book"></i>
+                                    <h3>No Chapters Found</h3>
+                                    <p>There are currently no chapters in the system. Create a new chapter to get started.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
@@ -2522,7 +2704,16 @@
                 coordinatorChaptersTableBody.innerHTML = '';
                 
                 if (chaptersSnapshot.empty) {
-                    coordinatorChaptersTableBody.innerHTML = '<tr><td colspan="6">No chapters found</td></tr>';
+                    coordinatorChaptersTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-book-reader"></i>
+                                    <h3>No Coordinator Chapters Found</h3>
+                                    <p>There are currently no coordinator chapters in the system. Create a new chapter to get started.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
@@ -2536,7 +2727,16 @@
                 });
                 
                 if (filteredDocs.length === 0) {
-                    coordinatorChaptersTableBody.innerHTML = '<tr><td colspan="6">No chapters found matching your search</td></tr>';
+                    coordinatorChaptersTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-search"></i>
+                                    <h3>No Chapters Found</h3>
+                                    <p>No coordinator chapters match your search criteria. Try adjusting your search terms.</p>
+                                </div>
+                            </td>
+                        </tr>`;
                     return;
                 }
                 
