@@ -1,4 +1,6 @@
 {
+  "chapter": 2,
+  "title": "Navigator – Roles & Responsibilities",
   "questions": [
     {
       "id": 1,
@@ -13,7 +15,7 @@
       "id": 2,
       "question": "The Navigator acts as a bridge between:",
       "optionA": "Patient and insurance",
-      "optionB": "Member, doctor, hospital, diagnostics",
+      "optionB": "Member and health care provider",
       "optionC": "Hospital and pharmacy",
       "optionD": "Doctor and insurance",
       "correct": "B"
@@ -59,7 +61,7 @@
       "question": "Which of the following is strictly prohibited?",
       "optionA": "Sending WhatsApp templates",
       "optionB": "Booking teleconsultation",
-      "optionC": "Saying \u201cthis is not serious\u201d",
+      "optionC": "Saying “this is not serious”",
       "optionD": "Clarifying logistics",
       "correct": "C"
     },
@@ -78,7 +80,7 @@
       "optionA": "Mild headache",
       "optionB": "Chest pain",
       "optionC": "Routine fever",
-      "optionD": "Scheduled follow-up",
+      "optionD": "Tooth ache",
       "correct": "B"
     },
     {
@@ -119,7 +121,7 @@
     },
     {
       "id": 14,
-      "question": "What does \u201cnon-judgemental\u201d communication mean?",
+      "question": "What does “non-judgemental” communication mean?",
       "optionA": "Agreeing with member always",
       "optionB": "Avoiding all opinions",
       "optionC": "Respecting concerns without bias",
@@ -149,7 +151,7 @@
       "question": "Which action creates legal risk?",
       "optionA": "Escalating red flags",
       "optionB": "Giving medical advice",
-      "optionC": "Recording calls",
+      "optionC": "Booking appointments",
       "optionD": "Coordinating care",
       "correct": "B"
     },

@@ -1,4 +1,6 @@
 {
+  "chapter": 1,
+  "title": "Introduction to AssistHealth",
   "questions": [
     {
       "id": 1,
@@ -14,7 +16,7 @@
       "question": "The core philosophy of AssistHealth is:",
       "optionA": "Fast treatment",
       "optionB": "Affordable healthcare",
-      "optionC": "Clear, coordinated, compassionate care",
+      "optionC": "Premium, personalised & priority care",
       "optionD": "Digital-first healthcare",
       "correct": "C"
     },
@@ -42,8 +44,8 @@
       "optionA": "Discounts",
       "optionB": "24/7 call centre",
       "optionC": "Dedicated human Navigator",
-      "optionD": "Free consultations",
-      "correct": "C"
+      "optionD": "All of the above",
+      "correct": "D"
     },
     {
       "id": 6,
@@ -56,12 +58,12 @@
     },
     {
       "id": 7,
-      "question": "Which group is explicitly included in AssistHealth\u2019s target users?",
-      "optionA": "Athletes",
-      "optionB": "Pregnant mothers",
-      "optionC": "Only ICU patients",
-      "optionD": "Medical professionals",
-      "correct": "B"
+      "question": "Which group is explicitly included in AssistHealth’s target users?",
+      "optionA": "Senior citizens",
+      "optionB": "Healthy individuals",
+      "optionC": "Cancer patients",
+      "optionD": "All of the above",
+      "correct": "D"
     },
     {
       "id": 8,
@@ -77,13 +79,13 @@
       "question": "How does a member usually initiate AssistHealth services?",
       "optionA": "Hospital referral",
       "optionB": "Insurance agent",
-      "optionC": "Website, phone, or message",
+      "optionC": "Phone or message the Navigator",
       "optionD": "Doctor prescription",
       "correct": "C"
     },
     {
       "id": 10,
-      "question": "Once a member contacts AssistHealth, what happens next?",
+      "question": "Once a member registers with AssistHealth, what happens next?",
       "optionA": "They are sent to a hospital",
       "optionB": "A doctor is assigned",
       "optionC": "A Navigator is assigned",
@@ -101,7 +103,7 @@
     },
     {
       "id": 12,
-      "question": "What does \u201cpremium, personalised, priority care\u201d imply?",
+      "question": "What does “premium, personalised, priority care” imply?",
       "optionA": "Luxury hospitals only",
       "optionB": "Faster appointments without coordination",
       "optionC": "Dedicated Navigator-led support",
