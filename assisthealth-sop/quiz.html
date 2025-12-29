@@ -766,43 +766,48 @@
             shuffledOptions.forEach(option => {
                 question.optionMap[option.label] = option.originalLabel;
             });
-            
+                            
             // Add shuffled options
             shuffledOptions.forEach(option => {
                 if (option.value) {
                     const optionCard = document.createElement('div');
                     optionCard.className = 'option-card';
-                    
+                                    
                     // Map the user's previous answer to the new label
                     const mappedOriginalLabel = question.optionMap[option.label];
-                    const answerKey = `${sectionKeys[currentSectionIndex]}_${question.id}`;
+                                    
+                    // Determine the answer key based on mode
+                    const answerKey = isSectionMode ? 
+                        `${sectionKeys[currentSectionIndex]}_${question.id}` : 
+                        question.id;
+                                    
                     if (userAnswers[answerKey] === mappedOriginalLabel) {
                         optionCard.classList.add('selected');
                     }
-                    
+                                    
                     optionCard.innerHTML = `
                         <div class="option-label">
                             <span class="option-letter">${option.label}</span>
                             <span>${option.value}</span>
                         </div>
                     `;
-                    
+                                    
                     optionCard.addEventListener('click', () => {
                         // Remove selected class from all options
                         document.querySelectorAll('.option-card').forEach(card => {
                             card.classList.remove('selected');
                         });
-                        
+                                        
                         // Add selected class to clicked option
                         optionCard.classList.add('selected');
-                        
-                        // Save answer with the ORIGINAL label (as stored in JSON) using section-specific key
-                        const answerKey = `${sectionKeys[currentSectionIndex]}_${question.id}`;
+                                        
+                        // Save answer with the ORIGINAL label (as stored in JSON) using appropriate key
+                        const answerKey = isSectionMode ? 
+                            `${sectionKeys[currentSectionIndex]}_${question.id}` : 
+                            question.id;
                         userAnswers[answerKey] = question.optionMap[option.label];
-                        
-
                     });
-                    
+                                    
                     optionsContainer.appendChild(optionCard);
                 }
             });
@@ -1039,7 +1044,13 @@
                     
                     questions.forEach(question => {
                         totalQuestionsCount++;
-                        const userAnswer = userAnswers[question.id];
+                        
+                        // Determine the answer key based on mode
+                        const answerKey = isSectionMode ? 
+                            `${sectionKeys[currentSectionIndex]}_${question.id}` : 
+                            question.id;
+                        
+                        const userAnswer = userAnswers[answerKey];
                         const isCorrect = userAnswer === question.correct;
                         console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
                         if (isCorrect) {
@@ -1213,54 +1224,107 @@
         
         // Calculate score for a specific section
         function calculateSectionScore(sectionKey) {
-            const sectionQuestions = sections[sectionKey].questions;
-            let correctCount = 0;
-            let totalCount = 0;
-            
-            sectionQuestions.forEach(question => {
-                totalCount++;
-                const answerKey = `${sectionKey}_${question.id}`;
-                const userAnswer = userAnswers[answerKey];
-                if (userAnswer && userAnswer === question.correct) {
-                    correctCount++;
-                }
-            });
-            
-            const score = Math.round((correctCount / totalCount) * 100);
-            
-            // Store section score
-            sectionScores[sectionKey] = {
-                correct: correctCount,
-                total: totalCount,
-                score: score
-            };
-            
-            return {
-                correct: correctCount,
-                total: totalCount,
-                score: score
-            };
+            // Check if we're in section mode first
+            if (!isSectionMode) {
+                // For standard mode, calculate score for current questions array
+                let correctCount = 0;
+                let totalCount = 0;
+                
+                questions.forEach(question => {
+                    totalCount++;
+                    const answerKey = question.id;
+                    const userAnswer = userAnswers[answerKey];
+                    if (userAnswer && userAnswer === question.correct) {
+                        correctCount++;
+                    }
+                });
+                
+                const score = Math.round((correctCount / totalCount) * 100);
+                
+                // For standard mode, use a default section key
+                const defaultSectionKey = 'standard';
+                
+                // Store section score
+                sectionScores[defaultSectionKey] = {
+                    correct: correctCount,
+                    total: totalCount,
+                    score: score
+                };
+                
+                return {
+                    correct: correctCount,
+                    total: totalCount,
+                    score: score
+                };
+            } else {
+                // Section mode
+                const sectionQuestions = sections[sectionKey].questions;
+                let correctCount = 0;
+                let totalCount = 0;
+                
+                sectionQuestions.forEach(question => {
+                    totalCount++;
+                    const answerKey = `${sectionKey}_${question.id}`;
+                    const userAnswer = userAnswers[answerKey];
+                    if (userAnswer && userAnswer === question.correct) {
+                        correctCount++;
+                    }
+                });
+                
+                const score = Math.round((correctCount / totalCount) * 100);
+                
+                // Store section score
+                sectionScores[sectionKey] = {
+                    correct: correctCount,
+                    total: totalCount,
+                    score: score
+                };
+                
+                return {
+                    correct: correctCount,
+                    total: totalCount,
+                    score: score
+                };
+            }
         }
         
         // Show result for a specific section
         function showSectionResult(sectionKey) {
             const sectionScore = calculateSectionScore(sectionKey);
             
-            // Create and show section result modal
-            resultTitle.textContent = `${sections[sectionKey].title} Complete`;
-            resultTitle.className = 'modal-title result-success';
-            
-            const passed = sectionScore.score >= 70;
-            resultMessage.innerHTML = `
-                <div class="section-result">
-                    <h3>${sections[sectionKey].title} (Section ${sectionKey}) Score: <strong>${sectionScore.score}%</strong></h3>
-                    <p>You answered <strong>${sectionScore.correct}</strong> out of <strong>${sectionScore.total}</strong> questions correctly.</p>
-                    <p>${passed ? '✅ Section passed!' : '❌ Section needs improvement.'}</p>
-                </div>
-                <p>Click continue to proceed to the next section.</p>
-            `;
-            resultMessage.className = 'modal-message result-success';
-            resultBtn.textContent = 'Continue to Next Section';
+            if (!isSectionMode) {
+                // For standard mode, show a simple result
+                resultTitle.textContent = 'Quiz Complete';
+                resultTitle.className = 'modal-title result-success';
+                
+                const passed = sectionScore.score >= 70;
+                resultMessage.innerHTML = `
+                    <div class="section-result">
+                        <h3>Score: <strong>${sectionScore.score}%</strong></h3>
+                        <p>You answered <strong>${sectionScore.correct}</strong> out of <strong>${sectionScore.total}</strong> questions correctly.</p>
+                        <p>${passed ? '✅ Quiz passed!' : '❌ Quiz needs improvement.'}</p>
+                    </div>
+                    <p>Click continue to finish the quiz.</p>
+                `;
+                resultMessage.className = 'modal-message result-success';
+                resultBtn.textContent = 'Go to Dashboard';
+            } else {
+                // Create and show section result modal
+                resultTitle.textContent = `${sections[sectionKey].title} Complete`;
+                resultTitle.className = 'modal-title result-success';
+                
+                const passed = sectionScore.score >= 70;
+                resultMessage.innerHTML = `
+                    <div class="section-result">
+                        <h3>${sections[sectionKey].title} (Section ${sectionKey}) Score: <strong>${sectionScore.score}%</strong></h3>
+                        <p>You answered <strong>${sectionScore.correct}</strong> out of <strong>${sectionScore.total}</strong> questions correctly.</p>
+                        <p>${passed ? '✅ Section passed!' : '❌ Section needs improvement.'}</p>
+                    </div>
+                    <p>Click continue to proceed to the next section.</p>
+                `;
+                resultMessage.className = 'modal-message result-success';
+                resultBtn.textContent = 'Continue to Next Section';
+            }
             
             // Show result modal
             resultModal.style.display = 'flex';
@@ -1268,53 +1332,80 @@
         
         // Show final result after completing all sections
         function showFinalResult() {
-            // Calculate scores for all sections if not already calculated
-            for (const sectionKey of sectionKeys) {
-                if (!sectionScores[sectionKey]) {
-                    calculateSectionScore(sectionKey);
+            if (isSectionMode) {
+                // Calculate scores for all sections if not already calculated
+                for (const sectionKey of sectionKeys) {
+                    if (!sectionScores[sectionKey]) {
+                        calculateSectionScore(sectionKey);
+                    }
                 }
+                
+                // Calculate total score
+                let totalCorrect = 0;
+                let totalQuestions = 0;
+                
+                for (const sectionKey in sectionScores) {
+                    totalCorrect += sectionScores[sectionKey].correct;
+                    totalQuestions += sectionScores[sectionKey].total;
+                }
+                
+                const totalScore = Math.round((totalCorrect / totalQuestions) * 100);
+                const passed = totalScore >= 70;
+                
+                // Update UI and show final result modal
+                resultTitle.textContent = 'Quiz Complete';
+                resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
+                
+                let resultMessageHTML = `
+                    <div class="final-result">
+                        <h3>Overall Score: <strong>${totalScore}%</strong></h3>
+                        <p>You answered <strong>${totalCorrect}</strong> out of <strong>${totalQuestions}</strong> questions correctly.</p>
+                    </div>
+                `;
+                
+                // Add section-wise scores
+                resultMessageHTML += '<div style="margin-top: 15px; text-align: left; padding-left: 20px;">';
+                resultMessageHTML += '<strong>Section-wise Scores:</strong><br/>';
+                for (const sectionKey in sectionScores) {
+                    const sectionScore = sectionScores[sectionKey];
+                    const sectionPassed = sectionScore.score >= 70;
+                    resultMessageHTML += `${sections[sectionKey].title} (Section ${sectionKey}): <strong>${sectionScore.score}%</strong> (${sectionScore.correct}/${sectionScore.total}) ${sectionPassed ? '✅' : '❌'}<br/>`;
+                }
+                resultMessageHTML += '</div>';
+                
+                resultMessageHTML += `
+                    <p>${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}</p>
+                `;
+                
+                resultMessage.innerHTML = resultMessageHTML;
+                resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
+                resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
+            } else {
+                // For standard mode, just calculate and show the score
+                const sectionScore = calculateSectionScore('standard'); // Use any key, it will use 'standard' in the function
+                
+                const totalScore = sectionScore.score;
+                const passed = totalScore >= 70;
+                
+                // Update UI and show final result modal
+                resultTitle.textContent = 'Quiz Complete';
+                resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
+                
+                let resultMessageHTML = `
+                    <div class="final-result">
+                        <h3>Overall Score: <strong>${totalScore}%</strong></h3>
+                        <p>You answered <strong>${sectionScore.correct}</strong> out of <strong>${sectionScore.total}</strong> questions correctly.</p>
+                    </div>
+                `;
+                
+                resultMessageHTML += `
+                    <p>${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}</p>
+                `;
+                
+                resultMessage.innerHTML = resultMessageHTML;
+                resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
+                resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
             }
-            
-            // Calculate total score
-            let totalCorrect = 0;
-            let totalQuestions = 0;
-            
-            for (const sectionKey in sectionScores) {
-                totalCorrect += sectionScores[sectionKey].correct;
-                totalQuestions += sectionScores[sectionKey].total;
-            }
-            
-            const totalScore = Math.round((totalCorrect / totalQuestions) * 100);
-            const passed = totalScore >= 70;
-            
-            // Update UI and show final result modal
-            resultTitle.textContent = 'Quiz Complete';
-            resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
-            
-            let resultMessageHTML = `
-                <div class="final-result">
-                    <h3>Overall Score: <strong>${totalScore}%</strong></h3>
-                    <p>You answered <strong>${totalCorrect}</strong> out of <strong>${totalQuestions}</strong> questions correctly.</p>
-                </div>
-            `;
-            
-            // Add section-wise scores
-            resultMessageHTML += '<div style="margin-top: 15px; text-align: left; padding-left: 20px;">';
-            resultMessageHTML += '<strong>Section-wise Scores:</strong><br/>';
-            for (const sectionKey in sectionScores) {
-                const sectionScore = sectionScores[sectionKey];
-                const sectionPassed = sectionScore.score >= 70;
-                resultMessageHTML += `${sections[sectionKey].title} (Section ${sectionKey}): <strong>${sectionScore.score}%</strong> (${sectionScore.correct}/${sectionScore.total}) ${sectionPassed ? '✅' : '❌'}<br/>`;
-            }
-            resultMessageHTML += '</div>';
-            
-            resultMessageHTML += `
-                <p>${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}</p>
-            `;
-            
-            resultMessage.innerHTML = resultMessageHTML;
-            resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
-            resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
             
             // Show result modal
             resultModal.style.display = 'flex';
