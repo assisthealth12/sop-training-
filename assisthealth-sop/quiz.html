@@ -436,6 +436,9 @@
         let timeLeft = 15 * 60; // 15 minutes in seconds
         let timerInterval;
         
+        // Section scores
+        let sectionScores = {};
+        
         // Section mode state
         let isSectionMode = false;
         let sections = {};
@@ -512,7 +515,7 @@
                     
                     // Move to previous section
                     currentSectionIndex--;
-                    questions = sections[sectionKeys[currentSectionIndex]];
+                    questions = sections[sectionKeys[currentSectionIndex]].questions;
                     currentQuestionIndex = questions.length - 1;
                     
                     // Reset timer for new section
@@ -539,18 +542,14 @@
                     // Move to next question in current section
                     currentQuestionIndex++;
                 } else if (currentSectionIndex < sectionKeys.length - 1) {
-                    // Move to next section
-                    // Save current section's remaining time
-                    sectionTimes[sectionKeys[currentSectionIndex]] = timeLeft;
-                    
-                    // Move to next section
-                    currentSectionIndex++;
-                    questions = sections[sectionKeys[currentSectionIndex]];
-                    currentQuestionIndex = 0;
-                    
-                    // Reset timer for new section
-                    timeLeft = sectionTimes[sectionKeys[currentSectionIndex]];
-                    startTimer();
+                    // This is the last question of the current section
+                    // Calculate and show section result
+                    showSectionResult(sectionKeys[currentSectionIndex]);
+                    return; // Don't proceed with navigation, user will click continue
+                } else {
+                    // Last question in last section - submit the quiz
+                    submitQuiz();
+                    return;
                 }
             } else {
                 // Standard mode navigation
@@ -565,7 +564,14 @@
         // Submit quiz
         submitBtn.addEventListener('click', () => {
             saveAnswer();
-            confirmModal.style.display = 'flex';
+            
+            // Check if we're at the last question of the last section
+            if (isSectionMode && currentSectionIndex === sectionKeys.length - 1 && currentQuestionIndex === questions.length - 1) {
+                // Directly submit the quiz since we're at the end
+                submitQuiz();
+            } else {
+                confirmModal.style.display = 'flex';
+            }
         });
 
         // Confirm submit
@@ -578,10 +584,27 @@
 
         // Result button
         resultBtn.addEventListener('click', () => {
-            resultModal.style.display = 'none';
-            
-            // If failed and user wants to retake
-            if (resultBtn.textContent === 'Try Again') {
+            // Check if this is a section result ("Continue to Next Section") or final result
+            if (resultBtn.textContent === 'Continue to Next Section') {
+                resultModal.style.display = 'none';
+                
+                // Move to next section
+                if (currentSectionIndex < sectionKeys.length - 1) {
+                    // Move to next section
+                    currentSectionIndex++;
+                    questions = sections[sectionKeys[currentSectionIndex]].questions;
+                    currentQuestionIndex = 0;
+                    
+                    // Reset timer for new section
+                    timeLeft = sectionTimes[sectionKeys[currentSectionIndex]];
+                    startTimer();
+                    
+                    displayQuestion();
+                }
+            } else if (resultBtn.textContent === 'Try Again') {
+                // If failed and user wants to retake
+                resultModal.style.display = 'none';
+                
                 // Reset quiz state for retake
                 resetQuizState();
                 displayQuestion();
@@ -589,6 +612,8 @@
                 startTimer();
             } else {
                 // Go to dashboard
+                resultModal.style.display = 'none';
+                
                 if (userRole === 'coordinator') {
                     window.location.href = 'coordinator-dashboard.html';
                 } else {
@@ -644,7 +669,7 @@
                     // Store copy of original sections
                     originalQuizData = { sections: {} };
                     for (const sectionKey in quizData.sections) {
-                        originalQuizData.sections[sectionKey] = [...quizData.sections[sectionKey]];
+                        originalQuizData.sections[sectionKey] = [...quizData.sections[sectionKey].questions];
                     }
                     
                     sections = quizData.sections || {};
@@ -662,11 +687,11 @@
                     
                     // Randomize questions in each section independently
                     for (const sectionKey of sectionKeys) {
-                        sections[sectionKey] = shuffleArray(sections[sectionKey]);
+                        sections[sectionKey].questions = shuffleArray(sections[sectionKey].questions);
                     }
                     
                     // Set questions to the first section's questions
-                    questions = sections[sectionKeys[0]] || [];
+                    questions = sections[sectionKeys[0]].questions || [];
                     
                     // Set initial time to first section's time
                     timeLeft = sectionTimes[sectionKeys[0]];
@@ -711,13 +736,13 @@
                 }
                 
                 // Update section header content (replace, don't append)
-                sectionHeader.textContent = `Section ${sectionKeys[currentSectionIndex]}`;
+                sectionHeader.textContent = `${sections[sectionKeys[currentSectionIndex]].title} (Section ${sectionKeys[currentSectionIndex]})`;
                 
                 // Update question text
                 questionText.textContent = question.question;
                 
                 // Update question count with section info
-                questionCount.textContent = `Section ${sectionKeys[currentSectionIndex]} - Question ${currentQuestionIndex + 1} of ${questions.length}`;
+                questionCount.textContent = `${sections[sectionKeys[currentSectionIndex]].title} (Section ${sectionKeys[currentSectionIndex]}) - Question ${currentQuestionIndex + 1} of ${questions.length}`;
             } else {
                 // Standard mode
                 questionText.textContent = question.question;
@@ -750,7 +775,8 @@
                     
                     // Map the user's previous answer to the new label
                     const mappedOriginalLabel = question.optionMap[option.label];
-                    if (userAnswers[question.id] === mappedOriginalLabel) {
+                    const answerKey = `${sectionKeys[currentSectionIndex]}_${question.id}`;
+                    if (userAnswers[answerKey] === mappedOriginalLabel) {
                         optionCard.classList.add('selected');
                     }
                     
@@ -770,8 +796,11 @@
                         // Add selected class to clicked option
                         optionCard.classList.add('selected');
                         
-                        // Save answer with the ORIGINAL label (as stored in JSON)
-                        userAnswers[question.id] = question.optionMap[option.label];
+                        // Save answer with the ORIGINAL label (as stored in JSON) using section-specific key
+                        const answerKey = `${sectionKeys[currentSectionIndex]}_${question.id}`;
+                        userAnswers[answerKey] = question.optionMap[option.label];
+                        
+
                     });
                     
                     optionsContainer.appendChild(optionCard);
@@ -798,7 +827,7 @@
                 } else if (currentSectionIndex < sectionKeys.length - 1) {
                     // Last question in current section, but not the last section
                     nextBtn.style.display = 'block';
-                    nextBtn.textContent = 'Next Section';
+                    nextBtn.textContent = 'Show Section Score';
                     submitBtn.style.display = 'none';
                 } else {
                     // Last question in last section
@@ -819,6 +848,7 @@
             // Reset standard quiz state
             currentQuestionIndex = 0;
             userAnswers = {};
+            sectionScores = {};
             
             // Reset section mode state if in section mode
             if (isSectionMode) {
@@ -835,9 +865,9 @@
                 
                 // Reshuffle questions for each section using original data
                 for (const sectionKey of sectionKeys) {
-                    sections[sectionKey] = shuffleArray(originalQuizData.sections[sectionKey]);
+                    sections[sectionKey].questions = shuffleArray(originalQuizData.sections[sectionKey]);
                 }
-                questions = sections[sectionKeys[0]] || [];
+                questions = sections[sectionKeys[0]].questions || [];
                 totalCorrect = 0;
                 totalQuestions = 0;
             } else {
@@ -895,7 +925,7 @@
             
             if (isSectionMode) {
                 // Show section-specific timer info
-                timerElement.textContent = `Section ${sectionKeys[currentSectionIndex]} - ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                timerElement.textContent = `${sections[sectionKeys[currentSectionIndex]].title} - ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
             } else {
                 // Standard mode timer display
                 timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -917,22 +947,92 @@
                 let totalQuestionsCount = 0;
                 
                 if (isSectionMode) {
-                    // Section mode: calculate score across all sections
-                    console.log('📝 Section mode: calculating score across all sections');
+                    // Section mode: show final result
+                    showFinalResult();
                     
-                    // Loop through all sections to calculate total score
-                    for (const sectionKey of sectionKeys) {
-                        const sectionQuestions = sections[sectionKey];
-                        sectionQuestions.forEach(question => {
-                            totalQuestionsCount++;
-                            const userAnswer = userAnswers[question.id];
-                            const isCorrect = userAnswer === question.correct;
-                            console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
-                            if (isCorrect) {
-                                correctAnswers++;
-                            }
-                        });
+                    // If quiz was passed, update user progress
+                    let totalCorrect = 0;
+                    let totalQuestions = 0;
+                    
+                    for (const sectionKey in sectionScores) {
+                        totalCorrect += sectionScores[sectionKey].correct;
+                        totalQuestions += sectionScores[sectionKey].total;
                     }
+                    
+                    const totalScore = Math.round((totalCorrect / totalQuestions) * 100);
+                    const passed = totalScore >= 70;
+                    
+                    if (passed) {
+                        console.log('✅ Quiz passed! Updating user progress...');
+                        
+                        const userId = auth.currentUser.uid;
+                        console.log('👤 User ID:', userId);
+                        
+                        // Determine collection based on role
+                        const collectionName = userRole === 'coordinator' ? 'coordinatorChapters' : 'chapters';
+                        
+                        // Get current chapter version
+                        console.log('📖 Fetching chapter data from collection:', collectionName);
+                        const chapterDoc = await db.collection(collectionName).doc(String(chapterId)).get();
+                        
+                        if (!chapterDoc.exists) {
+                            console.error('❌ Chapter document not found!');
+                            throw new Error('Chapter data not found');
+                        }
+                        
+                        const chapterData = chapterDoc.data();
+                        const chapterVersion = chapterData.version || 1;
+                        console.log('📖 Chapter version:', chapterVersion);
+                        
+                        // Get current user data to determine next chapter
+                        console.log('👤 Fetching user data...');
+                        const userDoc = await db.collection('users').doc(userId).get();
+                        
+                        if (!userDoc.exists) {
+                            console.error('❌ User document not found!');
+                            throw new Error('User data not found');
+                        }
+                        
+                        const userData = userDoc.data();
+                        console.log('👤 Current user data:', userData);
+                        
+                        const currentChapterNum = userData.currentChapter || 1;
+                        const completedChapterInt = parseInt(chapterId);
+                        const nextChapter = Math.max(currentChapterNum, completedChapterInt + 1);
+                        
+                        console.log('📈 Current chapter:', currentChapterNum);
+                        console.log('📈 Completed chapter:', completedChapterInt);
+                        console.log('📈 Next chapter will be:', nextChapter);
+                        
+                        // Build update object - FIXED: No more FieldValue.max!
+                        const updateObject = {
+                            completedChapters: firebase.firestore.FieldValue.arrayUnion(completedChapterInt),
+                            currentChapter: nextChapter
+                        };
+                        
+                        // Add chapter version to the update object
+                        const versionField = 'chapterVersionsCompleted.' + chapterId;
+                        updateObject[versionField] = chapterVersion;
+                        
+                        console.log('💾 Update object:', updateObject);
+                        console.log('💾 Updating user document...');
+                        
+                        // Update user document
+                        await db.collection('users').doc(userId).update(updateObject);
+                        
+                        console.log('✅ User progress updated successfully!');
+                        
+                        // Verify the update
+                        const updatedUserDoc = await db.collection('users').doc(userId).get();
+                        const updatedUserData = updatedUserDoc.data();
+                        console.log('✅ Updated user data:', updatedUserData);
+                        console.log('✅ Completed chapters:', updatedUserData.completedChapters);
+                        console.log('✅ Current chapter:', updatedUserData.currentChapter);
+                    } else {
+                        console.log('❌ Quiz failed - no progress updated');
+                    }
+                    
+                    return; // Exit early since we're showing the result
                 } else {
                     // Standard mode: calculate score for current questions
                     console.log('📝 Standard mode: calculating score for current questions');
@@ -1028,10 +1128,28 @@
                 // Update UI and show result modal
                 resultTitle.textContent = 'Quiz Result';
                 resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
-                resultMessage.innerHTML = `
+                
+                let resultMessageHTML = `
                     You scored <strong>${score}%</strong> (${correctAnswers} out of ${totalQuestionsCount} correct)<br/>
+                `;
+                
+                // Add section-wise scores if in section mode
+                if (isSectionMode) {
+                    resultMessageHTML += '<div style="margin-top: 15px; text-align: left; padding-left: 20px;">';
+                    resultMessageHTML += '<strong>Section-wise Scores:</strong><br/>';
+                    for (const sectionKey in sectionScores) {
+                        const sectionScore = sectionScores[sectionKey];
+                        const sectionPassed = sectionScore.score >= 70;
+                        resultMessageHTML += `Section ${sectionKey}: <strong>${sectionScore.score}%</strong> (${sectionScore.correct}/${sectionScore.total}) ${sectionPassed ? '✅' : '❌'}<br/>`;
+                    }
+                    resultMessageHTML += '</div>';
+                }
+                
+                resultMessageHTML += `
                     ${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}
                 `;
+                
+                resultMessage.innerHTML = resultMessageHTML;
                 resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
                 resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
                 
@@ -1091,6 +1209,115 @@
         // Utility function to show messages
         function showMessage(container, message, type) {
             container.innerHTML = `<div class="message ${type}">${message}</div>`;
+        }
+        
+        // Calculate score for a specific section
+        function calculateSectionScore(sectionKey) {
+            const sectionQuestions = sections[sectionKey].questions;
+            let correctCount = 0;
+            let totalCount = 0;
+            
+            sectionQuestions.forEach(question => {
+                totalCount++;
+                const answerKey = `${sectionKey}_${question.id}`;
+                const userAnswer = userAnswers[answerKey];
+                if (userAnswer && userAnswer === question.correct) {
+                    correctCount++;
+                }
+            });
+            
+            const score = Math.round((correctCount / totalCount) * 100);
+            
+            // Store section score
+            sectionScores[sectionKey] = {
+                correct: correctCount,
+                total: totalCount,
+                score: score
+            };
+            
+            return {
+                correct: correctCount,
+                total: totalCount,
+                score: score
+            };
+        }
+        
+        // Show result for a specific section
+        function showSectionResult(sectionKey) {
+            const sectionScore = calculateSectionScore(sectionKey);
+            
+            // Create and show section result modal
+            resultTitle.textContent = `${sections[sectionKey].title} Complete`;
+            resultTitle.className = 'modal-title result-success';
+            
+            const passed = sectionScore.score >= 70;
+            resultMessage.innerHTML = `
+                <div class="section-result">
+                    <h3>${sections[sectionKey].title} (Section ${sectionKey}) Score: <strong>${sectionScore.score}%</strong></h3>
+                    <p>You answered <strong>${sectionScore.correct}</strong> out of <strong>${sectionScore.total}</strong> questions correctly.</p>
+                    <p>${passed ? '✅ Section passed!' : '❌ Section needs improvement.'}</p>
+                </div>
+                <p>Click continue to proceed to the next section.</p>
+            `;
+            resultMessage.className = 'modal-message result-success';
+            resultBtn.textContent = 'Continue to Next Section';
+            
+            // Show result modal
+            resultModal.style.display = 'flex';
+        }
+        
+        // Show final result after completing all sections
+        function showFinalResult() {
+            // Calculate scores for all sections if not already calculated
+            for (const sectionKey of sectionKeys) {
+                if (!sectionScores[sectionKey]) {
+                    calculateSectionScore(sectionKey);
+                }
+            }
+            
+            // Calculate total score
+            let totalCorrect = 0;
+            let totalQuestions = 0;
+            
+            for (const sectionKey in sectionScores) {
+                totalCorrect += sectionScores[sectionKey].correct;
+                totalQuestions += sectionScores[sectionKey].total;
+            }
+            
+            const totalScore = Math.round((totalCorrect / totalQuestions) * 100);
+            const passed = totalScore >= 70;
+            
+            // Update UI and show final result modal
+            resultTitle.textContent = 'Quiz Complete';
+            resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
+            
+            let resultMessageHTML = `
+                <div class="final-result">
+                    <h3>Overall Score: <strong>${totalScore}%</strong></h3>
+                    <p>You answered <strong>${totalCorrect}</strong> out of <strong>${totalQuestions}</strong> questions correctly.</p>
+                </div>
+            `;
+            
+            // Add section-wise scores
+            resultMessageHTML += '<div style="margin-top: 15px; text-align: left; padding-left: 20px;">';
+            resultMessageHTML += '<strong>Section-wise Scores:</strong><br/>';
+            for (const sectionKey in sectionScores) {
+                const sectionScore = sectionScores[sectionKey];
+                const sectionPassed = sectionScore.score >= 70;
+                resultMessageHTML += `${sections[sectionKey].title} (Section ${sectionKey}): <strong>${sectionScore.score}%</strong> (${sectionScore.correct}/${sectionScore.total}) ${sectionPassed ? '✅' : '❌'}<br/>`;
+            }
+            resultMessageHTML += '</div>';
+            
+            resultMessageHTML += `
+                <p>${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}</p>
+            `;
+            
+            resultMessage.innerHTML = resultMessageHTML;
+            resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
+            resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
+            
+            // Show result modal
+            resultModal.style.display = 'flex';
         }
     </script>
 </body>

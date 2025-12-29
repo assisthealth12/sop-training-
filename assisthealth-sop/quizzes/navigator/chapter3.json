@@ -1,1569 +1,1619 @@
 {
   "sections": {
-    "3.1": [
-      {
-        "id": 1,
-        "question": "During the first onboarding call, what should a Navigator do FIRST?",
-        "optionA": "Ask about current symptoms",
-        "optionB": "Explain AssistHealth benefits in detail",
-        "optionC": "Introduce themselves and verify member identity",
-        "optionD": "Book a doctor consultation",
-        "correct": "C"
-      },
-      {
-        "id": 2,
-        "question": "Why must the onboarding explanation be limited to 60–90 seconds?",
-        "optionA": "Members don’t like long calls",
-        "optionB": "Legal compliance",
-        "optionC": "To keep communication clear, focused, and non-overwhelming",
-        "optionD": "To save Navigator time",
-        "correct": "C"
-      },
-      {
-        "id": 3,
-        "question": "A member asks, “Can you tell me if my BP report is normal?” What is the correct response?",
-        "optionA": "Explain the report in simple terms",
-        "optionB": "Ask them to Google normal values",
-        "optionC": "Say you’ll check with another Navigator",
-        "optionD": "Inform them this will be reviewed by a doctor and offer to book a consultation",
-        "correct": "D"
-      },
-      {
-        "id": 4,
-        "question": "Which information is mandatory during onboarding?",
-        "optionA": "Family income",
-        "optionB": "Blood group and emergency contact",
-        "optionC": "Religion",
-        "optionD": "Previous doctor opinions",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "Why must the member save the Navigator’s number?",
-        "optionA": "For marketing follow-ups",
-        "optionB": "To ensure the Navigator is their single healthcare contact point",
-        "optionC": "For WhatsApp promotions",
-        "optionD": "To reduce backend workload",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Which action is NOT allowed while collecting medical history?",
-        "optionA": "Recording allergies",
-        "optionB": "Uploading prescriptions",
-        "optionC": "Interpreting lab values",
-        "optionD": "Asking about lifestyle habits",
-        "correct": "C"
-      },
-      {
-        "id": 7,
-        "question": "A Premium member has no immediate health concern. What should the Navigator still do?",
-        "optionA": "Close the case",
-        "optionB": "Cancel membership",
-        "optionC": "Complete onboarding and explain year-round support",
-        "optionD": "Transfer them to a doctor",
-        "correct": "C"
-      },
-      {
-        "id": 8,
-        "question": "Why must all onboarding steps be documented in the dashboard?",
-        "optionA": "For internal reporting only",
-        "optionB": "For legal, clinical continuity, and audit readiness",
-        "optionC": "To track Navigator performance",
-        "optionD": "For marketing analytics",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Which of the following best describes the Navigator’s role during onboarding?",
-        "optionA": "Medical advisor",
-        "optionB": "Sales executive",
-        "optionC": "Healthcare coordinator and guide",
-        "optionD": "Emergency responder",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "A member asks, “Should I start this medicine today?” What should the Navigator do?",
-        "optionA": "Say no to medication",
-        "optionB": "Say yes if it’s common medicine",
-        "optionC": "Clarify that only the doctor can advise and offer to connect",
-        "optionD": "Ask the pharmacy",
-        "correct": "C"
-      }
-    ],
-    "3.2": [
-      {
-        "id": 1,
-        "question": "After the first unanswered call, what is the immediate next step?",
-        "optionA": "Call again after 5 minutes",
-        "optionB": "Escalate to manager",
-        "optionC": "Send a WhatsApp message",
-        "optionD": "Close onboarding",
-        "correct": "C"
-      },
-      {
-        "id": 2,
-        "question": "Why should Navigators avoid repeated calls?",
-        "optionA": "It looks unprofessional and intrusive",
-        "optionB": "Network issues",
-        "optionC": "It wastes dashboard space",
-        "optionD": "Members complain legally",
-        "correct": "A"
-      },
-      {
-        "id": 3,
-        "question": "How many call attempts are made before marking onboarding as pending?",
-        "optionA": "1",
-        "optionB": "2",
-        "optionC": "3",
-        "optionD": "Unlimited",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "What tone should the third message carry?",
-        "optionA": "Strict",
-        "optionB": "Urgent",
-        "optionC": "Polite, open-door, reassuring",
-        "optionD": "Sales-focused",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "A Special Package member is unreachable after 3 attempts. What should be done?",
-        "optionA": "Close the case",
-        "optionB": "Ignore",
-        "optionC": "Escalate to Ops / Team Lead",
-        "optionD": "Send promotional messages",
-        "correct": "C"
-      },
-      {
-        "id": 6,
-        "question": "If the member replies after two days, what is the correct action?",
-        "optionA": "Ask them to call later",
-        "optionB": "Restart marketing pitch",
-        "optionC": "Call back promptly and complete full onboarding",
-        "optionD": "Transfer to another Navigator",
-        "correct": "C"
-      },
-      {
-        "id": 7,
-        "question": "Why must every call attempt be logged?",
-        "optionA": "For training records",
-        "optionB": "For transparency, continuity, and accountability",
-        "optionC": "For billing",
-        "optionD": "For HR review",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Which is NOT appropriate in follow-up communication?",
-        "optionA": "Respectful tone",
-        "optionB": "Clear identification",
-        "optionC": "Guilt-based messaging",
-        "optionD": "Open invitation to connect",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "What does “Onboarding pending – Member not reachable” indicate?",
-        "optionA": "Membership cancelled",
-        "optionB": "Navigator failed",
-        "optionC": "Membership active but contact incomplete",
-        "optionD": "Case closed permanently",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "Why is patience critical in this SOP?",
-        "optionA": "To improve conversion",
-        "optionB": "To respect member autonomy and trust",
-        "optionC": "To reduce workload",
-        "optionD": "To meet daily targets",
-        "correct": "B"
-      }
-    ],
-    "3.3": [
-      {
-        "id": 1,
-        "question": "What information must be collected BEFORE booking?",
-        "optionA": "Only doctor name",
-        "optionB": "Complaints, preferred time, and reports",
-        "optionC": "Payment confirmation",
-        "optionD": "Diagnosis",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Who pays the hospital fees?",
-        "optionA": "AssistHealth",
-        "optionB": "Navigator",
-        "optionC": "Member directly",
-        "optionD": "Insurance always",
-        "correct": "C"
-      },
-      {
-        "id": 3,
-        "question": "Why is confirming POC availability 30 minutes before important?",
-        "optionA": "To avoid hospital delays and confusion",
-        "optionB": "For legal compliance",
-        "optionC": "For billing",
-        "optionD": "For marketing data",
-        "correct": "A"
-      },
-      {
-        "id": 4,
-        "question": "If the original POC is unavailable, what should the Navigator do?",
-        "optionA": "Cancel appointment",
-        "optionB": "Wait",
-        "optionC": "Arrange alternate POC and inform member",
-        "optionD": "Ask member to manage",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "What is the Navigator’s role after the consultation?",
-        "optionA": "Interpret prescription",
-        "optionB": "Decide next treatment",
-        "optionC": "Collect prescription and arrange follow-up support",
-        "optionD": "Advise medication changes",
-        "correct": "C"
-      },
-      {
-        "id": 6,
-        "question": "Why must insurance details be collected early?",
-        "optionA": "For discounts",
-        "optionB": "For admission and coordination efficiency",
-        "optionC": "For sales",
-        "optionD": "For lab tests",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "What should be included in the member confirmation message?",
-        "optionA": "Doctor opinion",
-        "optionB": "Diagnosis",
-        "optionC": "Date, time, location, and POC",
-        "optionD": "Cost comparison",
-        "correct": "C"
-      },
-      {
-        "id": 8,
-        "question": "Which behaviour violates SOP?",
-        "optionA": "Follow-up call next day",
-        "optionB": "Sharing logistics",
-        "optionC": "Criticising the hospital",
-        "optionD": "Updating dashboard",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "Why is post-visit follow-up important?",
-        "optionA": "To sell upgrades",
-        "optionB": "To ensure continuity of care and compliance",
-        "optionC": "To close the case quickly",
-        "optionD": "For reporting only",
-        "correct": "B"
-      },
-      {
-        "id": 10,
-        "question": "The core principle guiding this SOP is:",
-        "optionA": "Speed",
-        "optionB": "Cost saving",
-        "optionC": "Member-centric, coordinated care",
-        "optionD": "Hospital preference",
-        "correct": "C"
-      }
-    ],
-    "3.4": [
-      {
-        "id": 1,
-        "question": "What is the FIRST step when a member asks for a specialty without naming a doctor?",
-        "optionA": "Suggest a nearby hospital",
-        "optionB": "Review medical history and current complaint",
-        "optionC": "Book the earliest available specialist from AssistHealth list",
-        "optionD": "Ask about budget only",
-        "correct": "C"
-      },
-      {
-        "id": 2,
-        "question": "Why is an AH Physician consultation often recommended first?",
-        "optionA": "To increase revenue",
-        "optionB": "To confirm diagnosis and guide correct specialty",
-        "optionC": "To delay specialist visit",
-        "optionD": "To reduce workload",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "id": 3,
-        "question": "If the member declines an AH Physician consult, what should the Navigator do?",
-        "optionA": "Insist again",
-        "optionB": "Close the case",
-        "optionC": "Proceed with specialty booking",
-        "optionD": "Escalate to Ops",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "Which factor should NOT influence specialist selection?",
-        "optionA": "Location",
-        "optionB": "Availability",
-        "optionC": "Navigator’s personal preference",
-        "optionD": "Insurance compatibility",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "Why must charges be checked before confirming appointment?",
-        "optionA": "For negotiation",
-        "optionB": "For transparency and member consent",
-        "optionC": "For internal records",
-        "optionD": "For audit only",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "What must always be sent in the appointment confirmation?",
-        "optionA": "Diagnosis",
-        "optionB": "Estimated outcome",
-        "optionC": "Date, time, location, POC",
-        "optionD": "Medication advice",
-        "correct": "C"
-      },
-      {
-        "id": 7,
-        "question": "After consultation, what is the Navigator’s responsibility?",
-        "optionA": "Interpret the prescription",
-        "optionB": "Update medical history and support next steps",
-        "optionC": "Decide treatment plan",
-        "optionD": "Advise surgery",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Which action violates SOP?",
-        "optionA": "Collecting prescription",
-        "optionB": "Booking follow-up",
-        "optionC": "Explaining logistics",
-        "optionD": "Commenting “this doctor is better than others”",
-        "correct": "D"
-      },
-      {
-        "id": 9,
-        "question": "Why is neutrality critical in this SOP?",
-        "optionA": "Legal compliance",
-        "optionB": "Member trust and ethical coordination",
-        "optionC": "Speed",
-        "optionD": "Cost efficiency",
-        "correct": "B"
-      },
-      {
-        "id": 10,
-        "question": "The Navigator’s role here is best described as:",
-        "optionA": "Gatekeeper",
-        "optionB": "Decision-maker",
-        "optionC": "Informed coordinator",
-        "optionD": "Medical advisor",
-        "correct": "C"
-      }
-    ],
-    "3.5": [
-      {
-        "id": 1,
-        "question": "A member wants a health package without prescription. What should the Navigator suggest?",
-        "optionA": "Book directly",
-        "optionB": "Reject request",
-        "optionC": "Suggest AH Doctor consultation",
-        "optionD": "Ask lab to decide",
-        "correct": "C"
-      },
-      {
-        "id": 2,
-        "question": "Why must entitlement (free vs paid) be checked first?",
-        "optionA": "For discounts",
-        "optionB": "To avoid billing disputes",
-        "optionC": "For dashboard completion",
-        "optionD": "For marketing",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "Which lab should be preferred?",
-        "optionA": "Cheapest lab",
-        "optionB": "Nearest lab",
-        "optionC": "AH partner lab",
-        "optionD": "Any lab member chooses",
-        "correct": "D"
-      },
-      {
-        "id": 4,
-        "question": "What must be shared before the test?",
-        "optionA": "Diagnosis",
-        "optionB": "Test interpretation",
-        "optionC": "Preparation instructions (fasting, medications)",
-        "optionD": "Expected results",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "Why are reminders critical for diagnostics?",
-        "optionA": "Reduce no-shows and errors",
-        "optionB": "Increase calls",
-        "optionC": "To take discounts",
-        "optionD": "Lab convenience",
-        "correct": "A"
-      },
-      {
-        "id": 6,
-        "question": "After test completion, what is the Navigator’s duty?",
-        "optionA": "Explain report",
-        "optionB": "Upload report and offer doctor consult",
-        "optionC": "Close case",
-        "optionD": "Prescribe medication",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Who interprets diagnostic reports?",
-        "optionA": "Navigator",
-        "optionB": "Lab technician",
-        "optionC": "Doctor",
-        "optionD": "Backend team",
-        "correct": "C"
-      },
-      {
-        "id": 8,
-        "question": "If extra tests are advised by lab directly, what should Navigator do?",
-        "optionA": "Approve immediately",
-        "optionB": "Ask member to decide",
-        "optionC": "Inform member and seek consent",
-        "optionD": "Reject lab advice",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "Which is NOT allowed?",
-        "optionA": "Sending do’s & don’ts",
-        "optionB": "Tracking report ETA",
-        "optionC": "Explaining abnormal values",
-        "optionD": "Coordinating follow-up",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "The purpose of this SOP is to ensure:",
-        "optionA": "Fast testing",
-        "optionB": "Accurate, safe, and coordinated diagnostics",
-        "optionC": "Cost reduction",
-        "optionD": "Lab efficiency",
-        "correct": "B"
-      }
-    ],
-    "3.6": [
-      {
-        "id": 1,
-        "question": "What is the Navigator’s primary responsibility in palliative care?",
-        "optionA": "Medical advice",
-        "optionB": "Emotional + logistical coordination",
-        "optionC": "Treatment decisions",
-        "optionD": "Prognosis explanation",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Who explains medical aspects of palliative care?",
-        "optionA": "Navigator",
-        "optionB": "Family",
-        "optionC": "AH Doctor",
-        "optionD": "Nurse",
-        "correct": "C"
-      },
-      {
-        "id": 3,
-        "question": "Why must call frequency be customised?",
-        "optionA": "SOP flexibility",
-        "optionB": "Family convenience and emotional load",
-        "optionC": "Navigator availability",
-        "optionD": "Billing",
-        "correct": "B"
-      },
-      {
-        "id": 4,
-        "question": "Mapping HCPs is important because:",
-        "optionA": "Faster access near home",
-        "optionB": "Better pricing",
-        "optionC": "Legal compliance",
-        "optionD": "Marketing",
-        "correct": "A"
-      },
-      {
-        "id": 5,
-        "question": "What tone must a Navigator maintain?",
-        "optionA": "Clinical",
-        "optionB": "Casual",
-        "optionC": "Compassionate and calm",
-        "optionD": "Directive",
-        "correct": "C"
-      },
-      {
-        "id": 6,
-        "question": "Which action is prohibited?",
-        "optionA": "Scheduling AH doctor visits",
-        "optionB": "Regular family updates",
-        "optionC": "Predicting disease outcome",
-        "optionD": "Coordinating services",
-        "correct": "C"
-      },
-      {
-        "id": 7,
-        "question": "What defines success in palliative navigation?",
-        "optionA": "Fewer calls",
-        "optionB": "Smooth care, continuity and family confidence",
-        "optionC": "Faster closure",
-        "optionD": "Reduced cost",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "If family asks “How long will they survive?”, Navigator should:",
-        "optionA": "Give estimate",
-        "optionB": "Avoid question",
-        "optionC": "Redirect to doctor compassionately",
-        "optionD": "Ask another Navigator",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "Documentation is critical because:",
-        "optionA": "Legal and care continuity",
-        "optionB": "Performance metrics",
-        "optionC": "Billing",
-        "optionD": "Marketing",
-        "correct": "A"
-      },
-      {
-        "id": 10,
-        "question": "Palliative SOP primarily tests:",
-        "optionA": "Speed",
-        "optionB": "Sensitivity and boundaries",
-        "optionC": "Sales skill",
-        "optionD": "Technical knowledge",
-        "correct": "B"
-      }
-    ],
-    "3.7": [
-      {
-        "id": 1,
-        "question": "What must be collected from hospital before procedure?",
-        "optionA": "Diagnosis",
-        "optionB": "Procedure prep requirements",
-        "optionC": "Expected outcome",
-        "optionD": "Cost breakup only",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Why must preparation instructions be shared clearly?",
-        "optionA": "Reduce complications and delays",
-        "optionB": "SOP requirement only",
-        "optionC": "Hospital demand",
-        "optionD": "Documentation",
-        "correct": "A"
-      },
-      {
-        "id": 3,
-        "question": "What is a treatment plan in this SOP?",
-        "optionA": "Medical protocol",
-        "optionB": "Medication chart / precautions given by doctor",
-        "optionC": "Navigator advice",
-        "optionD": "Hospital policy",
-        "correct": "B"
-      },
-      {
-        "id": 4,
-        "question": "After procedure, what is mandatory?",
-        "optionA": "Close case",
-        "optionB": "Next-day follow-up call",
-        "optionC": "Report interpretation",
-        "optionD": "Billing",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "If medicines are needed post-procedure, Navigator should:",
-        "optionA": "Advise alternatives",
-        "optionB": "Arrange via pharmacy SOP",
-        "optionC": "Ask family to manage",
-        "optionD": "Prescribe generics",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Who decides follow-up appointment?",
-        "optionA": "Navigator",
-        "optionB": "Doctor",
-        "optionC": "Hospital admin",
-        "optionD": "Member alone",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Which action violates SOP?",
-        "optionA": "Sending POC details",
-        "optionB": "Explaining fasting",
-        "optionC": "Advising medication dosage",
-        "optionD": "Updating medical history",
-        "correct": "C"
-      },
-      {
-        "id": 8,
-        "question": "Why is post-procedure monitoring important?",
-        "optionA": "Reduce complaints",
-        "optionB": "Detect red flags early",
-        "optionC": "Documentation",
-        "optionD": "Performance tracking",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "If member feels unwell post-procedure, Navigator should:",
-        "optionA": "Reassure only",
-        "optionB": "Ask to wait",
-        "optionC": "Escalate to doctor/emergency SOP",
-        "optionD": "Google symptoms",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "This SOP reinforces:",
-        "optionA": "Medical authority",
-        "optionB": "Continuity and safety",
-        "optionC": "Cost efficiency",
-        "optionD": "Speed",
-        "correct": "B"
-      }
-    ],
-    "3.8": [
-      {
-        "id": 1,
-        "question": "Which factor is MOST critical when shortlisting providers?",
-        "optionA": "Availability and suitability",
-        "optionB": "Price only",
-        "optionC": "Distance only",
-        "optionD": "Navigator familiarity",
-        "correct": "A"
-      },
-      {
-        "id": 2,
-        "question": "If no provider is available, what is the correct action?",
-        "optionA": "Delay silently",
-        "optionB": "Escalate to central team",
-        "optionC": "Cancel request",
-        "optionD": "Ask member to search",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "Why is a conference call arranged?",
-        "optionA": "Formality",
-        "optionB": "Build trust and clarity",
-        "optionC": "Compliance",
-        "optionD": "Billing",
-        "correct": "B"
-      },
-      {
-        "id": 4,
-        "question": "Who defines scope of service?",
-        "optionA": "Navigator",
-        "optionB": "Provider alone",
-        "optionC": "Member + provider (coordinated by Navigator)",
-        "optionD": "Hospital",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "High-dependency cases require:",
-        "optionA": "Weekly checks",
-        "optionB": "Daily monitoring",
-        "optionC": "No follow-up",
-        "optionD": "Only documentation",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Payment method must be:",
-        "optionA": "Decided by Navigator",
-        "optionB": "Transparent and confirmed upfront",
-        "optionC": "Flexible",
-        "optionD": "Post-service",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Which is NOT Navigator’s role?",
-        "optionA": "Monitoring service quality",
-        "optionB": "Changing care plan",
-        "optionC": "Documentation",
-        "optionD": "Coordination",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Why is gender/language preference considered?",
-        "optionA": "Legal",
-        "optionB": "Member comfort and dignity",
-        "optionC": "Pricing",
-        "optionD": "Availability",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Documentation helps with:",
-        "optionA": "Audit and continuity",
-        "optionB": "Marketing",
-        "optionC": "HR",
-        "optionD": "Sales",
-        "correct": "A"
-      },
-      {
-        "id": 10,
-        "question": "Core principle here is:",
-        "optionA": "Speed",
-        "optionB": "Matching the right care to the right person",
-        "optionC": "Cost cutting",
-        "optionD": "Automation",
-        "correct": "B"
-      }
-    ],
-    "3.9": [
-      {
-        "id": 1,
-        "question": "What must be ensured BEFORE admission?",
-        "optionA": "Room availability",
-        "optionB": "Pre-op tests and instructions completed",
-        "optionC": "Payment only",
-        "optionD": "Doctor consent",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Why are fasting and medication rules critical?",
-        "optionA": "Hospital formality",
-        "optionB": "Patient safety",
-        "optionC": "Insurance",
-        "optionD": "Scheduling",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "What is Navigator’s role on admission day?",
-        "optionA": "Medical support",
-        "optionB": "Ensure clarity on where to go and what to do",
-        "optionC": "Assist surgery",
-        "optionD": "Decide discharge",
-        "correct": "B"
-      },
-      {
-        "id": 4,
-        "question": "Post-surgery coordination includes:",
-        "optionA": "Predicting recovery",
-        "optionB": "Sharing doctor’s instructions and follow-up plan",
-        "optionC": "Advising diet",
-        "optionD": "Cost discussion",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "Before discharge, which is mandatory?",
-        "optionA": "Final bill",
-        "optionB": "Discharge summary & instructions",
-        "optionC": "Doctor feedback",
-        "optionD": "Payment confirmation",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Why is a same-day discharge message important?",
-        "optionA": "Courtesy",
-        "optionB": "Emotional reassurance and continuity",
-        "optionC": "SOP compliance",
-        "optionD": "Billing",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "What should Navigator watch for post-discharge?",
-        "optionA": "Red-flag symptoms",
-        "optionB": "Billing issues",
-        "optionC": "Insurance claims",
-        "optionD": "Marketing feedback",
-        "correct": "A"
-      },
-      {
-        "id": 8,
-        "question": "If red flags appear post-surgery, Navigator should:",
-        "optionA": "Reassure",
-        "optionB": "Wait",
-        "optionC": "Activate emergency SOP",
-        "optionD": "Call surgeon later",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "Why is 48-hour check-in essential?",
-        "optionA": "Customer satisfaction",
-        "optionB": "Early detection of complications",
-        "optionC": "Reporting",
-        "optionD": "Sales",
-        "correct": "B"
-      },
-      {
-        "id": 10,
-        "question": "Surgery SOP demands:",
-        "optionA": "Speed",
-        "optionB": "Accuracy and zero assumptions",
-        "optionC": "Cost efficiency",
-        "optionD": "Automation",
-        "correct": "B"
-      }
-    ],
-    "3.10": [
-      {
-        "id": 1,
-        "question": "What is the FIRST thing a Navigator must do in an emergency?",
-        "optionA": "Call hospital",
-        "optionB": "Identify self and get details to coordinate with nearby hospital.",
-        "optionC": "Diagnose",
-        "optionD": "Give advice",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Critical information must be collected within:",
-        "optionA": "5 minutes",
-        "optionB": "2 minutes",
-        "optionC": "60 seconds",
-        "optionD": "No time limit",
-        "correct": "C"
-      },
-      {
-        "id": 3,
-        "question": "In life-threatening cases, what is the priority?",
-        "optionA": "Dashboard update",
-        "optionB": "Call AH doctor",
-        "optionC": "Ambulance activation",
-        "optionD": "Family notification",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "If the family cannot call 108, Navigator should:",
-        "optionA": "Wait",
-        "optionB": "Call ambulance immediately",
-        "optionC": "Ask neighbour",
-        "optionD": "Escalate later",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "What guidance is allowed?",
-        "optionA": "Diagnosis",
-        "optionB": "Home remedies",
-        "optionC": "Approved first-aid scripts only",
-        "optionD": "Medication advice",
-        "correct": "C"
-      },
-      {
-        "id": 6,
-        "question": "Which steps does a navigator take during emergency",
-        "optionA": "Ambulance called",
-        "optionB": "Hospital informed",
-        "optionC": "Dashboard updated",
-        "optionD": "All of the above",
-        "correct": "D"
-      },
-      {
-        "id": 7,
-        "question": "Documentation must be done within:",
-        "optionA": "1 hour",
-        "optionB": "30 minutes",
-        "optionC": "15 minutes",
-        "optionD": "End of day",
-        "correct": "C"
-      },
-      {
-        "id": 8,
-        "question": "Which action is STRICTLY prohibited?",
-        "optionA": "Staying on call",
-        "optionB": "Giving medical opinion",
-        "optionC": "Coordinating hospital",
-        "optionD": "Informing family",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Why is timestamped documentation critical?",
-        "optionA": "Audit, legal, and clinical clarity",
-        "optionB": "Billing",
-        "optionC": "Marketing",
-        "optionD": "HR",
-        "correct": "A"
-      },
-      {
-        "id": 10,
-        "question": "Emergency SOP exists to ensure:",
-        "optionA": "Speed only",
-        "optionB": "Safe escalation without medical overreach",
-        "optionC": "Cost control",
-        "optionD": "Hospital preference",
-        "correct": "B"
-      }
-    ],
-    "3.11": [
-      {
-        "id": 1,
-        "question": "When can a Navigator communicate with a relative?",
-        "optionA": "Anytime they call",
-        "optionB": "Only if they sound concerned",
-        "optionC": "Only if the relative is listed as alternate contact",
-        "optionD": "Only during emergencies",
-        "correct": "C"
-      },
-      {
-        "id": 2,
-        "question": "What must be verified before sharing any information?",
-        "optionA": "Doctor name",
-        "optionB": "Relative’s identity and relationship",
-        "optionC": "Diagnosis",
-        "optionD": "Hospital",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "What is the Navigator allowed to explain to relatives?",
-        "optionA": "Medical interpretation",
-        "optionB": "Treatment modification",
-        "optionC": "Appointments, tests, and coordination updates",
-        "optionD": "Prognosis",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "A relative asks, “Is this condition serious?” What should the Navigator do?",
-        "optionA": "Reassure them",
-        "optionB": "Give opinion",
-        "optionC": "Redirect to doctor politely",
-        "optionD": "Avoid answering",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "For NRI families, what is especially important?",
-        "optionA": "Detailed medical explanation",
-        "optionB": "Regular short updates respecting time zones",
-        "optionC": "Daily calls",
-        "optionD": "Cost discussion",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "What must NEVER be shared with relatives?",
-        "optionA": "Appointment date",
-        "optionB": "Diagnostic reports without consent",
-        "optionC": "Service updates",
-        "optionD": "Hospital location",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Why is consent critical in this SOP?",
-        "optionA": "Courtesy",
-        "optionB": "Legal and ethical compliance",
-        "optionC": "CRM policy",
-        "optionD": "Performance review",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Navigator’s role with relatives is best described as:",
-        "optionA": "Decision-maker",
-        "optionB": "Medical explainer",
-        "optionC": "Coordination bridge",
-        "optionD": "Emotional counsellor",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "If a relative pressures the Navigator for answers:",
-        "optionA": "Respond quickly",
-        "optionB": "Escalate to doctor",
-        "optionC": "Politely restate role boundaries",
-        "optionD": "End call abruptly",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "Proper relative communication builds:",
-        "optionA": "Faster closure",
-        "optionB": "Trust without overstepping",
-        "optionC": "Sales",
-        "optionD": "Reduced calls",
-        "correct": "B"
-      }
-    ],
-    "3.12": [
-      {
-        "id": 1,
-        "question": "How soon should a marketing lead be contacted?",
-        "optionA": "Within a week",
-        "optionB": "When convenient",
-        "optionC": "Preferably same day",
-        "optionD": "After verification",
-        "correct": "C"
-      },
-      {
-        "id": 2,
-        "question": "What is the goal of the first call?",
-        "optionA": "Close sale",
-        "optionB": "Understand healthcare need",
-        "optionC": "Pitch all plans",
-        "optionD": "Offer discounts",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "How many plans should be suggested?",
-        "optionA": "All available",
-        "optionB": "One best plan",
-        "optionC": "One or two relevant plans",
-        "optionD": "Only Premium",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "Which statement violates SOP?",
-        "optionA": "“We coordinate care.”",
-        "optionB": "“We give medical advice.”",
-        "optionC": "“You get a dedicated Navigator.”",
-        "optionD": "“We support hospital coordination.”",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "For one-time service seekers, Navigator should:",
-        "optionA": "Reject",
-        "optionB": "Push Premium",
-        "optionC": "Explain one-time service + upgrade option",
-        "optionD": "Escalate",
-        "correct": "C"
-      },
-      {
-        "id": 6,
-        "question": "What must be avoided completely?",
-        "optionA": "Clarifying benefits",
-        "optionB": "Making false promises",
-        "optionC": "Explaining plans",
-        "optionD": "Sharing brochure",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Why is tagging leads important?",
-        "optionA": "Marketing only",
-        "optionB": "Workflow clarity and follow-up discipline",
-        "optionC": "Sales pressure",
-        "optionD": "CRM formality",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Once a lead converts, what is next?",
-        "optionA": "Close case",
-        "optionB": "Handover to onboarding SOP",
-        "optionC": "Send invoice only",
-        "optionD": "Transfer to backend",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Navigator’s tone during lead handling should be:",
-        "optionA": "Aggressive",
-        "optionB": "Scripted sales",
-        "optionC": "Supportive and informative",
-        "optionD": "Casual",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "This SOP protects AssistHealth from:",
-        "optionA": "Missed calls",
-        "optionB": "Legal and reputation risk",
-        "optionC": "High workload",
-        "optionD": "Slow growth",
-        "correct": "B"
-      }
-    ],
-    "3.13": [
-      {
-        "id": 1,
-        "question": "What is mandatory before confirming companion service?",
-        "optionA": "Verbal approval",
-        "optionB": "Advance payment for minimum hours",
-        "optionC": "Doctor approval",
-        "optionD": "Insurance confirmation",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Why must requirements be given at least 1 days prior?",
-        "optionA": "Billing",
-        "optionB": "Better provider matching and availability",
-        "optionC": "SOP formality",
-        "optionD": "Member preference",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "What must be shared with the companion?",
-        "optionA": "Diagnosis",
-        "optionB": "Full medical history",
-        "optionC": "Duties and service expectations",
-        "optionD": "Treatment plan",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "On service day, what confirms service start?",
-        "optionA": "Companion starts travel",
-        "optionB": "Companion reaches location and confirms via call",
-        "optionC": "Appointment time",
-        "optionD": "Payment receipt",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "Why is a conference call done initially?",
-        "optionA": "Compliance",
-        "optionB": "To confirm presence and transparency",
-        "optionC": "Courtesy",
-        "optionD": "Billing",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Who tracks service duration?",
-        "optionA": "Member",
-        "optionB": "Companion only",
-        "optionC": "Navigator and companion",
-        "optionD": "Hospital",
-        "correct": "C"
-      },
-      {
-        "id": 7,
-        "question": "What must be shared post-service?",
-        "optionA": "Feedback only",
-        "optionB": "Prescription/discharge summary highlights",
-        "optionC": "Diagnosis",
-        "optionD": "Billing invoice",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Which cost is NOT included in service fee?",
-        "optionA": "Companion time",
-        "optionB": "Travel cost",
-        "optionC": "Coordination",
-        "optionD": "Hospital visit",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Navigator’s responsibility includes:",
-        "optionA": "Medical supervision",
-        "optionB": "Service quality check",
-        "optionC": "Companion medical decisions",
-        "optionD": "Surgery assistance",
-        "correct": "B"
-      },
-      {
-        "id": 10,
-        "question": "This SOP ensures:",
-        "optionA": "Faster discharges",
-        "optionB": "Reliable human support without risk",
-        "optionC": "Cost reduction",
-        "optionD": "Hospital preference",
-        "correct": "B"
-      }
-    ],
-    "3.14": [
-      {
-        "id": 1,
-        "question": "What is required before placing any pharmacy order?",
-        "optionA": "Diagnosis",
-        "optionB": "Prescription",
-        "optionC": "Doctor opinion",
-        "optionD": "Insurance",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Navigator must confirm which details before delivery?",
-        "optionA": "Price only",
-        "optionB": "Member address and location",
-        "optionC": "Pharmacy rating",
-        "optionD": "Stock source",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "Who decides medicine substitution?",
-        "optionA": "Navigator",
-        "optionB": "Pharmacy",
-        "optionC": "Doctor",
-        "optionD": "Backend team",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "What must Navigator do before confirming order?",
-        "optionA": "Negotiate price",
-        "optionB": "Inform member and take approval",
-        "optionC": "Auto-process",
-        "optionD": "Compare brands",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "Payment is done:",
-        "optionA": "Always via AssistHealth",
-        "optionB": "Always directly",
-        "optionC": "As per policy and case type",
-        "optionD": "After delivery only",
-        "correct": "C"
-      },
-      {
-        "id": 6,
-        "question": "Which action violates SOP?",
-        "optionA": "Sharing delivery ETA",
-        "optionB": "Suggesting alternative medicine",
-        "optionC": "Confirming availability",
-        "optionD": "Coordinating delivery",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Medical equipment orders require:",
-        "optionA": "Prescription or doctor advice",
-        "optionB": "Navigator judgement",
-        "optionC": "Member request only",
-        "optionD": "Vendor suggestion",
-        "correct": "A"
-      },
-      {
-        "id": 8,
-        "question": "Why is confirmation critical?",
-        "optionA": "Avoid errors and disputes",
-        "optionB": "Faster processing",
-        "optionC": "CRM update",
-        "optionD": "Audit only",
-        "correct": "A"
-      },
-      {
-        "id": 9,
-        "question": "Navigator’s role is best described as:",
-        "optionA": "Seller",
-        "optionB": "Pharmacist",
-        "optionC": "Coordinator",
-        "optionD": "Advisor",
-        "correct": "C"
-      },
-      {
-        "id": 10,
-        "question": "This SOP primarily protects:",
-        "optionA": "Revenue",
-        "optionB": "Medical safety and legality",
-        "optionC": "Delivery speed",
-        "optionD": "Vendor interest",
-        "correct": "B"
-      }
-    ],
-    "3.15": [
-      {
-        "id": 1,
-        "question": "What insurance details are collected during onboarding?",
-        "optionA": "Claim history",
-        "optionB": "Policy type, insurer, TPA",
-        "optionC": "Premium amount",
-        "optionD": "Agent details",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Navigator’s role in insurance is to:",
-        "optionA": "Process claims",
-        "optionB": "Interpret policy",
-        "optionC": "Coordinate and connect",
-        "optionD": "Approve coverage",
-        "correct": "C"
-      },
-      {
-        "id": 3,
-        "question": "If a member has no insurance, Navigator should:",
-        "optionA": "Ignore",
-        "optionB": "Suggest and arrange call with AH insurance provider",
-        "optionC": "Sell policy",
-        "optionD": "Advise best plan",
-        "correct": "B"
-      },
-      {
-        "id": 4,
-        "question": "Which is NOT allowed?",
-        "optionA": "Collect details",
-        "optionB": "Arrange conference call",
-        "optionC": "Advise policy selection",
-        "optionD": "Document information",
-        "correct": "C"
-      },
-      {
-        "id": 5,
-        "question": "Why must Navigators avoid policy advice?",
-        "optionA": "Time",
-        "optionB": "Legal and regulatory risk",
-        "optionC": "CRM policy",
-        "optionD": "Complexity",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Insurance coordination supports:",
-        "optionA": "Faster discharge",
-        "optionB": "Financial preparedness",
-        "optionC": "Medical decisions",
-        "optionD": "Diagnosis",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Navigator should never promise:",
-        "optionA": "Discounts",
-        "optionB": "Claim approval",
-        "optionC": "Coordination support",
-        "optionD": "Provider contact",
-        "correct": "B"
-      },
-      {
-        "id": 8,
-        "question": "Correct tone during insurance discussion:",
-        "optionA": "Sales-driven",
-        "optionB": "Neutral and facilitative",
-        "optionC": "Technical",
-        "optionD": "Casual",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Documentation is needed for:",
-        "optionA": "Audit and continuity",
-        "optionB": "Billing",
-        "optionC": "Sales",
-        "optionD": "HR",
-        "correct": "A"
-      },
-      {
-        "id": 10,
-        "question": "This SOP exists to:",
-        "optionA": "Increase conversions",
-        "optionB": "Protect members from misinformation",
-        "optionC": "Replace agents",
-        "optionD": "Speed claims",
-        "correct": "B"
-      }
-    ],
-    "3.16": [
-      {
-        "id": 1,
-        "question": "First step in a school emergency?",
-        "optionA": "Call parents",
-        "optionB": "Call AssistHealth Navigator",
-        "optionC": "Diagnose",
-        "optionD": "Call hospital",
-        "correct": "B"
-      },
-      {
-        "id": 2,
-        "question": "Critical information must be gathered within:",
-        "optionA": "5 minutes",
-        "optionB": "2 minutes",
-        "optionC": "60 seconds",
-        "optionD": "No limit",
-        "correct": "C"
-      },
-      {
-        "id": 3,
-        "question": "If life-threatening, priority is:",
-        "optionA": "Documentation",
-        "optionB": "Ambulance activation",
-        "optionC": "School approval",
-        "optionD": "Insurance",
-        "correct": "B"
-      },
-      {
-        "id": 4,
-        "question": "Who should call 108 first?",
-        "optionA": "Navigator",
-        "optionB": "School staff",
-        "optionC": "Parent",
-        "optionD": "Hospital",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "If school staff cannot call 108, AH nurse should:",
-        "optionA": "Wait",
-        "optionB": "Call ambulance",
-        "optionC": "Escalate later",
-        "optionD": "Ask principal",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "What guidance is allowed?",
-        "optionA": "Medical advice",
-        "optionB": "Diagnosis",
-        "optionC": "Approved first-aid scripts only",
-        "optionD": "Medication",
-        "correct": "C"
-      },
-      {
-        "id": 7,
-        "question": "What steps should the AH nurse follow?",
-        "optionA": "Parent informed",
-        "optionB": "Ambulance booked",
-        "optionC": "CRM updated",
-        "optionD": "All of the above",
-        "correct": "D"
-      },
-      {
-        "id": 8,
-        "question": "Documentation timeline?",
-        "optionA": "End of day",
-        "optionB": "1 hour",
-        "optionC": "15 minutes",
-        "optionD": "Next day",
-        "correct": "C"
-      },
-      {
-        "id": 9,
-        "question": "This SOP primarily protects:",
-        "optionA": "School reputation",
-        "optionB": "Child safety and legal compliance",
-        "optionC": "Navigator workload",
-        "optionD": "Insurance",
-        "correct": "B"
-      },
-      {
-        "id": 10,
-        "question": "Any deviation here requires:",
-        "optionA": "Explanation",
-        "optionB": "Immediate retraining",
-        "optionC": "Warning",
-        "optionD": "Escalation only",
-        "correct": "B"
-      }
-    ],
-    "3.17": [
-      {
-        "id": 1,
-        "question": "Who can refer new members?",
-        "optionA": "Anyone",
-        "optionB": "Existing members",
-        "optionC": "Navigators only",
-        "optionD": "Hospitals",
-        "correct": "A"
-      },
-      {
-        "id": 2,
-        "question": "Navigator’s role in referrals is to:",
-        "optionA": "Push aggressively",
-        "optionB": "Explain services and benefits clearly",
-        "optionC": "Promise rewards",
-        "optionD": "Auto-enrol",
-        "correct": "B"
-      },
-      {
-        "id": 3,
-        "question": "Referral bonus is:",
-        "optionA": "Cash",
-        "optionB": "Discount",
-        "optionC": "Wallet credit for AH services",
-        "optionD": "Gift voucher",
-        "correct": "C"
-      },
-      {
-        "id": 4,
-        "question": "When can referral bonus be used?",
-        "optionA": "Anytime",
-        "optionB": "Only for AssistHealth services",
-        "optionC": "Withdrawn as cash",
-        "optionD": "Transferred",
-        "correct": "B"
-      },
-      {
-        "id": 5,
-        "question": "Which behaviour violates SOP?",
-        "optionA": "Explaining referral benefits",
-        "optionB": "Forcing referral",
-        "optionC": "Thanking member",
-        "optionD": "Documenting referral",
-        "correct": "B"
-      },
-      {
-        "id": 6,
-        "question": "Why must referral explanation be transparent?",
-        "optionA": "Legal compliance",
-        "optionB": "Trust and brand integrity",
-        "optionC": "Faster growth",
-        "optionD": "CRM",
-        "correct": "B"
-      },
-      {
-        "id": 7,
-        "question": "Navigator should NEVER:",
-        "optionA": "Mention referral option",
-        "optionB": "Explain wallet usage",
-        "optionC": "Guarantee rewards",
-        "optionD": "Appreciate referrals",
-        "correct": "C"
-      },
-      {
-        "id": 8,
-        "question": "Referral SOP primarily aims to:",
-        "optionA": "Increase sales",
-        "optionB": "Encourage organic trust-based growth",
-        "optionC": "Reward Navigators",
-        "optionD": "Reduce marketing cost",
-        "correct": "B"
-      },
-      {
-        "id": 9,
-        "question": "Documentation of referrals ensures:",
-        "optionA": "Audit and clarity",
-        "optionB": "Promotion",
-        "optionC": "HR tracking",
-        "optionD": "Lead volume",
-        "correct": "A"
-      },
-      {
-        "id": 10,
-        "question": "Ethical referral behaviour reflects:",
-        "optionA": "Sales mindset",
-        "optionB": "Healthcare professionalism",
-        "optionC": "Competition",
-        "optionD": "Marketing pressure",
-        "correct": "B"
-      }
-    ]
+    "3.1": {
+      "title": "Onboarding a Member (Basic / Premium)",
+      "questions": [
+        {
+          "id": 1,
+          "question": "During the first onboarding call, what should a Navigator do FIRST?",
+          "optionA": "Ask about current symptoms",
+          "optionB": "Explain AssistHealth benefits in detail",
+          "optionC": "Introduce themselves and verify member identity",
+          "optionD": "Book a doctor consultation",
+          "correct": "C"
+        },
+        {
+          "id": 2,
+          "question": "Why must the onboarding explanation be limited to 60–90 seconds?",
+          "optionA": "Members don’t like long calls",
+          "optionB": "Legal compliance",
+          "optionC": "To keep communication clear, focused, and non-overwhelming",
+          "optionD": "To save Navigator time",
+          "correct": "C"
+        },
+        {
+          "id": 3,
+          "question": "A member asks, “Can you tell me if my BP report is normal?” What is the correct response?",
+          "optionA": "Explain the report in simple terms",
+          "optionB": "Ask them to Google normal values",
+          "optionC": "Say you’ll check with another Navigator",
+          "optionD": "Inform them this will be reviewed by a doctor and offer to book a consultation",
+          "correct": "D"
+        },
+        {
+          "id": 4,
+          "question": "Which information is mandatory during onboarding?",
+          "optionA": "Family income",
+          "optionB": "Blood group and emergency contact",
+          "optionC": "Religion",
+          "optionD": "Previous doctor opinions",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "Why must the member save the Navigator’s number?",
+          "optionA": "For marketing follow-ups",
+          "optionB": "To ensure the Navigator is their single healthcare contact point",
+          "optionC": "For WhatsApp promotions",
+          "optionD": "To reduce backend workload",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Which action is NOT allowed while collecting medical history?",
+          "optionA": "Recording allergies",
+          "optionB": "Uploading prescriptions",
+          "optionC": "Interpreting lab values",
+          "optionD": "Asking about lifestyle habits",
+          "correct": "C"
+        },
+        {
+          "id": 7,
+          "question": "A Premium member has no immediate health concern. What should the Navigator still do?",
+          "optionA": "Close the case",
+          "optionB": "Cancel membership",
+          "optionC": "Complete onboarding and explain year-round support",
+          "optionD": "Transfer them to a doctor",
+          "correct": "C"
+        },
+        {
+          "id": 8,
+          "question": "Why must all onboarding steps be documented in the dashboard?",
+          "optionA": "For internal reporting only",
+          "optionB": "For legal, clinical continuity, and audit readiness",
+          "optionC": "To track Navigator performance",
+          "optionD": "For marketing analytics",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Which of the following best describes the Navigator’s role during onboarding?",
+          "optionA": "Medical advisor",
+          "optionB": "Sales executive",
+          "optionC": "Healthcare coordinator and guide",
+          "optionD": "Emergency responder",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "A member asks, “Should I start this medicine today?” What should the Navigator do?",
+          "optionA": "Say no to medication",
+          "optionB": "Say yes if it’s common medicine",
+          "optionC": "Clarify that only the doctor can advise and offer to connect",
+          "optionD": "Ask the pharmacy",
+          "correct": "C"
+        }
+      ]
+    },
+    "3.2": {
+      "title": "If the Member Does Not Answer the Call",
+      "questions": [
+        {
+          "id": 1,
+          "question": "After the first unanswered call, what is the immediate next step?",
+          "optionA": "Call again after 5 minutes",
+          "optionB": "Escalate to manager",
+          "optionC": "Send a WhatsApp message",
+          "optionD": "Close onboarding",
+          "correct": "C"
+        },
+        {
+          "id": 2,
+          "question": "Why should Navigators avoid repeated calls?",
+          "optionA": "It looks unprofessional and intrusive",
+          "optionB": "Network issues",
+          "optionC": "It wastes dashboard space",
+          "optionD": "Members complain legally",
+          "correct": "A"
+        },
+        {
+          "id": 3,
+          "question": "How many call attempts are made before marking onboarding as pending?",
+          "optionA": "1",
+          "optionB": "2",
+          "optionC": "3",
+          "optionD": "Unlimited",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "What tone should the third message carry?",
+          "optionA": "Strict",
+          "optionB": "Urgent",
+          "optionC": "Polite, open-door, reassuring",
+          "optionD": "Sales-focused",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "A Special Package member is unreachable after 3 attempts. What should be done?",
+          "optionA": "Close the case",
+          "optionB": "Ignore",
+          "optionC": "Escalate to Ops / Team Lead",
+          "optionD": "Send promotional messages",
+          "correct": "C"
+        },
+        {
+          "id": 6,
+          "question": "If the member replies after two days, what is the correct action?",
+          "optionA": "Ask them to call later",
+          "optionB": "Restart marketing pitch",
+          "optionC": "Call back promptly and complete full onboarding",
+          "optionD": "Transfer to another Navigator",
+          "correct": "C"
+        },
+        {
+          "id": 7,
+          "question": "Why must every call attempt be logged?",
+          "optionA": "For training records",
+          "optionB": "For transparency, continuity, and accountability",
+          "optionC": "For billing",
+          "optionD": "For HR review",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Which is NOT appropriate in follow-up communication?",
+          "optionA": "Respectful tone",
+          "optionB": "Clear identification",
+          "optionC": "Guilt-based messaging",
+          "optionD": "Open invitation to connect",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "What does “Onboarding pending – Member not reachable” indicate?",
+          "optionA": "Membership cancelled",
+          "optionB": "Navigator failed",
+          "optionC": "Membership active but contact incomplete",
+          "optionD": "Case closed permanently",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "Why is patience critical in this SOP?",
+          "optionA": "To improve conversion",
+          "optionB": "To respect member autonomy and trust",
+          "optionC": "To reduce workload",
+          "optionD": "To meet daily targets",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.3": {
+      "title": "Booking Appointment with Specialist / Hospital of Member’s Choice",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What information must be collected BEFORE booking?",
+          "optionA": "Only doctor name",
+          "optionB": "Complaints, preferred time, and reports",
+          "optionC": "Payment confirmation",
+          "optionD": "Diagnosis",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Who pays the hospital fees?",
+          "optionA": "AssistHealth",
+          "optionB": "Navigator",
+          "optionC": "Member directly",
+          "optionD": "Insurance always",
+          "correct": "C"
+        },
+        {
+          "id": 3,
+          "question": "Why is confirming POC availability 30 minutes before important?",
+          "optionA": "To avoid hospital delays and confusion",
+          "optionB": "For legal compliance",
+          "optionC": "For billing",
+          "optionD": "For marketing data",
+          "correct": "A"
+        },
+        {
+          "id": 4,
+          "question": "If the original POC is unavailable, what should the Navigator do?",
+          "optionA": "Cancel appointment",
+          "optionB": "Wait",
+          "optionC": "Arrange alternate POC and inform member",
+          "optionD": "Ask member to manage",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "What is the Navigator’s role after the consultation?",
+          "optionA": "Interpret prescription",
+          "optionB": "Decide next treatment",
+          "optionC": "Collect prescription and arrange follow-up support",
+          "optionD": "Advise medication changes",
+          "correct": "C"
+        },
+        {
+          "id": 6,
+          "question": "Why must insurance details be collected early?",
+          "optionA": "For discounts",
+          "optionB": "For admission and coordination efficiency",
+          "optionC": "For sales",
+          "optionD": "For lab tests",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "What should be included in the member confirmation message?",
+          "optionA": "Doctor opinion",
+          "optionB": "Diagnosis",
+          "optionC": "Date, time, location, and POC",
+          "optionD": "Cost comparison",
+          "correct": "C"
+        },
+        {
+          "id": 8,
+          "question": "Which behaviour violates SOP?",
+          "optionA": "Follow-up call next day",
+          "optionB": "Sharing logistics",
+          "optionC": "Criticising the hospital",
+          "optionD": "Updating dashboard",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "Why is post-visit follow-up important?",
+          "optionA": "To sell upgrades",
+          "optionB": "To ensure continuity of care and compliance",
+          "optionC": "To close the case quickly",
+          "optionD": "For reporting only",
+          "correct": "B"
+        },
+        {
+          "id": 10,
+          "question": "The core principle guiding this SOP is:",
+          "optionA": "Speed",
+          "optionB": "Cost saving",
+          "optionC": "Member-centric, coordinated care",
+          "optionD": "Hospital preference",
+          "correct": "C"
+        }
+      ]
+    },
+    "3.4": {
+      "title": "Member Wants a Specialty but No Specific Doctor",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is the FIRST step when a member asks for a specialty without naming a doctor?",
+          "optionA": "Suggest a nearby hospital",
+          "optionB": "Review medical history and current complaint",
+          "optionC": "Book the earliest available specialist from AssistHealth list",
+          "optionD": "Ask about budget only",
+          "correct": "C"
+        },
+        {
+          "id": 2,
+          "question": "Why is an AH Physician consultation often recommended first?",
+          "optionA": "To increase revenue",
+          "optionB": "To confirm diagnosis and guide correct specialty",
+          "optionC": "To delay specialist visit",
+          "optionD": "To reduce workload",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "If the member declines an AH Physician consult, what should the Navigator do?",
+          "optionA": "Insist again",
+          "optionB": "Close the case",
+          "optionC": "Proceed with specialty booking",
+          "optionD": "Escalate to Ops",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "Which factor should NOT influence specialist selection?",
+          "optionA": "Location",
+          "optionB": "Availability",
+          "optionC": "Navigator’s personal preference",
+          "optionD": "Insurance compatibility",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "Why must charges be checked before confirming appointment?",
+          "optionA": "For negotiation",
+          "optionB": "For transparency and member consent",
+          "optionC": "For internal records",
+          "optionD": "For audit only",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "What must always be sent in the appointment confirmation?",
+          "optionA": "Diagnosis",
+          "optionB": "Estimated outcome",
+          "optionC": "Date, time, location, POC",
+          "optionD": "Medication advice",
+          "correct": "C"
+        },
+        {
+          "id": 7,
+          "question": "After consultation, what is the Navigator’s responsibility?",
+          "optionA": "Interpret the prescription",
+          "optionB": "Update medical history and support next steps",
+          "optionC": "Decide treatment plan",
+          "optionD": "Advise surgery",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Which action violates SOP?",
+          "optionA": "Collecting prescription",
+          "optionB": "Booking follow-up",
+          "optionC": "Explaining logistics",
+          "optionD": "Commenting “this doctor is better than others”",
+          "correct": "D"
+        },
+        {
+          "id": 9,
+          "question": "Why is neutrality critical in this SOP?",
+          "optionA": "Legal compliance",
+          "optionB": "Member trust and ethical coordination",
+          "optionC": "Speed",
+          "optionD": "Cost efficiency",
+          "correct": "B"
+        },
+        {
+          "id": 10,
+          "question": "The Navigator’s role here is best described as:",
+          "optionA": "Gatekeeper",
+          "optionB": "Decision-maker",
+          "optionC": "Informed coordinator",
+          "optionD": "Medical advisor",
+          "correct": "C"
+        }
+      ]
+    },
+    "3.5": {
+      "title": "Booking Diagnostics (Tests, Packages, Home Collection)",
+      "questions": [
+        {
+          "id": 1,
+          "question": "A member wants a health package without prescription. What should the Navigator suggest?",
+          "optionA": "Book directly",
+          "optionB": "Reject request",
+          "optionC": "Suggest AH Doctor consultation",
+          "optionD": "Ask lab to decide",
+          "correct": "C"
+        },
+        {
+          "id": 2,
+          "question": "Why must entitlement (free vs paid) be checked first?",
+          "optionA": "For discounts",
+          "optionB": "To avoid billing disputes",
+          "optionC": "For dashboard completion",
+          "optionD": "For marketing",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "Which lab should be preferred?",
+          "optionA": "Cheapest lab",
+          "optionB": "Nearest lab",
+          "optionC": "AH partner lab",
+          "optionD": "Any lab member chooses",
+          "correct": "D"
+        },
+        {
+          "id": 4,
+          "question": "What must be shared before the test?",
+          "optionA": "Diagnosis",
+          "optionB": "Test interpretation",
+          "optionC": "Preparation instructions (fasting, medications)",
+          "optionD": "Expected results",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "Why are reminders critical for diagnostics?",
+          "optionA": "Reduce no-shows and errors",
+          "optionB": "Increase calls",
+          "optionC": "To take discounts",
+          "optionD": "Lab convenience",
+          "correct": "A"
+        },
+        {
+          "id": 6,
+          "question": "After test completion, what is the Navigator’s duty?",
+          "optionA": "Explain report",
+          "optionB": "Upload report and offer doctor consult",
+          "optionC": "Close case",
+          "optionD": "Prescribe medication",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Who interprets diagnostic reports?",
+          "optionA": "Navigator",
+          "optionB": "Lab technician",
+          "optionC": "Doctor",
+          "optionD": "Backend team",
+          "correct": "C"
+        },
+        {
+          "id": 8,
+          "question": "If extra tests are advised by lab directly, what should Navigator do?",
+          "optionA": "Approve immediately",
+          "optionB": "Ask member to decide",
+          "optionC": "Inform member and seek consent",
+          "optionD": "Reject lab advice",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "Which is NOT allowed?",
+          "optionA": "Sending do’s & don’ts",
+          "optionB": "Tracking report ETA",
+          "optionC": "Explaining abnormal values",
+          "optionD": "Coordinating follow-up",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "The purpose of this SOP is to ensure:",
+          "optionA": "Fast testing",
+          "optionB": "Accurate, safe, and coordinated diagnostics",
+          "optionC": "Cost reduction",
+          "optionD": "Lab efficiency",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.6": {
+      "title": "Palliative Care SOP",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is the Navigator’s primary responsibility in palliative care?",
+          "optionA": "Medical advice",
+          "optionB": "Emotional + logistical coordination",
+          "optionC": "Treatment decisions",
+          "optionD": "Prognosis explanation",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Who explains medical aspects of palliative care?",
+          "optionA": "Navigator",
+          "optionB": "Family",
+          "optionC": "AH Doctor",
+          "optionD": "Nurse",
+          "correct": "C"
+        },
+        {
+          "id": 3,
+          "question": "Why must call frequency be customised?",
+          "optionA": "SOP flexibility",
+          "optionB": "Family convenience and emotional load",
+          "optionC": "Navigator availability",
+          "optionD": "Billing",
+          "correct": "B"
+        },
+        {
+          "id": 4,
+          "question": "Mapping HCPs is important because:",
+          "optionA": "Faster access near home",
+          "optionB": "Better pricing",
+          "optionC": "Legal compliance",
+          "optionD": "Marketing",
+          "correct": "A"
+        },
+        {
+          "id": 5,
+          "question": "What tone must a Navigator maintain?",
+          "optionA": "Clinical",
+          "optionB": "Casual",
+          "optionC": "Compassionate and calm",
+          "optionD": "Directive",
+          "correct": "C"
+        },
+        {
+          "id": 6,
+          "question": "Which action is prohibited?",
+          "optionA": "Scheduling AH doctor visits",
+          "optionB": "Regular family updates",
+          "optionC": "Predicting disease outcome",
+          "optionD": "Coordinating services",
+          "correct": "C"
+        },
+        {
+          "id": 7,
+          "question": "What defines success in palliative navigation?",
+          "optionA": "Fewer calls",
+          "optionB": "Smooth care, continuity and family confidence",
+          "optionC": "Faster closure",
+          "optionD": "Reduced cost",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "If family asks “How long will they survive?”, Navigator should:",
+          "optionA": "Give estimate",
+          "optionB": "Avoid question",
+          "optionC": "Redirect to doctor compassionately",
+          "optionD": "Ask another Navigator",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "Documentation is critical because:",
+          "optionA": "Legal and care continuity",
+          "optionB": "Performance metrics",
+          "optionC": "Billing",
+          "optionD": "Marketing",
+          "correct": "A"
+        },
+        {
+          "id": 10,
+          "question": "Palliative SOP primarily tests:",
+          "optionA": "Speed",
+          "optionB": "Sensitivity and boundaries",
+          "optionC": "Sales skill",
+          "optionD": "Technical knowledge",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.7": {
+      "title": "Day Care Procedures (RCT, Chemo, Injections)",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What must be collected from hospital before procedure?",
+          "optionA": "Diagnosis",
+          "optionB": "Procedure prep requirements",
+          "optionC": "Expected outcome",
+          "optionD": "Cost breakup only",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Why must preparation instructions be shared clearly?",
+          "optionA": "Reduce complications and delays",
+          "optionB": "SOP requirement only",
+          "optionC": "Hospital demand",
+          "optionD": "Documentation",
+          "correct": "A"
+        },
+        {
+          "id": 3,
+          "question": "What is a treatment plan in this SOP?",
+          "optionA": "Medical protocol",
+          "optionB": "Medication chart / precautions given by doctor",
+          "optionC": "Navigator advice",
+          "optionD": "Hospital policy",
+          "correct": "B"
+        },
+        {
+          "id": 4,
+          "question": "After procedure, what is mandatory?",
+          "optionA": "Close case",
+          "optionB": "Next-day follow-up call",
+          "optionC": "Report interpretation",
+          "optionD": "Billing",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "If medicines are needed post-procedure, Navigator should:",
+          "optionA": "Advise alternatives",
+          "optionB": "Arrange via pharmacy SOP",
+          "optionC": "Ask family to manage",
+          "optionD": "Prescribe generics",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Who decides follow-up appointment?",
+          "optionA": "Navigator",
+          "optionB": "Doctor",
+          "optionC": "Hospital admin",
+          "optionD": "Member alone",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Which action violates SOP?",
+          "optionA": "Sending POC details",
+          "optionB": "Explaining fasting",
+          "optionC": "Advising medication dosage",
+          "optionD": "Updating medical history",
+          "correct": "C"
+        },
+        {
+          "id": 8,
+          "question": "Why is post-procedure monitoring important?",
+          "optionA": "Reduce complaints",
+          "optionB": "Detect red flags early",
+          "optionC": "Documentation",
+          "optionD": "Performance tracking",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "If member feels unwell post-procedure, Navigator should:",
+          "optionA": "Reassure only",
+          "optionB": "Ask to wait",
+          "optionC": "Escalate to doctor/emergency SOP",
+          "optionD": "Google symptoms",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "This SOP reinforces:",
+          "optionA": "Medical authority",
+          "optionB": "Continuity and safety",
+          "optionC": "Cost efficiency",
+          "optionD": "Speed",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.8": {
+      "title": "Booking Home Nurse, Caretaker, Physiotherapist",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Which factor is MOST critical when shortlisting providers?",
+          "optionA": "Availability and suitability",
+          "optionB": "Price only",
+          "optionC": "Distance only",
+          "optionD": "Navigator familiarity",
+          "correct": "A"
+        },
+        {
+          "id": 2,
+          "question": "If no provider is available, what is the correct action?",
+          "optionA": "Delay silently",
+          "optionB": "Escalate to central team",
+          "optionC": "Cancel request",
+          "optionD": "Ask member to search",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "Why is a conference call arranged?",
+          "optionA": "Formality",
+          "optionB": "Build trust and clarity",
+          "optionC": "Compliance",
+          "optionD": "Billing",
+          "correct": "B"
+        },
+        {
+          "id": 4,
+          "question": "Who defines scope of service?",
+          "optionA": "Navigator",
+          "optionB": "Provider alone",
+          "optionC": "Member + provider (coordinated by Navigator)",
+          "optionD": "Hospital",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "High-dependency cases require:",
+          "optionA": "Weekly checks",
+          "optionB": "Daily monitoring",
+          "optionC": "No follow-up",
+          "optionD": "Only documentation",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Payment method must be:",
+          "optionA": "Decided by Navigator",
+          "optionB": "Transparent and confirmed upfront",
+          "optionC": "Flexible",
+          "optionD": "Post-service",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Which is NOT Navigator’s role?",
+          "optionA": "Monitoring service quality",
+          "optionB": "Changing care plan",
+          "optionC": "Documentation",
+          "optionD": "Coordination",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Why is gender/language preference considered?",
+          "optionA": "Legal",
+          "optionB": "Member comfort and dignity",
+          "optionC": "Pricing",
+          "optionD": "Availability",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Documentation helps with:",
+          "optionA": "Audit and continuity",
+          "optionB": "Marketing",
+          "optionC": "HR",
+          "optionD": "Sales",
+          "correct": "A"
+        },
+        {
+          "id": 10,
+          "question": "Core principle here is:",
+          "optionA": "Speed",
+          "optionB": "Matching the right care to the right person",
+          "optionC": "Cost cutting",
+          "optionD": "Automation",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.9": {
+      "title": "Surgery Coordination, Discharge & Post-Hospital Care",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What must be ensured BEFORE admission?",
+          "optionA": "Room availability",
+          "optionB": "Pre-op tests and instructions completed",
+          "optionC": "Payment only",
+          "optionD": "Doctor consent",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Why are fasting and medication rules critical?",
+          "optionA": "Hospital formality",
+          "optionB": "Patient safety",
+          "optionC": "Insurance",
+          "optionD": "Scheduling",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "What is Navigator’s role on admission day?",
+          "optionA": "Medical support",
+          "optionB": "Ensure clarity on where to go and what to do",
+          "optionC": "Assist surgery",
+          "optionD": "Decide discharge",
+          "correct": "B"
+        },
+        {
+          "id": 4,
+          "question": "Post-surgery coordination includes:",
+          "optionA": "Predicting recovery",
+          "optionB": "Sharing doctor's instructions and follow-up plan",
+          "optionC": "Advising diet",
+          "optionD": "Cost discussion",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "Before discharge, which is mandatory?",
+          "optionA": "Final bill",
+          "optionB": "Discharge summary & instructions",
+          "optionC": "Doctor feedback",
+          "optionD": "Payment confirmation",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Why is a same-day discharge message important?",
+          "optionA": "Courtesy",
+          "optionB": "Emotional reassurance and continuity",
+          "optionC": "SOP compliance",
+          "optionD": "Billing",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "What should Navigator watch for post-discharge?",
+          "optionA": "Red-flag symptoms",
+          "optionB": "Billing issues",
+          "optionC": "Insurance claims",
+          "optionD": "Marketing feedback",
+          "correct": "A"
+        },
+        {
+          "id": 8,
+          "question": "If red flags appear post-surgery, Navigator should:",
+          "optionA": "Reassure",
+          "optionB": "Wait",
+          "optionC": "Activate emergency SOP",
+          "optionD": "Call surgeon later",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "Why is 48-hour check-in essential?",
+          "optionA": "Customer satisfaction",
+          "optionB": "Early detection of complications",
+          "optionC": "Reporting",
+          "optionD": "Sales",
+          "correct": "B"
+        },
+        {
+          "id": 10,
+          "question": "Surgery SOP demands:",
+          "optionA": "Speed",
+          "optionB": "Accuracy and zero assumptions",
+          "optionC": "Cost efficiency",
+          "optionD": "Automation",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.10": {
+      "title": "Handling Emergency Cases",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is the FIRST thing a Navigator must do in an emergency?",
+          "optionA": "Call hospital",
+          "optionB": "Identify self and get details to coordinate with nearby hospital.",
+          "optionC": "Diagnose",
+          "optionD": "Give advice",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Critical information must be collected within:",
+          "optionA": "5 minutes",
+          "optionB": "2 minutes",
+          "optionC": "60 seconds",
+          "optionD": "No time limit",
+          "correct": "C"
+        },
+        {
+          "id": 3,
+          "question": "In life-threatening cases, what is the priority?",
+          "optionA": "Dashboard update",
+          "optionB": "Call AH doctor",
+          "optionC": "Ambulance activation",
+          "optionD": "Family notification",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "If the family cannot call 108, Navigator should:",
+          "optionA": "Wait",
+          "optionB": "Call ambulance immediately",
+          "optionC": "Ask neighbour",
+          "optionD": "Escalate later",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "What guidance is allowed?",
+          "optionA": "Diagnosis",
+          "optionB": "Home remedies",
+          "optionC": "Approved first-aid scripts only",
+          "optionD": "Medication advice",
+          "correct": "C"
+        },
+        {
+          "id": 6,
+          "question": "Which steps does a navigator take during emergency",
+          "optionA": "Ambulance called",
+          "optionB": "Hospital informed",
+          "optionC": "Dashboard updated",
+          "optionD": "All of the above",
+          "correct": "D"
+        },
+        {
+          "id": 7,
+          "question": "Documentation must be done within:",
+          "optionA": "1 hour",
+          "optionB": "30 minutes",
+          "optionC": "15 minutes",
+          "optionD": "End of day",
+          "correct": "C"
+        },
+        {
+          "id": 8,
+          "question": "Which action is STRICTLY prohibited?",
+          "optionA": "Staying on call",
+          "optionB": "Giving medical opinion",
+          "optionC": "Coordinating hospital",
+          "optionD": "Informing family",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Why is timestamped documentation critical?",
+          "optionA": "Audit, legal, and clinical clarity",
+          "optionB": "Billing",
+          "optionC": "Marketing",
+          "optionD": "HR",
+          "correct": "A"
+        },
+        {
+          "id": 10,
+          "question": "Emergency SOP exists to ensure:",
+          "optionA": "Speed only",
+          "optionB": "Safe escalation without medical overreach",
+          "optionC": "Cost control",
+          "optionD": "Hospital preference",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.11": {
+      "title": "Communicating with Member Relatives",
+      "questions": [
+        {
+          "id": 1,
+          "question": "When can a Navigator communicate with a relative?",
+          "optionA": "Anytime they call",
+          "optionB": "Only if they sound concerned",
+          "optionC": "Only if the relative is listed as alternate contact",
+          "optionD": "Only during emergencies",
+          "correct": "C"
+        },
+        {
+          "id": 2,
+          "question": "What must be verified before sharing any information?",
+          "optionA": "Doctor name",
+          "optionB": "Relative’s identity and relationship",
+          "optionC": "Diagnosis",
+          "optionD": "Hospital",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "What is the Navigator allowed to explain to relatives?",
+          "optionA": "Medical interpretation",
+          "optionB": "Treatment modification",
+          "optionC": "Appointments, tests, and coordination updates",
+          "optionD": "Prognosis",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "A relative asks, “Is this condition serious?” What should the Navigator do?",
+          "optionA": "Reassure them",
+          "optionB": "Give opinion",
+          "optionC": "Redirect to doctor politely",
+          "optionD": "Avoid answering",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "For NRI families, what is especially important?",
+          "optionA": "Detailed medical explanation",
+          "optionB": "Regular short updates respecting time zones",
+          "optionC": "Daily calls",
+          "optionD": "Cost discussion",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "What must NEVER be shared with relatives?",
+          "optionA": "Appointment date",
+          "optionB": "Diagnostic reports without consent",
+          "optionC": "Service updates",
+          "optionD": "Hospital location",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Why is consent critical in this SOP?",
+          "optionA": "Courtesy",
+          "optionB": "Legal and ethical compliance",
+          "optionC": "CRM policy",
+          "optionD": "Performance review",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Navigator’s role with relatives is best described as:",
+          "optionA": "Decision-maker",
+          "optionB": "Medical explainer",
+          "optionC": "Coordination bridge",
+          "optionD": "Emotional counsellor",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "If a relative pressures the Navigator for answers:",
+          "optionA": "Respond quickly",
+          "optionB": "Escalate to doctor",
+          "optionC": "Politely restate role boundaries",
+          "optionD": "End call abruptly",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "Proper relative communication builds:",
+          "optionA": "Faster closure",
+          "optionB": "Trust without overstepping",
+          "optionC": "Sales",
+          "optionD": "Reduced calls",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.12": {
+      "title": "Handling Leads from Marketing Team",
+      "questions": [
+        {
+          "id": 1,
+          "question": "How soon should a marketing lead be contacted?",
+          "optionA": "Within a week",
+          "optionB": "When convenient",
+          "optionC": "Preferably same day",
+          "optionD": "After verification",
+          "correct": "C"
+        },
+        {
+          "id": 2,
+          "question": "What is the goal of the first call?",
+          "optionA": "Close sale",
+          "optionB": "Understand healthcare need",
+          "optionC": "Pitch all plans",
+          "optionD": "Offer discounts",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "How many plans should be suggested?",
+          "optionA": "All available",
+          "optionB": "One best plan",
+          "optionC": "One or two relevant plans",
+          "optionD": "Only Premium",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "Which statement violates SOP?",
+          "optionA": "“We coordinate care.”",
+          "optionB": "“We give medical advice.”",
+          "optionC": "“You get a dedicated Navigator.”",
+          "optionD": "“We support hospital coordination.”",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "For one-time service seekers, Navigator should:",
+          "optionA": "Reject",
+          "optionB": "Push Premium",
+          "optionC": "Explain one-time service + upgrade option",
+          "optionD": "Escalate",
+          "correct": "C"
+        },
+        {
+          "id": 6,
+          "question": "What must be avoided completely?",
+          "optionA": "Clarifying benefits",
+          "optionB": "Making false promises",
+          "optionC": "Explaining plans",
+          "optionD": "Sharing brochure",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Why is tagging leads important?",
+          "optionA": "Marketing only",
+          "optionB": "Workflow clarity and follow-up discipline",
+          "optionC": "Sales pressure",
+          "optionD": "CRM formality",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Once a lead converts, what is next?",
+          "optionA": "Close case",
+          "optionB": "Handover to onboarding SOP",
+          "optionC": "Send invoice only",
+          "optionD": "Transfer to backend",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Navigator’s tone during lead handling should be:",
+          "optionA": "Aggressive",
+          "optionB": "Scripted sales",
+          "optionC": "Supportive and informative",
+          "optionD": "Casual",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "This SOP protects AssistHealth from:",
+          "optionA": "Missed calls",
+          "optionB": "Legal and reputation risk",
+          "optionC": "High workload",
+          "optionD": "Slow growth",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.13": {
+      "title": "Hospital Companion SOP",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is mandatory before confirming companion service?",
+          "optionA": "Verbal approval",
+          "optionB": "Advance payment for minimum hours",
+          "optionC": "Doctor approval",
+          "optionD": "Insurance confirmation",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Why must requirements be given at least 1 days prior?",
+          "optionA": "Billing",
+          "optionB": "Better provider matching and availability",
+          "optionC": "SOP formality",
+          "optionD": "Member preference",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "What must be shared with the companion?",
+          "optionA": "Diagnosis",
+          "optionB": "Full medical history",
+          "optionC": "Duties and service expectations",
+          "optionD": "Treatment plan",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "On service day, what confirms service start?",
+          "optionA": "Companion starts travel",
+          "optionB": "Companion reaches location and confirms via call",
+          "optionC": "Appointment time",
+          "optionD": "Payment receipt",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "Why is a conference call done initially?",
+          "optionA": "Compliance",
+          "optionB": "To confirm presence and transparency",
+          "optionC": "Courtesy",
+          "optionD": "Billing",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Who tracks service duration?",
+          "optionA": "Member",
+          "optionB": "Companion only",
+          "optionC": "Navigator and companion",
+          "optionD": "Hospital",
+          "correct": "C"
+        },
+        {
+          "id": 7,
+          "question": "What must be shared post-service?",
+          "optionA": "Feedback only",
+          "optionB": "Prescription/discharge summary highlights",
+          "optionC": "Diagnosis",
+          "optionD": "Billing invoice",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Which cost is NOT included in service fee?",
+          "optionA": "Companion time",
+          "optionB": "Travel cost",
+          "optionC": "Coordination",
+          "optionD": "Hospital visit",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Navigator’s responsibility includes:",
+          "optionA": "Medical supervision",
+          "optionB": "Service quality check",
+          "optionC": "Companion medical decisions",
+          "optionD": "Surgery assistance",
+          "correct": "B"
+        },
+        {
+          "id": 10,
+          "question": "This SOP ensures:",
+          "optionA": "Faster discharges",
+          "optionB": "Reliable human support without risk",
+          "optionC": "Cost reduction",
+          "optionD": "Hospital preference",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.14": {
+      "title": "Pharmacy & Medical Equipment SOP",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is required before placing any pharmacy order?",
+          "optionA": "Diagnosis",
+          "optionB": "Prescription",
+          "optionC": "Doctor opinion",
+          "optionD": "Insurance",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Navigator must confirm which details before delivery?",
+          "optionA": "Price only",
+          "optionB": "Member address and location",
+          "optionC": "Pharmacy rating",
+          "optionD": "Stock source",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "Who decides medicine substitution?",
+          "optionA": "Navigator",
+          "optionB": "Pharmacy",
+          "optionC": "Doctor",
+          "optionD": "Backend team",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "What must Navigator do before confirming order?",
+          "optionA": "Negotiate price",
+          "optionB": "Inform member and take approval",
+          "optionC": "Auto-process",
+          "optionD": "Compare brands",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "Payment is done:",
+          "optionA": "Always via AssistHealth",
+          "optionB": "Always directly",
+          "optionC": "As per policy and case type",
+          "optionD": "After delivery only",
+          "correct": "C"
+        },
+        {
+          "id": 6,
+          "question": "Which action violates SOP?",
+          "optionA": "Sharing delivery ETA",
+          "optionB": "Suggesting alternative medicine",
+          "optionC": "Confirming availability",
+          "optionD": "Coordinating delivery",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Medical equipment orders require:",
+          "optionA": "Prescription or doctor advice",
+          "optionB": "Navigator judgement",
+          "optionC": "Member request only",
+          "optionD": "Vendor suggestion",
+          "correct": "A"
+        },
+        {
+          "id": 8,
+          "question": "Why is confirmation critical?",
+          "optionA": "Avoid errors and disputes",
+          "optionB": "Faster processing",
+          "optionC": "CRM update",
+          "optionD": "Audit only",
+          "correct": "A"
+        },
+        {
+          "id": 9,
+          "question": "Navigator’s role is best described as:",
+          "optionA": "Seller",
+          "optionB": "Pharmacist",
+          "optionC": "Coordinator",
+          "optionD": "Advisor",
+          "correct": "C"
+        },
+        {
+          "id": 10,
+          "question": "This SOP primarily protects:",
+          "optionA": "Revenue",
+          "optionB": "Medical safety and legality",
+          "optionC": "Delivery speed",
+          "optionD": "Vendor interest",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.15": {
+      "title": "Insurance SOP",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What insurance details are collected during onboarding?",
+          "optionA": "Claim history",
+          "optionB": "Policy type, insurer, TPA",
+          "optionC": "Premium amount",
+          "optionD": "Agent details",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Navigator’s role in insurance is to:",
+          "optionA": "Process claims",
+          "optionB": "Interpret policy",
+          "optionC": "Coordinate and connect",
+          "optionD": "Approve coverage",
+          "correct": "C"
+        },
+        {
+          "id": 3,
+          "question": "If a member has no insurance, Navigator should:",
+          "optionA": "Ignore",
+          "optionB": "Suggest and arrange call with AH insurance provider",
+          "optionC": "Sell policy",
+          "optionD": "Advise best plan",
+          "correct": "B"
+        },
+        {
+          "id": 4,
+          "question": "Which is NOT allowed?",
+          "optionA": "Collect details",
+          "optionB": "Arrange conference call",
+          "optionC": "Advise policy selection",
+          "optionD": "Document information",
+          "correct": "C"
+        },
+        {
+          "id": 5,
+          "question": "Why must Navigators avoid policy advice?",
+          "optionA": "Time",
+          "optionB": "Legal and regulatory risk",
+          "optionC": "CRM policy",
+          "optionD": "Complexity",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Insurance coordination supports:",
+          "optionA": "Faster discharge",
+          "optionB": "Financial preparedness",
+          "optionC": "Medical decisions",
+          "optionD": "Diagnosis",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Navigator should never promise:",
+          "optionA": "Discounts",
+          "optionB": "Claim approval",
+          "optionC": "Coordination support",
+          "optionD": "Provider contact",
+          "correct": "B"
+        },
+        {
+          "id": 8,
+          "question": "Correct tone during insurance discussion:",
+          "optionA": "Sales-driven",
+          "optionB": "Neutral and facilitative",
+          "optionC": "Technical",
+          "optionD": "Casual",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Documentation is needed for:",
+          "optionA": "Audit and continuity",
+          "optionB": "Billing",
+          "optionC": "Sales",
+          "optionD": "HR",
+          "correct": "A"
+        },
+        {
+          "id": 10,
+          "question": "This SOP exists to:",
+          "optionA": "Increase conversions",
+          "optionB": "Protect members from misinformation",
+          "optionC": "Replace agents",
+          "optionD": "Speed claims",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.16": {
+      "title": "School Emergencies SOP (AH Nurse / AHANA)",
+      "questions": [
+        {
+          "id": 1,
+          "question": "First step in a school emergency?",
+          "optionA": "Call parents",
+          "optionB": "Call AssistHealth Navigator",
+          "optionC": "Diagnose",
+          "optionD": "Call hospital",
+          "correct": "B"
+        },
+        {
+          "id": 2,
+          "question": "Critical information must be gathered within:",
+          "optionA": "5 minutes",
+          "optionB": "2 minutes",
+          "optionC": "60 seconds",
+          "optionD": "No limit",
+          "correct": "C"
+        },
+        {
+          "id": 3,
+          "question": "If life-threatening, priority is:",
+          "optionA": "Documentation",
+          "optionB": "Ambulance activation",
+          "optionC": "School approval",
+          "optionD": "Insurance",
+          "correct": "B"
+        },
+        {
+          "id": 4,
+          "question": "Who should call 108 first?",
+          "optionA": "Navigator",
+          "optionB": "School staff",
+          "optionC": "Parent",
+          "optionD": "Hospital",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "If school staff cannot call 108, AH nurse should:",
+          "optionA": "Wait",
+          "optionB": "Call ambulance",
+          "optionC": "Escalate later",
+          "optionD": "Ask principal",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "What guidance is allowed?",
+          "optionA": "Medical advice",
+          "optionB": "Diagnosis",
+          "optionC": "Approved first-aid scripts only",
+          "optionD": "Medication",
+          "correct": "C"
+        },
+        {
+          "id": 7,
+          "question": "What steps should the AH nurse follow?",
+          "optionA": "Parent informed",
+          "optionB": "Ambulance booked",
+          "optionC": "CRM updated",
+          "optionD": "All of the above",
+          "correct": "D"
+        },
+        {
+          "id": 8,
+          "question": "Documentation timeline?",
+          "optionA": "End of day",
+          "optionB": "1 hour",
+          "optionC": "15 minutes",
+          "optionD": "Next day",
+          "correct": "C"
+        },
+        {
+          "id": 9,
+          "question": "This SOP primarily protects:",
+          "optionA": "School reputation",
+          "optionB": "Child safety and legal compliance",
+          "optionC": "Navigator workload",
+          "optionD": "Insurance",
+          "correct": "B"
+        },
+        {
+          "id": 10,
+          "question": "Any deviation here requires:",
+          "optionA": "Explanation",
+          "optionB": "Immediate retraining",
+          "optionC": "Warning",
+          "optionD": "Escalation only",
+          "correct": "B"
+        }
+      ]
+    },
+    "3.17": {
+      "title": "Referrals & Referral Bonus SOP",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Who can refer new members?",
+          "optionA": "Anyone",
+          "optionB": "Existing members",
+          "optionC": "Navigators only",
+          "optionD": "Hospitals",
+          "correct": "A"
+        },
+        {
+          "id": 2,
+          "question": "Navigator’s role in referrals is to:",
+          "optionA": "Push aggressively",
+          "optionB": "Explain services and benefits clearly",
+          "optionC": "Promise rewards",
+          "optionD": "Auto-enrol",
+          "correct": "B"
+        },
+        {
+          "id": 3,
+          "question": "Referral bonus is:",
+          "optionA": "Cash",
+          "optionB": "Discount",
+          "optionC": "Wallet credit for AH services",
+          "optionD": "Gift voucher",
+          "correct": "C"
+        },
+        {
+          "id": 4,
+          "question": "When can referral bonus be used?",
+          "optionA": "Anytime",
+          "optionB": "Only for AssistHealth services",
+          "optionC": "Withdrawn as cash",
+          "optionD": "Transferred",
+          "correct": "B"
+        },
+        {
+          "id": 5,
+          "question": "Which behaviour violates SOP?",
+          "optionA": "Explaining referral benefits",
+          "optionB": "Forcing referral",
+          "optionC": "Thanking member",
+          "optionD": "Documenting referral",
+          "correct": "B"
+        },
+        {
+          "id": 6,
+          "question": "Why must referral explanation be transparent?",
+          "optionA": "Legal compliance",
+          "optionB": "Trust and brand integrity",
+          "optionC": "Faster growth",
+          "optionD": "CRM",
+          "correct": "B"
+        },
+        {
+          "id": 7,
+          "question": "Navigator should NEVER:",
+          "optionA": "Mention referral option",
+          "optionB": "Explain wallet usage",
+          "optionC": "Guarantee rewards",
+          "optionD": "Appreciate referrals",
+          "correct": "C"
+        },
+        {
+          "id": 8,
+          "question": "Referral SOP primarily aims to:",
+          "optionA": "Increase sales",
+          "optionB": "Encourage organic trust-based growth",
+          "optionC": "Reward Navigators",
+          "optionD": "Reduce marketing cost",
+          "correct": "B"
+        },
+        {
+          "id": 9,
+          "question": "Documentation of referrals ensures:",
+          "optionA": "Audit and clarity",
+          "optionB": "Promotion",
+          "optionC": "HR tracking",
+          "optionD": "Lead volume",
+          "correct": "A"
+        },
+        {
+          "id": 10,
+          "question": "Ethical referral behaviour reflects:",
+          "optionA": "Sales mindset",
+          "optionB": "Healthcare professionalism",
+          "optionC": "Competition",
+          "optionD": "Marketing pressure",
+          "correct": "B"
+        }
+      ]
+    }
   }
 }
