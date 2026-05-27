@@ -3146,9 +3146,13 @@
                 
                 // Also update name in preapproved if possible
                 const email = document.getElementById('editUserEmail').value;
-                await db.collection('preapprovedEmails').doc(email).update({
-                    name: name
-                });
+                try {
+                    await db.collection('preapprovedEmails').doc(email).set({
+                        name: name
+                    }, { merge: true });
+                } catch (e) {
+                    console.log('Preapproved email not updated:', e);
+                }
                 
                 hideModal();
                 
