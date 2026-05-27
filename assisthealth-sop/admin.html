@@ -1179,96 +1179,7 @@
         </div>
 
         <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js">
-        // Edit User Modal Logic
-        const editUserModal = document.getElementById('editUserModal');
-        const editUserForm = document.getElementById('editUserForm');
-        const closeEditUserModal = document.getElementById('closeEditUserModal');
-        const cancelEditUserBtn = document.getElementById('cancelEditUserBtn');
-        const editUserMessage = document.getElementById('editUserMessage');
-        
-        function hideModal() {
-            editUserModal.style.display = 'none';
-        }
-        
-        closeEditUserModal.addEventListener('click', hideModal);
-        cancelEditUserBtn.addEventListener('click', hideModal);
-        
-        // Listen for Edit/Delete clicks via Event Delegation
-        document.body.addEventListener('click', async (e) => {
-            const editBtn = e.target.closest('.edit-user');
-            const deleteBtn = e.target.closest('.delete-user');
-            
-            if (editBtn) {
-                const uid = editBtn.getAttribute('data-uid');
-                const role = editBtn.getAttribute('data-role');
-                
-                document.getElementById('editUserId').value = uid;
-                document.getElementById('editUserRole').value = role;
-                document.getElementById('editUserName').value = editBtn.getAttribute('data-name');
-                document.getElementById('editUserEmail').value = editBtn.getAttribute('data-email');
-                document.getElementById('editUserStatus').value = editBtn.getAttribute('data-status');
-                document.getElementById('editUserDeadline').value = editBtn.getAttribute('data-deadline');
-                
-                editUserMessage.innerHTML = '';
-                editUserModal.style.display = 'flex';
-            }
-            
-            if (deleteBtn) {
-                const uid = deleteBtn.getAttribute('data-uid');
-                const email = deleteBtn.getAttribute('data-email');
-                const role = deleteBtn.getAttribute('data-role');
-                
-                if (confirm(`Are you sure you want to permanently delete the user ${email}? They will lose all access.`)) {
-                    try {
-                        // Delete from users collection
-                        await db.collection('users').doc(uid).delete();
-                        // Delete from preapproved collection
-                        await db.collection('preapprovedEmails').doc(email).delete();
-                        
-                        alert('User successfully deleted.');
-                        
-                        if (role === 'navigator') loadNavigators();
-                        else loadCoordinators();
-                    } catch (error) {
-                        console.error('Error deleting user:', error);
-                        alert('Error deleting user: ' + error.message);
-                    }
-                }
-            }
-        });
-        
-        // Handle Edit Form Submit
-        editUserForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const uid = document.getElementById('editUserId').value;
-            const role = document.getElementById('editUserRole').value;
-            const name = document.getElementById('editUserName').value;
-            const status = document.getElementById('editUserStatus').value;
-            const deadlineStr = document.getElementById('editUserDeadline').value;
-            
-            try {
-                editUserMessage.innerHTML = '';
-                
-                const updates = {
-                    name: name,
-                    status: status
-                };
-                
-                if (deadlineStr) {
-                    updates.deadline = firebase.firestore.Timestamp.fromDate(new Date(deadlineStr));
-                }
-                
-                await db.collection('users').doc(uid).update(updates);
-                
-                // Also update name in preapproved if possible
-                const email = document.getElementById('editUserEmail').value;
-                await db.collection('preapprovedEmails').doc(email).update({
-                    name: name
-                });
-                
-                hideModal();
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js">hideModal();
                 
                 if (role === 'navigator') loadNavigators();
                 else loadCoordinators();
@@ -1280,96 +1191,7 @@
         });
 
     </script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js">
-        // Edit User Modal Logic
-        const editUserModal = document.getElementById('editUserModal');
-        const editUserForm = document.getElementById('editUserForm');
-        const closeEditUserModal = document.getElementById('closeEditUserModal');
-        const cancelEditUserBtn = document.getElementById('cancelEditUserBtn');
-        const editUserMessage = document.getElementById('editUserMessage');
-        
-        function hideModal() {
-            editUserModal.style.display = 'none';
-        }
-        
-        closeEditUserModal.addEventListener('click', hideModal);
-        cancelEditUserBtn.addEventListener('click', hideModal);
-        
-        // Listen for Edit/Delete clicks via Event Delegation
-        document.body.addEventListener('click', async (e) => {
-            const editBtn = e.target.closest('.edit-user');
-            const deleteBtn = e.target.closest('.delete-user');
-            
-            if (editBtn) {
-                const uid = editBtn.getAttribute('data-uid');
-                const role = editBtn.getAttribute('data-role');
-                
-                document.getElementById('editUserId').value = uid;
-                document.getElementById('editUserRole').value = role;
-                document.getElementById('editUserName').value = editBtn.getAttribute('data-name');
-                document.getElementById('editUserEmail').value = editBtn.getAttribute('data-email');
-                document.getElementById('editUserStatus').value = editBtn.getAttribute('data-status');
-                document.getElementById('editUserDeadline').value = editBtn.getAttribute('data-deadline');
-                
-                editUserMessage.innerHTML = '';
-                editUserModal.style.display = 'flex';
-            }
-            
-            if (deleteBtn) {
-                const uid = deleteBtn.getAttribute('data-uid');
-                const email = deleteBtn.getAttribute('data-email');
-                const role = deleteBtn.getAttribute('data-role');
-                
-                if (confirm(`Are you sure you want to permanently delete the user ${email}? They will lose all access.`)) {
-                    try {
-                        // Delete from users collection
-                        await db.collection('users').doc(uid).delete();
-                        // Delete from preapproved collection
-                        await db.collection('preapprovedEmails').doc(email).delete();
-                        
-                        alert('User successfully deleted.');
-                        
-                        if (role === 'navigator') loadNavigators();
-                        else loadCoordinators();
-                    } catch (error) {
-                        console.error('Error deleting user:', error);
-                        alert('Error deleting user: ' + error.message);
-                    }
-                }
-            }
-        });
-        
-        // Handle Edit Form Submit
-        editUserForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const uid = document.getElementById('editUserId').value;
-            const role = document.getElementById('editUserRole').value;
-            const name = document.getElementById('editUserName').value;
-            const status = document.getElementById('editUserStatus').value;
-            const deadlineStr = document.getElementById('editUserDeadline').value;
-            
-            try {
-                editUserMessage.innerHTML = '';
-                
-                const updates = {
-                    name: name,
-                    status: status
-                };
-                
-                if (deadlineStr) {
-                    updates.deadline = firebase.firestore.Timestamp.fromDate(new Date(deadlineStr));
-                }
-                
-                await db.collection('users').doc(uid).update(updates);
-                
-                // Also update name in preapproved if possible
-                const email = document.getElementById('editUserEmail').value;
-                await db.collection('preapprovedEmails').doc(email).update({
-                    name: name
-                });
-                
-                hideModal();
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js">hideModal();
                 
                 if (role === 'navigator') loadNavigators();
                 else loadCoordinators();
@@ -1381,96 +1203,7 @@
         });
 
     </script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js">
-        // Edit User Modal Logic
-        const editUserModal = document.getElementById('editUserModal');
-        const editUserForm = document.getElementById('editUserForm');
-        const closeEditUserModal = document.getElementById('closeEditUserModal');
-        const cancelEditUserBtn = document.getElementById('cancelEditUserBtn');
-        const editUserMessage = document.getElementById('editUserMessage');
-        
-        function hideModal() {
-            editUserModal.style.display = 'none';
-        }
-        
-        closeEditUserModal.addEventListener('click', hideModal);
-        cancelEditUserBtn.addEventListener('click', hideModal);
-        
-        // Listen for Edit/Delete clicks via Event Delegation
-        document.body.addEventListener('click', async (e) => {
-            const editBtn = e.target.closest('.edit-user');
-            const deleteBtn = e.target.closest('.delete-user');
-            
-            if (editBtn) {
-                const uid = editBtn.getAttribute('data-uid');
-                const role = editBtn.getAttribute('data-role');
-                
-                document.getElementById('editUserId').value = uid;
-                document.getElementById('editUserRole').value = role;
-                document.getElementById('editUserName').value = editBtn.getAttribute('data-name');
-                document.getElementById('editUserEmail').value = editBtn.getAttribute('data-email');
-                document.getElementById('editUserStatus').value = editBtn.getAttribute('data-status');
-                document.getElementById('editUserDeadline').value = editBtn.getAttribute('data-deadline');
-                
-                editUserMessage.innerHTML = '';
-                editUserModal.style.display = 'flex';
-            }
-            
-            if (deleteBtn) {
-                const uid = deleteBtn.getAttribute('data-uid');
-                const email = deleteBtn.getAttribute('data-email');
-                const role = deleteBtn.getAttribute('data-role');
-                
-                if (confirm(`Are you sure you want to permanently delete the user ${email}? They will lose all access.`)) {
-                    try {
-                        // Delete from users collection
-                        await db.collection('users').doc(uid).delete();
-                        // Delete from preapproved collection
-                        await db.collection('preapprovedEmails').doc(email).delete();
-                        
-                        alert('User successfully deleted.');
-                        
-                        if (role === 'navigator') loadNavigators();
-                        else loadCoordinators();
-                    } catch (error) {
-                        console.error('Error deleting user:', error);
-                        alert('Error deleting user: ' + error.message);
-                    }
-                }
-            }
-        });
-        
-        // Handle Edit Form Submit
-        editUserForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const uid = document.getElementById('editUserId').value;
-            const role = document.getElementById('editUserRole').value;
-            const name = document.getElementById('editUserName').value;
-            const status = document.getElementById('editUserStatus').value;
-            const deadlineStr = document.getElementById('editUserDeadline').value;
-            
-            try {
-                editUserMessage.innerHTML = '';
-                
-                const updates = {
-                    name: name,
-                    status: status
-                };
-                
-                if (deadlineStr) {
-                    updates.deadline = firebase.firestore.Timestamp.fromDate(new Date(deadlineStr));
-                }
-                
-                await db.collection('users').doc(uid).update(updates);
-                
-                // Also update name in preapproved if possible
-                const email = document.getElementById('editUserEmail').value;
-                await db.collection('preapprovedEmails').doc(email).update({
-                    name: name
-                });
-                
-                hideModal();
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js">hideModal();
                 
                 if (role === 'navigator') loadNavigators();
                 else loadCoordinators();
@@ -1482,96 +1215,7 @@
         });
 
     </script>
-    <script src="firebase-config.js">
-        // Edit User Modal Logic
-        const editUserModal = document.getElementById('editUserModal');
-        const editUserForm = document.getElementById('editUserForm');
-        const closeEditUserModal = document.getElementById('closeEditUserModal');
-        const cancelEditUserBtn = document.getElementById('cancelEditUserBtn');
-        const editUserMessage = document.getElementById('editUserMessage');
-        
-        function hideModal() {
-            editUserModal.style.display = 'none';
-        }
-        
-        closeEditUserModal.addEventListener('click', hideModal);
-        cancelEditUserBtn.addEventListener('click', hideModal);
-        
-        // Listen for Edit/Delete clicks via Event Delegation
-        document.body.addEventListener('click', async (e) => {
-            const editBtn = e.target.closest('.edit-user');
-            const deleteBtn = e.target.closest('.delete-user');
-            
-            if (editBtn) {
-                const uid = editBtn.getAttribute('data-uid');
-                const role = editBtn.getAttribute('data-role');
-                
-                document.getElementById('editUserId').value = uid;
-                document.getElementById('editUserRole').value = role;
-                document.getElementById('editUserName').value = editBtn.getAttribute('data-name');
-                document.getElementById('editUserEmail').value = editBtn.getAttribute('data-email');
-                document.getElementById('editUserStatus').value = editBtn.getAttribute('data-status');
-                document.getElementById('editUserDeadline').value = editBtn.getAttribute('data-deadline');
-                
-                editUserMessage.innerHTML = '';
-                editUserModal.style.display = 'flex';
-            }
-            
-            if (deleteBtn) {
-                const uid = deleteBtn.getAttribute('data-uid');
-                const email = deleteBtn.getAttribute('data-email');
-                const role = deleteBtn.getAttribute('data-role');
-                
-                if (confirm(`Are you sure you want to permanently delete the user ${email}? They will lose all access.`)) {
-                    try {
-                        // Delete from users collection
-                        await db.collection('users').doc(uid).delete();
-                        // Delete from preapproved collection
-                        await db.collection('preapprovedEmails').doc(email).delete();
-                        
-                        alert('User successfully deleted.');
-                        
-                        if (role === 'navigator') loadNavigators();
-                        else loadCoordinators();
-                    } catch (error) {
-                        console.error('Error deleting user:', error);
-                        alert('Error deleting user: ' + error.message);
-                    }
-                }
-            }
-        });
-        
-        // Handle Edit Form Submit
-        editUserForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const uid = document.getElementById('editUserId').value;
-            const role = document.getElementById('editUserRole').value;
-            const name = document.getElementById('editUserName').value;
-            const status = document.getElementById('editUserStatus').value;
-            const deadlineStr = document.getElementById('editUserDeadline').value;
-            
-            try {
-                editUserMessage.innerHTML = '';
-                
-                const updates = {
-                    name: name,
-                    status: status
-                };
-                
-                if (deadlineStr) {
-                    updates.deadline = firebase.firestore.Timestamp.fromDate(new Date(deadlineStr));
-                }
-                
-                await db.collection('users').doc(uid).update(updates);
-                
-                // Also update name in preapproved if possible
-                const email = document.getElementById('editUserEmail').value;
-                await db.collection('preapprovedEmails').doc(email).update({
-                    name: name
-                });
-                
-                hideModal();
+    <script src="firebase-config.js">hideModal();
                 
                 if (role === 'navigator') loadNavigators();
                 else loadCoordinators();
@@ -3060,111 +2704,124 @@
             
             // Close modal
             addModal.classList.remove('show');
-        });
+        });</script>
+
     
-        // Edit User Modal Logic
-        const editUserModal = document.getElementById('editUserModal');
-        const editUserForm = document.getElementById('editUserForm');
-        const closeEditUserModal = document.getElementById('closeEditUserModal');
-        const cancelEditUserBtn = document.getElementById('cancelEditUserBtn');
-        const editUserMessage = document.getElementById('editUserMessage');
-        
-        function hideModal() {
-            editUserModal.style.display = 'none';
-        }
-        
-        closeEditUserModal.addEventListener('click', hideModal);
-        cancelEditUserBtn.addEventListener('click', hideModal);
-        
-        // Listen for Edit/Delete clicks via Event Delegation
-        document.body.addEventListener('click', async (e) => {
-            const editBtn = e.target.closest('.edit-user');
-            const deleteBtn = e.target.closest('.delete-user');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Edit User Modal Logic
+            const editUserModal = document.getElementById('editUserModal');
+            const editUserForm = document.getElementById('editUserForm');
+            const closeEditUserModal = document.getElementById('closeEditUserModal');
+            const cancelEditUserBtn = document.getElementById('cancelEditUserBtn');
+            const editUserMessage = document.getElementById('editUserMessage');
             
-            if (editBtn) {
-                const uid = editBtn.getAttribute('data-uid');
-                const role = editBtn.getAttribute('data-role');
-                
-                document.getElementById('editUserId').value = uid;
-                document.getElementById('editUserRole').value = role;
-                document.getElementById('editUserName').value = editBtn.getAttribute('data-name');
-                document.getElementById('editUserEmail').value = editBtn.getAttribute('data-email');
-                document.getElementById('editUserStatus').value = editBtn.getAttribute('data-status');
-                document.getElementById('editUserDeadline').value = editBtn.getAttribute('data-deadline');
-                
-                editUserMessage.innerHTML = '';
-                editUserModal.style.display = 'flex';
+            if (!editUserModal) return; // safety check
+            
+            function hideModal() {
+                editUserModal.style.display = 'none';
             }
             
-            if (deleteBtn) {
-                const uid = deleteBtn.getAttribute('data-uid');
-                const email = deleteBtn.getAttribute('data-email');
-                const role = deleteBtn.getAttribute('data-role');
+            closeEditUserModal.addEventListener('click', hideModal);
+            cancelEditUserBtn.addEventListener('click', hideModal);
+            
+            // Listen for Edit/Delete clicks via Event Delegation
+            document.body.addEventListener('click', async (e) => {
+                const editBtn = e.target.closest('.edit-user');
+                const deleteBtn = e.target.closest('.delete-user');
                 
-                if (confirm(`Are you sure you want to permanently delete the user ${email}? They will lose all access.`)) {
-                    try {
-                        // Delete from users collection
-                        await db.collection('users').doc(uid).delete();
-                        // Delete from preapproved collection
-                        await db.collection('preapprovedEmails').doc(email).delete();
-                        
-                        alert('User successfully deleted.');
-                        
-                        if (role === 'navigator') loadNavigators();
-                        else loadCoordinators();
-                    } catch (error) {
-                        console.error('Error deleting user:', error);
-                        alert('Error deleting user: ' + error.message);
+                if (editBtn) {
+                    const uid = editBtn.getAttribute('data-uid');
+                    const role = editBtn.getAttribute('data-role');
+                    
+                    document.getElementById('editUserId').value = uid;
+                    document.getElementById('editUserRole').value = role;
+                    document.getElementById('editUserName').value = editBtn.getAttribute('data-name');
+                    document.getElementById('editUserEmail').value = editBtn.getAttribute('data-email');
+                    document.getElementById('editUserStatus').value = editBtn.getAttribute('data-status');
+                    document.getElementById('editUserDeadline').value = editBtn.getAttribute('data-deadline');
+                    
+                    editUserMessage.innerHTML = '';
+                    editUserModal.style.display = 'flex';
+                }
+                
+                if (deleteBtn) {
+                    const uid = deleteBtn.getAttribute('data-uid');
+                    const email = deleteBtn.getAttribute('data-email');
+                    const role = deleteBtn.getAttribute('data-role');
+                    
+                    if (confirm(`Are you sure you want to permanently delete the user ${email}? They will lose all access.`)) {
+                        try {
+                            // Delete from users collection
+                            await db.collection('users').doc(uid).delete();
+                            // Delete from preapproved collection
+                            await db.collection('preapprovedEmails').doc(email).delete();
+                            
+                            alert('User successfully deleted.');
+                            
+                            if (role === 'navigator') {
+                                if (typeof loadNavigators === 'function') loadNavigators();
+                            } else {
+                                if (typeof loadCoordinators === 'function') loadCoordinators();
+                            }
+                        } catch (error) {
+                            console.error('Error deleting user:', error);
+                            alert('Error deleting user: ' + error.message);
+                        }
                     }
                 }
-            }
-        });
-        
-        // Handle Edit Form Submit
-        editUserForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            });
             
-            const uid = document.getElementById('editUserId').value;
-            const role = document.getElementById('editUserRole').value;
-            const name = document.getElementById('editUserName').value;
-            const status = document.getElementById('editUserStatus').value;
-            const deadlineStr = document.getElementById('editUserDeadline').value;
-            
-            try {
-                editUserMessage.innerHTML = '';
+            // Handle Edit Form Submit
+            editUserForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
                 
-                const updates = {
-                    name: name,
-                    status: status
-                };
+                const uid = document.getElementById('editUserId').value;
+                const role = document.getElementById('editUserRole').value;
+                const name = document.getElementById('editUserName').value;
+                const status = document.getElementById('editUserStatus').value;
+                const deadlineStr = document.getElementById('editUserDeadline').value;
                 
-                if (deadlineStr) {
-                    updates.deadline = firebase.firestore.Timestamp.fromDate(new Date(deadlineStr));
-                }
-                
-                await db.collection('users').doc(uid).update(updates);
-                
-                // Also update name in preapproved if possible
-                const email = document.getElementById('editUserEmail').value;
                 try {
-                    await db.collection('preapprovedEmails').doc(email).set({
-                        name: name
-                    }, { merge: true });
-                } catch (e) {
-                    console.log('Preapproved email not updated:', e);
+                    editUserMessage.innerHTML = '';
+                    
+                    const updates = {
+                        name: name,
+                        status: status
+                    };
+                    
+                    if (deadlineStr) {
+                        updates.deadline = firebase.firestore.Timestamp.fromDate(new Date(deadlineStr));
+                    }
+                    
+                    await db.collection('users').doc(uid).update(updates);
+                    
+                    // Also update name in preapproved if possible
+                    const email = document.getElementById('editUserEmail').value;
+                    try {
+                        await db.collection('preapprovedEmails').doc(email).set({
+                            name: name
+                        }, { merge: true });
+                    } catch (err) {
+                        console.log('Preapproved email not updated:', err);
+                    }
+                    
+                    hideModal();
+                    
+                    if (role === 'navigator') {
+                        if (typeof loadNavigators === 'function') loadNavigators();
+                    } else {
+                        if (typeof loadCoordinators === 'function') loadCoordinators();
+                    }
+                    
+                } catch (error) {
+                    console.error('Error updating user:', error);
+                    if (typeof showMessage === 'function') {
+                        showMessage(editUserMessage, 'Error updating user: ' + error.message, 'error');
+                    }
                 }
-                
-                hideModal();
-                
-                if (role === 'navigator') loadNavigators();
-                else loadCoordinators();
-                
-            } catch (error) {
-                console.error('Error updating user:', error);
-                showMessage(editUserMessage, 'Error updating user: ' + error.message, 'error');
-            }
+            });
         });
-
     </script>
 
     <!-- Edit User Modal -->
