@@ -418,20 +418,22 @@
             gap: 10px;
         }
 
-        .tab {
+                .tab {
             padding: 14px 24px;
             cursor: pointer;
-            background-color: transparent;
+            background: transparent !important;
+            box-shadow: none !important;
             border: none;
             font-size: 16px;
             font-weight: 600;
-            color: var(--medium-gray);
+            color: var(--medium-gray) !important;
             transition: all 0.3s ease;
             position: relative;
             border-radius: 12px 12px 0 0;
             display: flex;
             align-items: center;
             gap: 10px;
+            transform: none !important;
         }
 
         .tab::after {
@@ -448,8 +450,8 @@
         }
 
         .tab.active {
-            color: var(--primary-color);
-            background-color: rgba(255, 255, 255, 0.5);
+            color: var(--primary-color) !important;
+            background: rgba(255, 255, 255, 0.5) !important;
         }
         
         .tab.active::after {
@@ -457,8 +459,8 @@
         }
         
         .tab:hover:not(.active) {
-            color: var(--primary-color);
-            background-color: rgba(255, 255, 255, 0.3);
+            color: var(--primary-color) !important;
+            background: rgba(255, 255, 255, 0.3) !important;
         }
 
         .tab-content {
@@ -1424,6 +1426,39 @@
                 }
             });
         });        
+                // Tab click handling for the main tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabsContainer = this.parentElement;
+                tabsContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const tabName = this.getAttribute('data-tab');
+                
+                if (tabName === 'navigators' || tabName === 'coordinators') {
+                    document.getElementById('navigatorsTab').style.display = 'none';
+                    document.getElementById('coordinatorsTab').style.display = 'none';
+                }
+                
+                if (tabName === 'chapters' || tabName === 'coordinatorChapters') {
+                    document.getElementById('chaptersTab').style.display = 'none';
+                    document.getElementById('coordinatorChaptersTab').style.display = 'none';
+                }
+                
+                const contentEl = document.getElementById(`${tabName}Tab`);
+                if (contentEl) {
+                    contentEl.style.display = 'block';
+                }
+                
+                // Sync sidebar active state if possible
+                document.querySelectorAll('.submenu a[data-tab]').forEach(l => l.classList.remove('active'));
+                const sidebarLink = document.querySelector(`.submenu a[data-tab="${tabName}"]`);
+                if (sidebarLink) {
+                    sidebarLink.classList.add('active');
+                }
+            });
+        });
+
         // Submenu item click handling
         document.querySelectorAll('.submenu a[data-tab]').forEach(link => {
             link.addEventListener('click', function(e) {
