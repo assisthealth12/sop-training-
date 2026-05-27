@@ -545,7 +545,7 @@
         }
 
         /* Modals Fixes */
-        .modal {
+        .fab-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -559,12 +559,12 @@
             justify-content: center;
         }
 
-        .modal.show {
+        .fab-modal.show {
             display: flex;
             animation: fadeIn 0.2s ease-out forwards;
         }
 
-        .modal-content {
+        .fab-modal-content {
             background: var(--bg-card);
             border-radius: var(--border-radius-md);
             box-shadow: var(--shadow-lg);
@@ -574,7 +574,7 @@
             border: 1px solid var(--light-gray);
         }
 
-        .modal-header {
+        .fab-modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -583,7 +583,7 @@
             padding-bottom: 16px;
         }
 
-        .modal-title {
+        .fab-modal-title {
             margin: 0;
             font-size: 18px;
         }
@@ -607,20 +607,20 @@
         }
 
         /* Fix for the Modal Buttons Layout */
-        .modal-buttons {
+        .fab-modal-buttons {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
         
-        .modal-buttons .modal-button {
+        .fab-modal-buttons .fab-modal-button {
             width: 100%;
             justify-content: flex-start;
             padding: 14px 20px;
             border-radius: var(--border-radius-sm);
         }
         
-        .modal-buttons .modal-button i {
+        .fab-modal-buttons .fab-modal-button i {
             width: 24px;
             text-align: center;
             margin-right: 8px;
@@ -1192,23 +1192,23 @@
         </button>
         
         <!-- Add User/Chapter Modal -->
-        <div class="modal" id="addModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Add New Item</h2>
+        <div class="fab-modal" id="addModal">
+            <div class="fab-modal-content">
+                <div class="fab-modal-header">
+                    <h2 class="fab-modal-title">Add New Item</h2>
                     <button class="close-modal" id="closeModal">&times;</button>
                 </div>
-                <div class="modal-buttons">
-                    <button class="modal-button" id="addNavigatorModalBtn">
+                <div class="fab-modal-buttons">
+                    <button class="fab-modal-button" id="addNavigatorModalBtn">
                         <i class="fas fa-user"></i> Add Navigator
                     </button>
-                    <button class="modal-button" id="addCoordinatorModalBtn">
+                    <button class="fab-modal-button" id="addCoordinatorModalBtn">
                         <i class="fas fa-user-friends"></i> Add Coordinator
                     </button>
-                    <button class="modal-button secondary" id="addChapterModalBtn">
+                    <button class="fab-modal-button secondary" id="addChapterModalBtn">
                         <i class="fas fa-book"></i> Add Navigator Chapter
                     </button>
-                    <button class="modal-button secondary" id="addCoordinatorChapterModalBtn">
+                    <button class="fab-modal-button secondary" id="addCoordinatorChapterModalBtn">
                         <i class="fas fa-book-reader"></i> Add Coordinator Chapter
                     </button>
                 </div>
