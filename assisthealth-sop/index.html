@@ -9,93 +9,98 @@
     <!-- SEO LOCK: Prevent search engines from indexing -->
     <meta name="robots" content="noindex, nofollow">
 
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
-        /* AssistHealth Color Palette */
-
+        /* Minimal Professional B&W Palette */
         :root {
-            --primary-color: #3D8D7A;
-            --secondary-color: #B3D8A8;
-            --accent-color: #FBFFE4;
-            --light-accent: #A3D1C6;
-            --dark-gray: #333333;
-            --medium-gray: #6c757d;
+            --primary-color: #000000;
+            --brand-green: #2D6A4F;
+            --dark-gray: #111111;
+            --medium-gray: #666666;
+            --light-gray: #eaeaeb;
+            --bg-color: #f7f7f8;
             --white: #ffffff;
-            --success: #3D8D7A;
-            --danger: #dc3545;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --border-radius: 12px;
+            --danger: #e00000;
+            --success: #2D6A4F;
+            
+            --border-radius: 6px;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 16px rgba(0,0,0,0.08);
+            --transition: all 0.2s ease;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
             color: var(--dark-gray);
-            line-height: 1.6;
-            padding: 20px;
+            line-height: 1.5;
             min-height: 100vh;
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
+            margin-bottom: 32px;
         }
         
         .logo-container {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
         
         .logo {
-            max-width: 100px;
+            max-width: 48px;
             height: auto;
         }
+        
+        .app-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--brand-green);
+        }
 
-        h1 {
-            color: var(--primary-color);
-            font-size: 28px;
-            margin-bottom: 10px;
-            font-weight: 600;
+        header p {
+            color: var(--medium-gray);
+            font-size: 15px;
+            margin-top: 8px;
         }
 
         .container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            max-width: 500px;
-            margin: 0 auto;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 400px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--white);
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 30px;
-            border: 1px solid var(--light-accent);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--light-gray);
+            padding: 32px;
         }
         
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-
         h2 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
             font-size: 24px;
             font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--dark-gray);
+            letter-spacing: -0.5px;
+            text-align: center;
         }
 
         .form-group {
@@ -105,92 +110,90 @@
         label {
             display: block;
             margin-bottom: 8px;
+            font-size: 14px;
             font-weight: 500;
+            color: var(--dark-gray);
         }
 
         input {
             width: 100%;
-            padding: 14px;
-            border: 2px solid var(--light-accent);
+            padding: 12px 14px;
+            border: 1px solid var(--light-gray);
             border-radius: var(--border-radius);
-            font-size: 16px;
-            background-color: rgba(255, 255, 255, 0.7);
-            transition: border-color 0.3s ease;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            transition: var(--transition);
         }
         
         input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(61, 141, 122, 0.2);
+            box-shadow: 0 0 0 1px var(--primary-color);
         }
 
         button {
             width: 100%;
-            padding: 14px;
+            padding: 12px 16px;
             background-color: var(--primary-color);
-            color: white;
-            border: none;
+            color: var(--white);
+            border: 1px solid var(--primary-color);
             border-radius: var(--border-radius);
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 500;
+            font-family: inherit;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(61, 141, 122, 0.2);
+            transition: var(--transition);
+            margin-top: 8px;
         }
 
         button:hover {
-            background-color: #327565;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(61, 141, 122, 0.3);
+            background-color: var(--white);
+            color: var(--primary-color);
         }
         
         button:active {
-            transform: translateY(0);
-        }
-        
-        button:disabled {
-            background-color: var(--medium-gray);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            transform: scale(0.98);
         }
 
         .secondary-btn {
             background-color: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            margin-top: 15px;
+            color: var(--medium-gray);
+            border: 1px solid var(--light-gray);
+            margin-top: 16px;
         }
 
         .secondary-btn:hover {
-            background-color: rgba(61, 141, 122, 0.1);
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
         }
 
         .message {
-            padding: 15px;
+            padding: 12px;
             border-radius: var(--border-radius);
-            margin: 15px 0;
+            margin-bottom: 20px;
+            font-size: 14px;
             text-align: center;
-            font-weight: 500;
         }
 
         .error {
-            background-color: rgba(220, 53, 69, 0.1);
+            background-color: #fff0f0;
             color: var(--danger);
-            border: 1px solid var(--danger);
+            border: 1px solid #ffd0d0;
         }
 
         .success {
-            background-color: rgba(61, 141, 122, 0.1);
+            background-color: #f0fff4;
             color: var(--success);
-            border: 1px solid var(--success);
+            border: 1px solid #d0f0db;
         }
         
         .form-options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 15px 0;
+            margin: 16px 0;
         }
         
         .checkbox-container {
@@ -198,95 +201,58 @@
             align-items: center;
             cursor: pointer;
             font-size: 14px;
-            position: relative;
-            padding-left: 30px;
+            color: var(--medium-gray);
+            user-select: none;
         }
         
-        .checkbox-container input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
+        .checkbox-container input {
+            width: auto;
+            margin-right: 8px;
+            accent-color: var(--primary-color);
             cursor: pointer;
-            height: 0;
-            width: 0;
-        }
-        
-        .checkmark {
-            position: absolute;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            background-color: white;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        .checkbox-container:hover input ~ .checkmark {
-            background-color: #f0f0f0;
-        }
-        
-        .checkbox-container input:checked ~ .checkmark {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-        
-        .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
-        
-        .checkbox-container input:checked ~ .checkmark:after {
-            display: block;
-        }
-        
-        .checkbox-container .checkmark:after {
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            content: "\f00c";
-            left: 3px;
-            top: -1px;
-            color: white;
-            font-size: 12px;
-        }
-        
-        .forgot-password {
-            text-align: right;
-            margin-top: 10px;
         }
         
         .forgot-password a {
-            color: var(--primary-color);
+            color: var(--medium-gray);
             text-decoration: none;
             font-size: 14px;
+            transition: var(--transition);
         }
         
         .forgot-password a:hover {
-            text-decoration: underline;
+            color: var(--primary-color);
+        }
+        
+        /* Subtitle separator */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0 16px;
+            color: var(--medium-gray);
+            font-size: 14px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        .divider:not(:empty)::before {
+            margin-right: 16px;
+        }
+        .divider:not(:empty)::after {
+            margin-left: 16px;
         }
 
-        @media (min-width: 640px) {
-            .container {
-                max-width: 600px;
-            }
-            
-            h1 {
-                font-size: 32px;
-            }
-            
-            .logo {
-                max-width: 120px;
-            }
-        }
     </style>
 </head>
 <body>
-    <header>
+        <header>
         <div class="logo-container">
             <img src="./assets/images/AH1.png" alt="AssistHealth Logo" class="logo">
+            <span class="app-name">AssistHealth</span>
         </div>
-        <h1>AssistHealth SOP Training</h1>
-        <p>Secure login and registration for authorized personnel</p>
+        <p>Secure login for authorized personnel</p>
     </header>
 
     <main class="container">
@@ -296,25 +262,27 @@
             <form id="loginForm">
                 <div class="form-group">
                     <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" required>
+                    <input type="email" id="loginEmail" required placeholder="you@example.com">
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" required>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
                 </div>
                 <div class="form-options">
                     <label class="checkbox-container">
                         <input type="checkbox" id="rememberMe">
-                        <span class="checkmark"></span>
                         <span>Remember me</span>
                     </label>
+                    <div class="forgot-password">
+                        <a href="#" id="forgotPassword">Forgot password?</a>
+                    </div>
                 </div>
-                <button type="submit">Login</button>
-                <div class="forgot-password">
-                    <a href="#" id="forgotPassword">Forgot Password?</a>
-                </div>
+                <button type="submit">Sign In</button>
             </form>
-            <button class="secondary-btn" id="showRegisterBtn">Need to Register?</button>
+            
+            <div class="divider">or</div>
+            
+            <button class="secondary-btn" id="showRegisterBtn">Create an account</button>
         </div>
 
         <div class="card" id="registerCard" style="display: none;">
@@ -323,19 +291,22 @@
             <form id="registerForm">
                 <div class="form-group">
                     <label for="registerName">Full Name</label>
-                    <input type="text" id="registerName" required>
+                    <input type="text" id="registerName" required placeholder="Jane Doe">
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email</label>
-                    <input type="email" id="registerEmail" required>
+                    <input type="email" id="registerEmail" required placeholder="you@example.com">
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">Password</label>
-                    <input type="password" id="registerPassword" required minlength="6">
+                    <input type="password" id="registerPassword" required minlength="6" placeholder="At least 6 characters">
                 </div>
-                <button type="submit">Register</button>
+                <button type="submit">Create Account</button>
             </form>
-            <button class="secondary-btn" id="showLoginBtn">Back to Login</button>
+            
+            <div class="divider">or</div>
+            
+            <button class="secondary-btn" id="showLoginBtn">Sign in to existing account</button>
         </div>
     </main>
 
