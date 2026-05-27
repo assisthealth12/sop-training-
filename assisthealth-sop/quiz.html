@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,251 +8,359 @@
     <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* AssistHealth Color Palette */
+        /* Premium AssistHealth Color Palette & Theme */
         :root {
-            --primary-color: #3D8D7A;
-            --secondary-color: #B3D8A8;
-            --accent-color: #FBFFE4;
-            --light-accent: #A3D1C6;
-            --dark-gray: #333333;
-            --medium-gray: #6c757d;
+            --primary-color: #2D6A4F;
+            --secondary-color: #40916C;
+            --accent-color: #52B788;
+            --light-accent: #74C69D;
+            --bg-gradient-1: #D8F3DC;
+            --bg-gradient-2: #B7E4C7;
+            --dark-gray: #1B4332;
+            --medium-gray: #495057;
             --white: #ffffff;
-            --success: #3D8D7A;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --info: #17a2b8;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --border-radius: 12px;
+            --success: #2D6A4F;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius: 16px;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: 'Outfit', sans-serif;
         }
 
         body {
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
             color: var(--dark-gray);
             line-height: 1.6;
             min-height: 100vh;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Timer Bar */
+        /* Glassmorphism Utilities */
+        .glass-panel,
+        .quiz-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--border-radius);
+        }
+
+        /* Timer Pill */
         .timer-bar {
-            position: sticky;
-            top: 0;
-            background-color: var(--primary-color);
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(27, 67, 50, 0.9);
             color: white;
-            padding: 15px 20px;
+            padding: 10px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(27, 67, 50, 0.3);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
         }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo {
-            max-width: 40px;
-            height: auto;
-            margin-right: 15px;
+
+        .timer-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            font-weight: 500;
         }
 
         .timer-text {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
         }
 
         .timer-warning {
-            color: var(--warning);
-            animation: pulse 1s infinite;
+            background: rgba(239, 68, 68, 0.9);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+            animation: pulse-danger 1.5s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+        @keyframes pulse-danger {
+            0% {
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.05);
+            }
+
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 30px 20px;
+            margin: 80px 20px 30px;
+            /* Top margin to clear the fixed timer */
             padding-bottom: 20px;
-            border-bottom: 1px solid var(--light-accent);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+            max-width: 900px;
+            width: 100%;
+            align-self: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            max-width: 45px;
+            height: auto;
+            margin-right: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         h1 {
-            color: var(--primary-color);
-            font-size: 24px;
-            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .back-btn {
-            background-color: transparent;
+            background-color: var(--white);
             color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            padding: 8px 16px;
+            border: none;
+            padding: 10px 20px;
             font-size: 14px;
-            border-radius: var(--border-radius);
+            font-weight: 600;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .back-btn:hover {
-            background-color: rgba(61, 141, 122, 0.1);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: var(--secondary-color);
         }
 
         .quiz-container {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            padding: 20px;
-            margin: 0 20px 30px;
+            padding: 40px;
+            margin: 0 20px 40px;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid var(--light-accent);
+            width: 100%;
+            align-self: center;
+            animation: slideUp 0.5s ease-out forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .quiz-header {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             text-align: center;
         }
 
         .quiz-title {
-            font-size: 24px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-weight: 600;
+            font-size: 32px;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .question-count {
-            color: var(--medium-gray);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 6px 16px;
+            border-radius: 50px;
+            display: inline-block;
         }
 
         .question-card {
-            background-color: rgba(245, 247, 250, 0.7);
+            background-color: rgba(255, 255, 255, 0.4);
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid var(--light-accent);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
         }
 
         .question-text {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #111827;
+            line-height: 1.4;
         }
-        
+
         .section-header {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
             font-weight: 600;
             text-align: center;
+            box-shadow: var(--shadow-sm);
+            letter-spacing: 0.5px;
         }
 
         .options-container {
             display: grid;
-            gap: 15px;
+            gap: 16px;
         }
 
         .option-card {
-            background: var(--white);
-            border: 2px solid var(--light-accent);
-            border-radius: var(--border-radius);
-            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
         }
 
         .option-card:hover {
-            border-color: var(--primary-color);
-            background-color: rgba(61, 141, 122, 0.05);
+            background: var(--white);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            border-color: rgba(116, 198, 157, 0.5);
         }
 
         .option-card.selected {
             border-color: var(--primary-color);
-            background-color: rgba(61, 141, 122, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 0 4px rgba(45, 106, 79, 0.1);
         }
 
         .option-label {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            width: 100%;
         }
 
         .option-letter {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: var(--bg-gradient-1);
+            color: var(--primary-color);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .option-card:hover .option-letter {
             background-color: var(--primary-color);
             color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
+        }
+
+        .option-card.selected .option-letter {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .option-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #374151;
+            flex-grow: 1;
         }
 
         .navigation {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 40px;
+            align-items: center;
         }
 
         .btn {
-            padding: 12px 25px;
-            background-color: var(--primary-color);
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 50px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(61, 141, 122, 0.2);
+            box-shadow: 0 4px 15px rgba(45, 106, 79, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn:hover {
-            background-color: #327565;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(61, 141, 122, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);
         }
-        
+
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
-        
+
         .btn:disabled {
-            background-color: var(--medium-gray);
+            background: #D1D5DB;
+            color: #9CA3AF;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
 
         .btn-secondary {
-            background-color: transparent;
+            background: var(--white);
             color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            box-shadow: none;
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-secondary:hover {
-            background-color: rgba(61, 141, 122, 0.1);
+            background: #F3F4F6;
+            box-shadow: var(--shadow-md);
         }
 
         .modal {
@@ -261,31 +370,88 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .modal-content {
             background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 30px;
+            border-radius: 24px;
+            padding: 40px;
             max-width: 500px;
             width: 90%;
             text-align: center;
-            box-shadow: var(--shadow);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circle for modal */
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: var(--bg-gradient-1);
+            border-radius: 50%;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .modal-title {
-            font-size: 24px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+            font-size: 28px;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
 
         .modal-message {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             font-size: 18px;
+            color: var(--medium-gray);
+            position: relative;
+            z-index: 1;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
         }
 
         .result-success {
@@ -297,59 +463,69 @@
         }
 
         .message {
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin: 15px 0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 0 0 25px 0;
             text-align: center;
-            font-weight: 500;
+            font-weight: 600;
+            animation: slideUp 0.3s ease;
         }
 
         .error {
-            background-color: rgba(220, 53, 69, 0.1);
+            background-color: #FEF2F2;
             color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-        
-        .success {
-            background-color: rgba(61, 141, 122, 0.1);
-            color: var(--success);
-            border: 1px solid var(--success);
+            border: 1px solid #FCA5A5;
         }
 
-        @media (min-width: 640px) {
-            .timer-bar {
-                padding: 15px 30px;
-            }
-            
+        .success {
+            background-color: #F0FDF4;
+            color: var(--success);
+            border: 1px solid #86EFAC;
+        }
+
+        @media (max-width: 640px) {
             header {
-                margin: 30px;
+                flex-direction: column;
+                gap: 15px;
+                margin-top: 90px;
             }
-            
+
+            .timer-bar {
+                width: 90%;
+            }
+
             .quiz-container {
-                padding: 30px;
-                margin: 0 30px 30px;
+                padding: 25px 20px;
+                margin: 0 15px 30px;
             }
-            
-            h1 {
-                font-size: 28px;
+
+            .navigation {
+                flex-direction: column-reverse;
+                gap: 15px;
             }
-            
-            .quiz-title {
-                font-size: 28px;
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .modal-actions {
+                flex-direction: column;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Timer Bar -->
     <div class="timer-bar">
-        <div>Quiz Timer</div>
+        <div class="timer-label">Quiz Timer</div>
         <div class="timer-text" id="timer">15:00</div>
     </div>
 
     <header>
         <div class="logo-container">
-            <img src="./assets/images/AH.png" alt="AssistHealth Logo" class="logo">
+            <img src="./assets/images/AH1.png" alt="AssistHealth Logo" class="logo">
             <h1>Chapter Quiz</h1>
         </div>
         <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Chapter</button>
@@ -361,18 +537,20 @@
                 <h2 class="quiz-title" id="quizTitle">Loading Quiz...</h2>
                 <div class="question-count" id="questionCount">Question 0 of 0</div>
             </div>
-            
+
             <div id="quizMessage"></div>
-            
+
             <div class="question-card" id="questionCard" style="display: none;">
                 <div class="question-text" id="questionText"></div>
                 <div class="options-container" id="optionsContainer"></div>
             </div>
-            
+
             <div class="navigation">
-                <button class="btn btn-secondary" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="btn btn-secondary" id="prevBtn" disabled><i class="fas fa-arrow-left"></i>
+                    Previous</button>
                 <button class="btn" id="nextBtn">Next <i class="fas fa-arrow-right"></i></button>
-                <button class="btn" id="submitBtn" style="display: none;"><i class="fas fa-paper-plane"></i> Submit Quiz</button>
+                <button class="btn" id="submitBtn" style="display: none;"><i class="fas fa-paper-plane"></i> Submit
+                    Quiz</button>
             </div>
         </div>
     </main>
@@ -382,8 +560,10 @@
         <div class="modal-content">
             <h3 class="modal-title">Submit Quiz</h3>
             <p class="modal-message">Are you sure you want to submit your quiz answers?</p>
-            <button class="btn" id="confirmSubmitBtn">Yes, Submit</button>
-            <button class="btn btn-secondary" id="cancelSubmitBtn">Cancel</button>
+            <div class="modal-actions">
+                <button class="btn" id="confirmSubmitBtn">Yes, Submit</button>
+                <button class="btn btn-secondary" id="cancelSubmitBtn">Cancel</button>
+            </div>
         </div>
     </div>
 
@@ -392,7 +572,9 @@
         <div class="modal-content">
             <h3 class="modal-title" id="resultTitle">Quiz Result</h3>
             <p class="modal-message" id="resultMessage"></p>
-            <button class="btn" id="resultBtn">Continue</button>
+            <div class="modal-actions">
+                <button class="btn" id="resultBtn">Continue</button>
+            </div>
         </div>
     </div>
 
@@ -401,7 +583,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
-    
+
     <script>
         // Initialize Firebase
         const firebaseConfig = window.firebaseConfig;
@@ -435,10 +617,10 @@
         let userAnswers = {};
         let timeLeft = 15 * 60; // 15 minutes in seconds
         let timerInterval;
-        
+
         // Section scores
         let sectionScores = {};
-        
+
         // Section mode state
         let isSectionMode = false;
         let sections = {};
@@ -446,10 +628,10 @@
         let currentSectionIndex = 0;
         let totalCorrect = 0;
         let totalQuestions = 0;
-        
+
         // Per-section timing
         let sectionTimes = {}; // Track time remaining for each section
-        
+
         // Original quiz data for reshuffling
         let originalQuizData = null;
 
@@ -486,7 +668,7 @@
 
                 // Load quiz data
                 await loadQuiz(chapterId);
-                
+
                 // Start timer
                 startTimer();
             } catch (error) {
@@ -503,7 +685,7 @@
         // Previous question
         prevBtn.addEventListener('click', () => {
             saveAnswer();
-            
+
             if (isSectionMode) {
                 // Section mode navigation
                 if (currentQuestionIndex > 0) {
@@ -512,12 +694,12 @@
                 } else if (currentSectionIndex > 0) {
                     // Save current section's remaining time
                     sectionTimes[sectionKeys[currentSectionIndex]] = timeLeft;
-                    
+
                     // Move to previous section
                     currentSectionIndex--;
                     questions = sections[sectionKeys[currentSectionIndex]].questions;
                     currentQuestionIndex = questions.length - 1;
-                    
+
                     // Reset timer for new section
                     timeLeft = sectionTimes[sectionKeys[currentSectionIndex]];
                     startTimer();
@@ -528,14 +710,14 @@
                     currentQuestionIndex--;
                 }
             }
-            
+
             displayQuestion();
         });
 
         // Next question
         nextBtn.addEventListener('click', () => {
             saveAnswer();
-            
+
             if (isSectionMode) {
                 // Section mode navigation
                 if (currentQuestionIndex < questions.length - 1) {
@@ -557,14 +739,14 @@
                     currentQuestionIndex++;
                 }
             }
-            
+
             displayQuestion();
         });
 
         // Submit quiz
         submitBtn.addEventListener('click', () => {
             saveAnswer();
-            
+
             // Check if we're at the last question of the last section
             if (isSectionMode && currentSectionIndex === sectionKeys.length - 1 && currentQuestionIndex === questions.length - 1) {
                 // Directly submit the quiz since we're at the end
@@ -587,24 +769,24 @@
             // Check if this is a section result ("Continue to Next Section") or final result
             if (resultBtn.textContent === 'Continue to Next Section') {
                 resultModal.style.display = 'none';
-                
+
                 // Move to next section
                 if (currentSectionIndex < sectionKeys.length - 1) {
                     // Move to next section
                     currentSectionIndex++;
                     questions = sections[sectionKeys[currentSectionIndex]].questions;
                     currentQuestionIndex = 0;
-                    
+
                     // Reset timer for new section
                     timeLeft = sectionTimes[sectionKeys[currentSectionIndex]];
                     startTimer();
-                    
+
                     displayQuestion();
                 }
             } else if (resultBtn.textContent === 'Try Again') {
                 // If failed and user wants to retake
                 resultModal.style.display = 'none';
-                
+
                 // Reset quiz state for retake
                 resetQuizState();
                 displayQuestion();
@@ -613,7 +795,7 @@
             } else {
                 // Go to dashboard
                 resultModal.style.display = 'none';
-                
+
                 if (userRole === 'coordinator') {
                     window.location.href = 'coordinator-dashboard.html';
                 } else {
@@ -629,37 +811,37 @@
                 // START OF FIX: Handle Quiz Path (Absolute vs Relative)
                 // ---------------------------------------------------------
                 let quizPath = `./quizzes/${userRole}/chapter${chapterId}.json`;
-                
+
                 // If for some reason we need to handle absolute paths in the future
                 // This turns "/quizzes/navigator/..." into "./quizzes/navigator/..."
                 if (quizPath.startsWith('/')) {
                     console.log(`⚠️ Fixing absolute quiz path: Changing ${quizPath} to .${quizPath}`);
                     quizPath = '.' + quizPath;
                 }
-                
+
                 console.log('📄 Final Quiz Source:', quizPath);
                 // ---------------------------------------------------------
                 // END OF FIX
                 // ---------------------------------------------------------
-                
+
                 // Fetch quiz JSON - role-specific path
                 const response = await fetch(quizPath);
                 if (!response.ok) {
                     throw new Error(`Failed to load quiz data for chapter ${chapterId}`);
                 }
-                
+
                 const quizData = await response.json();
-                
+
                 // Store original quiz data for reshuffling on retake
                 if (quizData.questions) {
                     // Standard mode
                     isSectionMode = false;
                     originalQuizData = { questions: [...quizData.questions] }; // Store copy of original
                     questions = quizData.questions || [];
-                    
+
                     // Randomize questions for standard mode
                     questions = shuffleArray(questions);
-                    
+
                     if (questions.length === 0) {
                         throw new Error('No questions found in quiz data');
                     }
@@ -671,41 +853,41 @@
                     for (const sectionKey in quizData.sections) {
                         originalQuizData.sections[sectionKey] = [...quizData.sections[sectionKey].questions];
                     }
-                    
+
                     sections = quizData.sections || {};
                     sectionKeys = Object.keys(sections);
-                    
+
                     if (sectionKeys.length === 0) {
                         throw new Error('No sections found in quiz data');
                     }
-                    
+
                     // Initialize section times (15 minutes each)
                     sectionTimes = {};
                     for (const sectionKey of sectionKeys) {
                         sectionTimes[sectionKey] = 15 * 60; // 15 minutes per section
                     }
-                    
+
                     // Randomize questions in each section independently
                     for (const sectionKey of sectionKeys) {
                         sections[sectionKey].questions = shuffleArray(sections[sectionKey].questions);
                     }
-                    
+
                     // Set questions to the first section's questions
                     questions = sections[sectionKeys[0]].questions || [];
-                    
+
                     // Set initial time to first section's time
                     timeLeft = sectionTimes[sectionKeys[0]];
-                    
+
                     if (questions.length === 0) {
                         throw new Error('No questions found in first section');
                     }
                 } else {
                     throw new Error('Invalid quiz data format: missing "questions" or "sections"');
                 }
-                
+
                 quizTitle.textContent = `Chapter ${chapterId} Quiz`;
                 displayQuestion();
-                
+
                 // Show question card
                 questionCard.style.display = 'block';
             } catch (error) {
@@ -717,14 +899,14 @@
         // Display current question
         function displayQuestion() {
             if (questions.length === 0) return;
-            
+
             const question = questions[currentQuestionIndex];
-            
+
             // Create a map to track option mappings for this question
             if (!question.optionMap) {
                 question.optionMap = {};
             }
-            
+
             // Show section header in section mode
             if (isSectionMode) {
                 // Find existing section header or create new one
@@ -734,84 +916,84 @@
                     sectionHeader.className = 'section-header';
                     questionText.parentNode.insertBefore(sectionHeader, questionText);
                 }
-                
+
                 // Update section header content (replace, don't append)
                 sectionHeader.textContent = `${sections[sectionKeys[currentSectionIndex]].title} (Section ${sectionKeys[currentSectionIndex]})`;
-                
+
                 // Update question text
                 questionText.textContent = question.question;
-                
+
                 // Update question count with section info
                 questionCount.textContent = `${sections[sectionKeys[currentSectionIndex]].title} (Section ${sectionKeys[currentSectionIndex]}) - Question ${currentQuestionIndex + 1} of ${questions.length}`;
             } else {
                 // Standard mode
                 questionText.textContent = question.question;
                 questionCount.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
-                
+
                 // Remove any existing section header in standard mode
                 const existingSectionHeader = questionText.parentNode.querySelector('.section-header');
                 if (existingSectionHeader) {
                     existingSectionHeader.remove();
                 }
             }
-            
+
             // Clear options
             optionsContainer.innerHTML = '';
-            
+
             // Shuffle options for this question
             const shuffledOptions = shuffleOptions(question);
-            
+
             // Update the option map to track original labels
             question.optionMap = {};
             shuffledOptions.forEach(option => {
                 question.optionMap[option.label] = option.originalLabel;
             });
-                            
+
             // Add shuffled options
             shuffledOptions.forEach(option => {
                 if (option.value) {
                     const optionCard = document.createElement('div');
                     optionCard.className = 'option-card';
-                                    
+
                     // Map the user's previous answer to the new label
                     const mappedOriginalLabel = question.optionMap[option.label];
-                                    
+
                     // Determine the answer key based on mode
-                    const answerKey = isSectionMode ? 
-                        `${sectionKeys[currentSectionIndex]}_${question.id}` : 
+                    const answerKey = isSectionMode ?
+                        `${sectionKeys[currentSectionIndex]}_${question.id}` :
                         question.id;
-                                    
+
                     if (userAnswers[answerKey] === mappedOriginalLabel) {
                         optionCard.classList.add('selected');
                     }
-                                    
+
                     optionCard.innerHTML = `
                         <div class="option-label">
                             <span class="option-letter">${option.label}</span>
-                            <span>${option.value}</span>
+                            <span class="option-text">${option.value}</span>
                         </div>
                     `;
-                                    
+
                     optionCard.addEventListener('click', () => {
                         // Remove selected class from all options
                         document.querySelectorAll('.option-card').forEach(card => {
                             card.classList.remove('selected');
                         });
-                                        
+
                         // Add selected class to clicked option
                         optionCard.classList.add('selected');
-                                        
+
                         // Save answer with the ORIGINAL label (as stored in JSON) using appropriate key
-                        const answerKey = isSectionMode ? 
-                            `${sectionKeys[currentSectionIndex]}_${question.id}` : 
+                        const answerKey = isSectionMode ?
+                            `${sectionKeys[currentSectionIndex]}_${question.id}` :
                             question.id;
                         userAnswers[answerKey] = question.optionMap[option.label];
                     });
-                                    
+
                     optionsContainer.appendChild(optionCard);
                 }
             });
-            
+
             // Update navigation buttons
             updateNavigationButtons();
         }
@@ -822,7 +1004,7 @@
                 // Section mode navigation
                 // Previous button disabled only on first question of first section
                 prevBtn.disabled = currentSectionIndex === 0 && currentQuestionIndex === 0;
-                
+
                 // Next/Submit button logic
                 if (currentQuestionIndex < questions.length - 1) {
                     // Not the last question in current section
@@ -854,20 +1036,20 @@
             currentQuestionIndex = 0;
             userAnswers = {};
             sectionScores = {};
-            
+
             // Reset section mode state if in section mode
             if (isSectionMode) {
                 currentSectionIndex = 0;
-                
+
                 // Reset section times (15 minutes each)
                 sectionTimes = {};
                 for (const sectionKey of sectionKeys) {
                     sectionTimes[sectionKey] = 15 * 60; // 15 minutes per section
                 }
-                
+
                 // Set initial time to first section's time
                 timeLeft = sectionTimes[sectionKeys[0]];
-                
+
                 // Reshuffle questions for each section using original data
                 for (const sectionKey of sectionKeys) {
                     sections[sectionKey].questions = shuffleArray(originalQuizData.sections[sectionKey]);
@@ -880,7 +1062,7 @@
                 questions = shuffleArray(originalQuizData.questions);
                 timeLeft = 15 * 60; // Reset timer to 15 minutes
             }
-            
+
             // Clear any existing section headers
             const existingSectionHeader = questionText.parentNode.querySelector('.section-header');
             if (existingSectionHeader) {
@@ -899,22 +1081,22 @@
             if (timerInterval) {
                 clearInterval(timerInterval);
             }
-            
+
             // Reset timer display
             updateTimerDisplay();
             timerElement.classList.remove('timer-warning');
-            
+
             timerInterval = setInterval(() => {
                 timeLeft--;
-                
+
                 // Update timer display
                 updateTimerDisplay();
-                
+
                 // Change color when time is running out
                 if (timeLeft <= 5 * 60) { // 5 minutes
                     timerElement.classList.add('timer-warning');
                 }
-                
+
                 // Auto-submit when time runs out
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
@@ -922,12 +1104,12 @@
                 }
             }, 1000);
         }
-        
+
         // Update timer display with section information
         function updateTimerDisplay() {
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
-            
+
             if (isSectionMode) {
                 // Show section-specific timer info
                 timerElement.textContent = `${sections[sectionKeys[currentSectionIndex]].title} - ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -941,92 +1123,92 @@
         async function submitQuiz() {
             clearInterval(timerInterval);
             confirmModal.style.display = 'none';
-            
+
             try {
                 console.log('📝 Starting quiz submission...');
                 console.log('📝 Chapter ID:', chapterId);
                 console.log('📝 User answers:', userAnswers);
-                
+
                 // Calculate score
                 let correctAnswers = 0;
                 let totalQuestionsCount = 0;
-                
+
                 if (isSectionMode) {
                     // Section mode: show final result
                     showFinalResult();
-                    
+
                     // If quiz was passed, update user progress
                     let totalCorrect = 0;
                     let totalQuestions = 0;
-                    
+
                     for (const sectionKey in sectionScores) {
                         totalCorrect += sectionScores[sectionKey].correct;
                         totalQuestions += sectionScores[sectionKey].total;
                     }
-                    
+
                     const totalScore = Math.round((totalCorrect / totalQuestions) * 100);
                     const passed = totalScore >= 70;
-                    
+
                     if (passed) {
                         console.log('✅ Quiz passed! Updating user progress...');
-                        
+
                         const userId = auth.currentUser.uid;
                         console.log('👤 User ID:', userId);
-                        
+
                         // Determine collection based on role
                         const collectionName = userRole === 'coordinator' ? 'coordinatorChapters' : 'chapters';
-                        
+
                         // Get current chapter version
                         console.log('📖 Fetching chapter data from collection:', collectionName);
                         const chapterDoc = await db.collection(collectionName).doc(String(chapterId)).get();
-                        
+
                         if (!chapterDoc.exists) {
                             console.error('❌ Chapter document not found!');
                             throw new Error('Chapter data not found');
                         }
-                        
+
                         const chapterData = chapterDoc.data();
                         const chapterVersion = chapterData.version || 1;
                         console.log('📖 Chapter version:', chapterVersion);
-                        
+
                         // Get current user data to determine next chapter
                         console.log('👤 Fetching user data...');
                         const userDoc = await db.collection('users').doc(userId).get();
-                        
+
                         if (!userDoc.exists) {
                             console.error('❌ User document not found!');
                             throw new Error('User data not found');
                         }
-                        
+
                         const userData = userDoc.data();
                         console.log('👤 Current user data:', userData);
-                        
+
                         const currentChapterNum = userData.currentChapter || 1;
                         const completedChapterInt = parseInt(chapterId);
                         const nextChapter = Math.max(currentChapterNum, completedChapterInt + 1);
-                        
+
                         console.log('📈 Current chapter:', currentChapterNum);
                         console.log('📈 Completed chapter:', completedChapterInt);
                         console.log('📈 Next chapter will be:', nextChapter);
-                        
+
                         // Build update object - FIXED: No more FieldValue.max!
                         const updateObject = {
                             completedChapters: firebase.firestore.FieldValue.arrayUnion(completedChapterInt),
                             currentChapter: nextChapter
                         };
-                        
+
                         // Add chapter version to the update object
                         const versionField = 'chapterVersionsCompleted.' + chapterId;
                         updateObject[versionField] = chapterVersion;
-                        
+
                         console.log('💾 Update object:', updateObject);
                         console.log('💾 Updating user document...');
-                        
+
                         // Update user document
                         await db.collection('users').doc(userId).update(updateObject);
-                        
+
                         console.log('✅ User progress updated successfully!');
-                        
+
                         // Verify the update
                         const updatedUserDoc = await db.collection('users').doc(userId).get();
                         const updatedUserData = updatedUserDoc.data();
@@ -1036,20 +1218,20 @@
                     } else {
                         console.log('❌ Quiz failed - no progress updated');
                     }
-                    
+
                     return; // Exit early since we're showing the result
                 } else {
                     // Standard mode: calculate score for current questions
                     console.log('📝 Standard mode: calculating score for current questions');
-                    
+
                     questions.forEach(question => {
                         totalQuestionsCount++;
-                        
+
                         // Determine the answer key based on mode
-                        const answerKey = isSectionMode ? 
-                            `${sectionKeys[currentSectionIndex]}_${question.id}` : 
+                        const answerKey = isSectionMode ?
+                            `${sectionKeys[currentSectionIndex]}_${question.id}` :
                             question.id;
-                        
+
                         const userAnswer = userAnswers[answerKey];
                         const isCorrect = userAnswer === question.correct;
                         console.log(`Question ${question.id}: User answered "${userAnswer}", Correct is "${question.correct}" - ${isCorrect ? '✅' : '❌'}`);
@@ -1058,74 +1240,74 @@
                         }
                     });
                 }
-                
+
                 const score = Math.round((correctAnswers / totalQuestionsCount) * 100);
                 const passed = score >= 70;
-                
+
                 console.log(`📊 Score: ${score}% (${correctAnswers}/${totalQuestionsCount})`);
                 console.log(`📊 Passed: ${passed}`);
-                
+
                 // If passed, update user progress BEFORE showing result
                 if (passed) {
                     console.log('✅ Quiz passed! Updating user progress...');
-                    
+
                     const userId = auth.currentUser.uid;
                     console.log('👤 User ID:', userId);
-                    
+
                     // Determine collection based on role
                     const collectionName = userRole === 'coordinator' ? 'coordinatorChapters' : 'chapters';
-                    
+
                     // Get current chapter version
                     console.log('📖 Fetching chapter data from collection:', collectionName);
                     const chapterDoc = await db.collection(collectionName).doc(String(chapterId)).get();
-                    
+
                     if (!chapterDoc.exists) {
                         console.error('❌ Chapter document not found!');
                         throw new Error('Chapter data not found');
                     }
-                    
+
                     const chapterData = chapterDoc.data();
                     const chapterVersion = chapterData.version || 1;
                     console.log('📖 Chapter version:', chapterVersion);
-                    
+
                     // Get current user data to determine next chapter
                     console.log('👤 Fetching user data...');
                     const userDoc = await db.collection('users').doc(userId).get();
-                    
+
                     if (!userDoc.exists) {
                         console.error('❌ User document not found!');
                         throw new Error('User data not found');
                     }
-                    
+
                     const userData = userDoc.data();
                     console.log('👤 Current user data:', userData);
-                    
+
                     const currentChapterNum = userData.currentChapter || 1;
                     const completedChapterInt = parseInt(chapterId);
                     const nextChapter = Math.max(currentChapterNum, completedChapterInt + 1);
-                    
+
                     console.log('📈 Current chapter:', currentChapterNum);
                     console.log('📈 Completed chapter:', completedChapterInt);
                     console.log('📈 Next chapter will be:', nextChapter);
-                    
+
                     // Build update object - FIXED: No more FieldValue.max!
                     const updateObject = {
                         completedChapters: firebase.firestore.FieldValue.arrayUnion(completedChapterInt),
                         currentChapter: nextChapter
                     };
-                    
+
                     // Add chapter version to the update object
                     const versionField = 'chapterVersionsCompleted.' + chapterId;
                     updateObject[versionField] = chapterVersion;
-                    
+
                     console.log('💾 Update object:', updateObject);
                     console.log('💾 Updating user document...');
-                    
+
                     // Update user document
                     await db.collection('users').doc(userId).update(updateObject);
-                    
+
                     console.log('✅ User progress updated successfully!');
-                    
+
                     // Verify the update
                     const updatedUserDoc = await db.collection('users').doc(userId).get();
                     const updatedUserData = updatedUserDoc.data();
@@ -1135,15 +1317,15 @@
                 } else {
                     console.log('❌ Quiz failed - no progress updated');
                 }
-                
+
                 // Update UI and show result modal
                 resultTitle.textContent = 'Quiz Result';
                 resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
-                
+
                 let resultMessageHTML = `
                     You scored <strong>${score}%</strong> (${correctAnswers} out of ${totalQuestionsCount} correct)<br/>
                 `;
-                
+
                 // Add section-wise scores if in section mode
                 if (isSectionMode) {
                     resultMessageHTML += '<div style="margin-top: 15px; text-align: left; padding-left: 20px;">';
@@ -1155,24 +1337,24 @@
                     }
                     resultMessageHTML += '</div>';
                 }
-                
+
                 resultMessageHTML += `
                     ${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}
                 `;
-                
+
                 resultMessage.innerHTML = resultMessageHTML;
                 resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
                 resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
-                
+
                 // Show result modal
                 resultModal.style.display = 'flex';
-                
+
             } catch (error) {
                 console.error("❌ Error submitting quiz:", error);
                 console.error("❌ Error name:", error.name);
                 console.error("❌ Error message:", error.message);
                 console.error("❌ Error stack:", error.stack);
-                
+
                 resultTitle.textContent = 'Submission Error';
                 resultTitle.className = 'modal-title result-error';
                 resultMessage.textContent = 'Error submitting quiz: ' + error.message + '. Please try again or contact support.';
@@ -1202,13 +1384,13 @@
                 { label: 'C', value: question.optionC },
                 { label: 'D', value: question.optionD }
             ];
-            
+
             // Filter out any undefined options
             const validOptions = options.filter(opt => opt.value !== undefined);
-            
+
             // Shuffle the options
             const shuffledOptions = shuffleArray(validOptions);
-            
+
             // Return the shuffled options with updated labels
             return shuffledOptions.map((opt, index) => ({
                 label: String.fromCharCode(65 + index), // A, B, C, D
@@ -1221,7 +1403,7 @@
         function showMessage(container, message, type) {
             container.innerHTML = `<div class="message ${type}">${message}</div>`;
         }
-        
+
         // Calculate score for a specific section
         function calculateSectionScore(sectionKey) {
             // Check if we're in section mode first
@@ -1229,7 +1411,7 @@
                 // For standard mode, calculate score for current questions array
                 let correctCount = 0;
                 let totalCount = 0;
-                
+
                 questions.forEach(question => {
                     totalCount++;
                     const answerKey = question.id;
@@ -1238,19 +1420,19 @@
                         correctCount++;
                     }
                 });
-                
+
                 const score = Math.round((correctCount / totalCount) * 100);
-                
+
                 // For standard mode, use a default section key
                 const defaultSectionKey = 'standard';
-                
+
                 // Store section score
                 sectionScores[defaultSectionKey] = {
                     correct: correctCount,
                     total: totalCount,
                     score: score
                 };
-                
+
                 return {
                     correct: correctCount,
                     total: totalCount,
@@ -1261,7 +1443,7 @@
                 const sectionQuestions = sections[sectionKey].questions;
                 let correctCount = 0;
                 let totalCount = 0;
-                
+
                 sectionQuestions.forEach(question => {
                     totalCount++;
                     const answerKey = `${sectionKey}_${question.id}`;
@@ -1270,16 +1452,16 @@
                         correctCount++;
                     }
                 });
-                
+
                 const score = Math.round((correctCount / totalCount) * 100);
-                
+
                 // Store section score
                 sectionScores[sectionKey] = {
                     correct: correctCount,
                     total: totalCount,
                     score: score
                 };
-                
+
                 return {
                     correct: correctCount,
                     total: totalCount,
@@ -1287,16 +1469,16 @@
                 };
             }
         }
-        
+
         // Show result for a specific section
         function showSectionResult(sectionKey) {
             const sectionScore = calculateSectionScore(sectionKey);
-            
+
             if (!isSectionMode) {
                 // For standard mode, show a simple result
                 resultTitle.textContent = 'Quiz Complete';
                 resultTitle.className = 'modal-title result-success';
-                
+
                 const passed = sectionScore.score >= 70;
                 resultMessage.innerHTML = `
                     <div class="section-result">
@@ -1312,7 +1494,7 @@
                 // Create and show section result modal
                 resultTitle.textContent = `${sections[sectionKey].title} Complete`;
                 resultTitle.className = 'modal-title result-success';
-                
+
                 const passed = sectionScore.score >= 70;
                 resultMessage.innerHTML = `
                     <div class="section-result">
@@ -1325,11 +1507,11 @@
                 resultMessage.className = 'modal-message result-success';
                 resultBtn.textContent = 'Continue to Next Section';
             }
-            
+
             // Show result modal
             resultModal.style.display = 'flex';
         }
-        
+
         // Show final result after completing all sections
         function showFinalResult() {
             if (isSectionMode) {
@@ -1339,30 +1521,30 @@
                         calculateSectionScore(sectionKey);
                     }
                 }
-                
+
                 // Calculate total score
                 let totalCorrect = 0;
                 let totalQuestions = 0;
-                
+
                 for (const sectionKey in sectionScores) {
                     totalCorrect += sectionScores[sectionKey].correct;
                     totalQuestions += sectionScores[sectionKey].total;
                 }
-                
+
                 const totalScore = Math.round((totalCorrect / totalQuestions) * 100);
                 const passed = totalScore >= 70;
-                
+
                 // Update UI and show final result modal
                 resultTitle.textContent = 'Quiz Complete';
                 resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
-                
+
                 let resultMessageHTML = `
                     <div class="final-result">
                         <h3>Overall Score: <strong>${totalScore}%</strong></h3>
                         <p>You answered <strong>${totalCorrect}</strong> out of <strong>${totalQuestions}</strong> questions correctly.</p>
                     </div>
                 `;
-                
+
                 // Add section-wise scores
                 resultMessageHTML += '<div style="margin-top: 15px; text-align: left; padding-left: 20px;">';
                 resultMessageHTML += '<strong>Section-wise Scores:</strong><br/>';
@@ -1372,44 +1554,45 @@
                     resultMessageHTML += `${sections[sectionKey].title} (Section ${sectionKey}): <strong>${sectionScore.score}%</strong> (${sectionScore.correct}/${sectionScore.total}) ${sectionPassed ? '✅' : '❌'}<br/>`;
                 }
                 resultMessageHTML += '</div>';
-                
+
                 resultMessageHTML += `
                     <p>${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}</p>
                 `;
-                
+
                 resultMessage.innerHTML = resultMessageHTML;
                 resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
                 resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
             } else {
                 // For standard mode, just calculate and show the score
                 const sectionScore = calculateSectionScore('standard'); // Use any key, it will use 'standard' in the function
-                
+
                 const totalScore = sectionScore.score;
                 const passed = totalScore >= 70;
-                
+
                 // Update UI and show final result modal
                 resultTitle.textContent = 'Quiz Complete';
                 resultTitle.className = 'modal-title ' + (passed ? 'result-success' : 'result-error');
-                
+
                 let resultMessageHTML = `
                     <div class="final-result">
                         <h3>Overall Score: <strong>${totalScore}%</strong></h3>
                         <p>You answered <strong>${sectionScore.correct}</strong> out of <strong>${sectionScore.total}</strong> questions correctly.</p>
                     </div>
                 `;
-                
+
                 resultMessageHTML += `
                     <p>${passed ? 'Congratulations! You passed the quiz and unlocked the next chapter!' : 'Sorry, you did not pass. You need 70% to pass. Please review the chapter and try again.'}</p>
                 `;
-                
+
                 resultMessage.innerHTML = resultMessageHTML;
                 resultMessage.className = 'modal-message ' + (passed ? 'result-success' : 'result-error');
                 resultBtn.textContent = passed ? 'Go to Dashboard' : 'Try Again';
             }
-            
+
             // Show result modal
             resultModal.style.display = 'flex';
         }
     </script>
 </body>
+
 </html>

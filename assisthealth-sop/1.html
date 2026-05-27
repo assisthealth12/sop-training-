@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login — AssistHealth</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal:    #00A99D;
+    --teal-dk: #007A71;
+    --teal-lt: #E0F7F5;
+    --green:   #2E7D32;
+    --green-lt:#E8F5E9;
+    --text:    #1A1A2E;
+    --muted:   #6B7280;
+    --border:  #E5E7EB;
+    --white:   #FFFFFF;
+    --bg:      #F0FAFA;
+    --danger:  #DC2626;
+    --radius:  12px;
+    --tab-h:   44px;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+  }
+
+  /* ── LEFT PANEL ─────────────────────────────── */
+  .left {
+    flex: 1 1 50%;
+    background: var(--teal);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .left::before {
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    top: -100px; left: -80px;
+    pointer-events: none;
+  }
+  .left::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    bottom: -80px; right: -60px;
+    pointer-events: none;
+  }
+
+  .left-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+  }
+
+  .left-brand img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .left-brand-text {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .left-content {
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 0 32px;
+  }
+
+  .left-tagline {
+    font-size: 38px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+
+  .left-tagline span {
+    opacity: 0.75;
+    font-weight: 400;
+  }
+
+  .left-desc {
+    font-size: 16px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 36px;
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .feature-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.18);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-icon svg {
+    width: 18px; height: 18px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .feature-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+
+  .feature-text span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  .left-footer {
+    z-index: 1;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .left-footer a { color: rgba(255,255,255,0.75); text-decoration: none; }
+  .left-footer a:hover { color: #fff; }
+
+  /* ── RIGHT PANEL ────────────────────────────── */
+  .right {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 40px;
+    background: var(--white);
+  }
+
+  .form-card {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 36px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--teal); }
+  .back-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .form-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .form-logo img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .form-logo-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--teal-dk);
+    letter-spacing: -0.2px;
+  }
+
+  .form-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.4px;
+    margin-bottom: 4px;
+  }
+
+  .form-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* TAB SWITCHER */
+  .tab-group {
+    display: flex;
+    background: #F3F4F6;
+    border-radius: var(--radius);
+    padding: 4px;
+    margin-bottom: 24px;
+    gap: 4px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    height: var(--tab-h);
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+
+  .tab-btn.active {
+    background: var(--white);
+    color: var(--teal-dk);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  }
+
+  .tab-btn:not(.active):hover {
+    color: var(--text);
+  }
+
+  /* FORM FIELDS */
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .forgot-link {
+    font-size: 13px;
+    color: var(--teal);
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .forgot-link:hover { color: var(--teal-dk); text-decoration: underline; }
+
+  .input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    display: flex;
+    pointer-events: none;
+  }
+
+  .input-icon svg {
+    width: 16px; height: 16px;
+    stroke: var(--muted);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .input-wrap input {
+    width: 100%;
+    height: 48px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0 44px 0 42px;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+
+  .input-wrap input::placeholder { color: #9CA3AF; }
+
+  .input-wrap input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(0,169,157,0.12);
+  }
+
+  .input-wrap input:hover:not(:focus) {
+    border-color: #9CA3AF;
+  }
+
+  .toggle-pw {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .toggle-pw:hover { color: var(--teal); }
+  .toggle-pw svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .phone-prefix {
+    position: absolute;
+    left: 42px;
+    font-size: 15px;
+    color: var(--text);
+    pointer-events: none;
+    font-weight: 500;
+  }
+
+  .phone-input { padding-left: 80px !important; }
+
+  /* SUBMIT BTN */
+  .btn-primary {
+    width: 100%;
+    height: 50px;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.2px;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 4px;
+    font-family: inherit;
+  }
+
+  .btn-primary:hover { background: var(--teal-dk); }
+  .btn-primary:active { transform: scale(0.99); }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* REGISTER LINK */
+  .register-row {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 20px;
+  }
+
+  .register-row a {
+    color: var(--teal);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .register-row a:hover { text-decoration: underline; }
+
+  /* LEGAL LINKS */
+  .legal-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .legal-links a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .legal-links a:hover { color: var(--teal); }
+
+  .copyright {
+    text-align: center;
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-top: 12px;
+  }
+
+  /* PANEL VISIBILITY */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ERROR STATE */
+  .field-error {
+    font-size: 12px;
+    color: var(--danger);
+    margin-top: 5px;
+    display: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .left { display: none; }
+    .right { padding: 32px 24px; }
+    .form-card { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- LEFT PANEL -->
+  <div class="left">
+    <div class="left-brand">
+      <img src="logo.png" alt="AssistHealth logo" onerror="this.style.display='none'"/>
+      <span class="left-brand-text">AssistHealth</span>
+    </div>
+
+    <div class="left-content">
+      <h1 class="left-tagline">
+        Health.<br/>
+        <span>Assured.</span><br/>
+        Always.
+      </h1>
+      <p class="left-desc">
+        Your complete health companion — book appointments, access medical records, 
+        consult doctors, and manage your family's wellness from one secure platform.
+      </p>
+
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </div>
+          <div class="feature-text">
+            <strong>Digital health records</strong>
+            <span>All your reports, prescriptions &amp; history — in one place, always accessible.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="feature-text">
+            <strong>Book appointments instantly</strong>
+            <span>Choose your doctor, pick a slot, and get confirmed in seconds.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.07 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+          </div>
+          <div class="feature-text">
+            <strong>Consult from anywhere</strong>
+            <span>Video and chat consultations with verified doctors — no travel needed.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="left-footer">
+      Visit us at <a href="https://assisthealth.in" target="_blank">assisthealth.in</a>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right">
+    <div class="form-card">
+
+      <a href="https://assisthealth.in" class="back-link">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to website
+      </a>
+
+      <div class="form-logo">
+        <img src="logo.png" alt="AssistHealth" onerror="this.style.display='none'"/>
+        <span class="form-logo-name">AssistHealth</span>
+      </div>
+
+      <h2 class="form-title">Welcome back</h2>
+      <p class="form-sub">Sign in to your health account</p>
+
+      <!-- TAB SWITCH -->
+      <div class="tab-group" role="tablist">
+        <button class="tab-btn active" id="tab-email" role="tab" aria-selected="true" onclick="switchTab('email')">
+          Email login
+        </button>
+        <button class="tab-btn" id="tab-phone" role="tab" aria-selected="false" onclick="switchTab('phone')">
+          Phone login
+        </button>
+      </div>
+
+      <!-- EMAIL PANEL -->
+      <div class="panel active" id="panel-email">
+        <div class="field">
+          <label class="field-label" for="email">Email address</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <input type="email" id="email" placeholder="you@example.com" autocomplete="email"/>
+          </div>
+          <div class="field-error" id="email-err">Please enter a valid email address.</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <label for="pw-email">Password</label>
+            <a href="#" class="forgot-link" onclick="showForgot('email'); return false;">Forgot password?</a>
+          </div>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <input type="password" id="pw-email" placeholder="Enter your password" autocomplete="current-password"/>
+            <button type="button" class="toggle-pw" onclick="togglePw('pw-email', this)" aria-label="Show password">
+              <svg id="eye-email" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-error" id="pw-email-err">Password cannot be empty.</div>
+        </div>
+
+        <button class="btn-primary" onclick="handleLogin('email')">Sign in</button>
+      </div>
+
+      <!-- PHONE PANEL -->
+      <div class="panel" id="panel-phone">
+        <div class="field">
+          <label class="field-label" for="phone">Phone number</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.07 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+            </span>
+            <span class="phone-prefix">+91</span>
+            <input type="tel" id="phone" placeholder="98765 43210" class="phone-input" autocomplete="tel" maxlength="10"/>
+          </div>
+          <div class="field-error" id="phone-err">Please enter a valid 10-digit mobile number.</div>
+        </div>
+
+        <div class="field">
+          <div class="field-label">
+            <label for="pw-phone">Password</label>
+            <a href="#" class="forgot-link" onclick="showForgot('phone'); return false;">Forgot password?</a>
+          </div>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <input type="password" id="pw-phone" placeholder="Enter your password" autocomplete="current-password"/>
+            <button type="button" class="toggle-pw" onclick="togglePw('pw-phone', this)" aria-label="Show password">
+              <svg id="eye-phone" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <div class="field-error" id="pw-phone-err">Password cannot be empty.</div>
+        </div>
+
+        <button class="btn-primary" onclick="handleLogin('phone')">Sign in</button>
+      </div>
+
+      <div class="register-row">
+        New to AssistHealth? <a href="#">Create an account</a>
+      </div>
+
+      <div class="legal-links">
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms &amp; conditions</a>
+        <a href="#">Refund policy</a>
+        <a href="#">Return &amp; delivery</a>
+      </div>
+      <p class="copyright">© 2026 AssistHealth. All rights reserved.</p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.getElementById('tab-' + tab).setAttribute('aria-selected', 'true');
+    document.getElementById('panel-' + tab).classList.add('active');
+    clearErrors();
+  }
+
+  function togglePw(id, btn) {
+    var inp = document.getElementById(id);
+    var showing = inp.type === 'text';
+    inp.type = showing ? 'password' : 'text';
+    btn.querySelector('svg').innerHTML = showing
+      ? '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+      : '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(e => e.style.display = 'none');
+    document.querySelectorAll('input').forEach(i => i.style.borderColor = '');
+  }
+
+  function showError(fieldId, errId) {
+    var inp = document.getElementById(fieldId);
+    var err = document.getElementById(errId);
+    inp.style.borderColor = '#DC2626';
+    err.style.display = 'block';
+    inp.focus();
+  }
+
+  function handleLogin(type) {
+    clearErrors();
+    var valid = true;
+    if (type === 'email') {
+      var email = document.getElementById('email').value.trim();
+      var pw = document.getElementById('pw-email').value;
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('email', 'email-err'); valid = false;
+      }
+      if (!pw) { showError('pw-email', 'pw-email-err'); valid = false; }
+    } else {
+      var phone = document.getElementById('phone').value.trim();
+      var pw2 = document.getElementById('pw-phone').value;
+      if (!phone || !/^\d{10}$/.test(phone)) {
+        showError('phone', 'phone-err'); valid = false;
+      }
+      if (!pw2) { showError('pw-phone', 'pw-phone-err'); valid = false; }
+    }
+    if (valid) {
+      alert('Credentials validated — connect to your backend API here.');
+    }
+  }
+
+  function showForgot(type) {
+    alert('Forgot password — send OTP to registered ' + (type === 'email' ? 'email address' : 'phone number') + '. Connect to your OTP API here.');
+  }
+</script>
+</body>
+</html>
