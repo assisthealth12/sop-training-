@@ -694,24 +694,57 @@
                 </div>
             </div>
             
-            <ul class="sidebar-menu">
+                        <ul class="sidebar-menu">
+                <div class="sidebar-section-label">Main</div>
                 <li>
-                    <a href="#" class="active" data-menu="dashboard" data-tooltip="Dashboard">
+                    <a href="#" class="active sidebar-tab-link" data-tab="dashboard" data-tooltip="Dashboard">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 
-                <div class="sidebar-section-label">Users</div>
+                <div class="sidebar-section-label">Management</div>
                 <li>
-                    <a href="#" data-menu="users" data-tooltip="Users">
-                        <i class="fas fa-users"></i>
-                        <span>Users</span>
+                    <a href="#" class="sidebar-tab-link" data-tab="navigators" data-tooltip="Navigators">
+                        <i class="fas fa-user"></i>
+                        <span>Navigators</span>
                     </a>
-                    <ul class="submenu" id="users-submenu">
-                        <li><a href="#" data-tab="navigators" data-tooltip="Navigators"><i class="fas fa-user"></i> Navigators</a></li>
-                        <li><a href="#" data-tab="coordinators" data-tooltip="Coordinators"><i class="fas fa-user-friends"></i> Coordinators</a></li>
-                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-tab-link" data-tab="coordinators" data-tooltip="Coordinators">
+                        <i class="fas fa-user-friends"></i>
+                        <span>Coordinators</span>
+                    </a>
+                </li>
+                
+                <div class="sidebar-section-label">Content</div>
+                <li>
+                    <a href="#" class="sidebar-tab-link" data-tab="chapters" data-tooltip="Navigator Chapters">
+                        <i class="fas fa-book"></i>
+                        <span>Navigator Chapters</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="sidebar-tab-link" data-tab="coordinatorChapters" data-tooltip="Coordinator Chapters">
+                        <i class="fas fa-book-reader"></i>
+                        <span>Coordinator Chapters</span>
+                    </a>
+                </li>
+                
+                <div class="sidebar-section-label">System</div>
+                <li>
+                    <a href="#" class="sidebar-tab-link" data-tab="settings" data-tooltip="Settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-tooltip="Help">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help</span>
+                    </a>
+                </li>
+            </ul>
                 </li>
                 
                 <div class="sidebar-section-label">Chapters</div>
@@ -1382,40 +1415,83 @@
                 }
             });
         });        
-                // Tab click handling for the main tabs
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const tabsContainer = this.parentElement;
-                tabsContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
+                        // Tab click handling for the main tabs and sidebar links
+        document.querySelectorAll('.tab, .sidebar-tab-link').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
                 const tabName = this.getAttribute('data-tab');
-                
-                if (tabName === 'navigators' || tabName === 'coordinators') {
+                if (!tabName) return;
+
+                // Sync sidebar active state
+                document.querySelectorAll('.sidebar-tab-link').forEach(l => l.classList.remove('active'));
+                const sidebarLink = document.querySelector(`.sidebar-tab-link[data-tab="${tabName}"]`);
+                if (sidebarLink) {
+                    sidebarLink.classList.add('active');
+                }
+
+                // If dashboard is clicked
+                if (tabName === 'dashboard') {
+                    document.querySelector('.dashboard-summary').style.display = 'grid';
+                    document.querySelector('.card:nth-of-type(1)').style.display = 'block'; // Welcome card
+                    
+                    // Hide all other tabs
+                    document.getElementById('usersTabs').style.display = 'none';
+                    document.getElementById('chaptersTabs').style.display = 'none';
                     document.getElementById('navigatorsTab').style.display = 'none';
                     document.getElementById('coordinatorsTab').style.display = 'none';
+                    document.getElementById('chaptersTab').style.display = 'none';
+                    document.getElementById('coordinatorChaptersTab').style.display = 'none';
+                    return;
+                }
+
+                // Hide dashboard stuff
+                const summary = document.querySelector('.dashboard-summary');
+                if(summary) summary.style.display = 'none';
+                const welcomeCard = document.querySelector('.card:not(.dashboard-summary .card)');
+                // This assumes the welcome message is the first card after summary. 
+                // A better approach is to wrap dashboard content, but we'll do this.
+                const cards = document.querySelectorAll('.main-content > .card');
+                if (cards.length > 0 && cards[0].querySelector('h2') && cards[0].querySelector('h2').textContent.includes('Welcome')) {
+                    cards[0].style.display = 'none';
+                }
+
+                if (tabName === 'navigators' || tabName === 'coordinators') {
+                    document.getElementById('usersTabs').style.display = 'flex';
+                    document.getElementById('chaptersTabs').style.display = 'none';
+                    document.getElementById('navigatorsTab').style.display = 'none';
+                    document.getElementById('coordinatorsTab').style.display = 'none';
+                    document.getElementById('chaptersTab').style.display = 'none';
+                    document.getElementById('coordinatorChaptersTab').style.display = 'none';
+                    
+                    // Sync the internal users tab as well
+                    document.querySelectorAll('#usersTabs .tab').forEach(t => t.classList.remove('active'));
+                    document.querySelector(`#usersTabs .tab[data-tab="${tabName}"]`).classList.add('active');
                 }
                 
                 if (tabName === 'chapters' || tabName === 'coordinatorChapters') {
+                    document.getElementById('chaptersTabs').style.display = 'flex';
+                    document.getElementById('usersTabs').style.display = 'none';
                     document.getElementById('chaptersTab').style.display = 'none';
                     document.getElementById('coordinatorChaptersTab').style.display = 'none';
+                    document.getElementById('navigatorsTab').style.display = 'none';
+                    document.getElementById('coordinatorsTab').style.display = 'none';
+                    
+                    // Sync the internal chapters tab as well
+                    document.querySelectorAll('#chaptersTabs .tab').forEach(t => t.classList.remove('active'));
+                    document.querySelector(`#chaptersTabs .tab[data-tab="${tabName}"]`).classList.add('active');
                 }
                 
                 const contentEl = document.getElementById(`${tabName}Tab`);
                 if (contentEl) {
                     contentEl.style.display = 'block';
                 }
-                
-                // Sync sidebar active state if possible
-                document.querySelectorAll('.submenu a[data-tab]').forEach(l => l.classList.remove('active'));
-                const sidebarLink = document.querySelector(`.submenu a[data-tab="${tabName}"]`);
-                if (sidebarLink) {
-                    sidebarLink.classList.add('active');
-                }
             });
         });
 
-        // Submenu item click handling
+        // Remove old sidebar/submenu click handlers if any exist
+        document.querySelectorAll('.sidebar-menu > li > a[data-menu]').forEach(link => {
+            // We just override or they're gone anyway since we removed them from HTML
+        });
         document.querySelectorAll('.submenu a[data-tab]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
