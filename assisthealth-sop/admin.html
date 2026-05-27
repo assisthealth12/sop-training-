@@ -1036,24 +1036,20 @@
 
         <!-- Settings Tab -->
         <div class="tab-content" id="settingsTab" style="display: none;">
-            <div class="card">
-                <h2>Navigator SOP Settings</h2>
-                <div id="settingsMessage"></div>
-                <div class="form-group">
-                    <label for="currentSopVersion">Current SOP Version</label>
-                    <input type="number" id="currentSopVersion" min="1" value="1">
-                </div>
-                <button id="updateSopVersion" title="Update the current SOP version for all navigators"><i class="fas fa-upload"></i> Update SOP Version</button>
+            <div class="card" style="text-align: center; padding: 60px 20px;">
+                <i class="fas fa-tools" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
+                <h2>Settings & Configurations</h2>
+                <p style="color: var(--text-muted); font-size: 16px; margin-top: 10px;">More settings and features coming soon!</p>
             </div>
             
-            <div class="card">
-                <h2>Community Coordinator SOP Settings</h2>
+            <!-- Hidden original elements to prevent Javascript errors -->
+            <div style="display: none;">
+                <div id="settingsMessage"></div>
+                <input type="number" id="currentSopVersion">
+                <button id="updateSopVersion"></button>
                 <div id="coordinatorSettingsMessage"></div>
-                <div class="form-group">
-                    <label for="currentCoordinatorSopVersion">Current SOP Version</label>
-                    <input type="number" id="currentCoordinatorSopVersion" min="1" value="1">
-                </div>
-                <button id="updateCoordinatorSopVersion" title="Update the current SOP version for all coordinators"><i class="fas fa-upload"></i> Update SOP Version</button>
+                <input type="number" id="currentCoordinatorSopVersion">
+                <button id="updateCoordinatorSopVersion"></button>
             </div>
         </div>
 
