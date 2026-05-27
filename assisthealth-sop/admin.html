@@ -1216,54 +1216,10 @@
         </div>
 
         <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js">hideModal();
-                
-                if (role === 'navigator') loadNavigators();
-                else loadCoordinators();
-                
-            } catch (error) {
-                console.error('Error updating user:', error);
-                showMessage(editUserMessage, 'Error updating user: ' + error.message, 'error');
-            }
-        });
-
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js">hideModal();
-                
-                if (role === 'navigator') loadNavigators();
-                else loadCoordinators();
-                
-            } catch (error) {
-                console.error('Error updating user:', error);
-                showMessage(editUserMessage, 'Error updating user: ' + error.message, 'error');
-            }
-        });
-
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js">hideModal();
-                
-                if (role === 'navigator') loadNavigators();
-                else loadCoordinators();
-                
-            } catch (error) {
-                console.error('Error updating user:', error);
-                showMessage(editUserMessage, 'Error updating user: ' + error.message, 'error');
-            }
-        });
-
-    </script>
-    <script src="firebase-config.js">hideModal();
-                
-                if (role === 'navigator') loadNavigators();
-                else loadCoordinators();
-                
-            } catch (error) {
-                console.error('Error updating user:', error);
-                showMessage(editUserMessage, 'Error updating user: ' + error.message, 'error');
-            }
-        });
-
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
     
     <script>
         // Initialize Firebase
@@ -2673,6 +2629,7 @@
             
             // Close modal
             addModal.classList.remove('show');
+    document.getElementById('addNavigatorModal').style.display = 'flex';
         });
         
         document.getElementById('addCoordinatorModalBtn').addEventListener('click', () => {
@@ -2697,6 +2654,7 @@
             
             // Close modal
             addModal.classList.remove('show');
+    document.getElementById('addCoordinatorModal').style.display = 'flex';
         });
         
         document.getElementById('addChapterModalBtn').addEventListener('click', () => {
@@ -2721,6 +2679,7 @@
             
             // Close modal
             addModal.classList.remove('show');
+    document.getElementById('chapterModal').style.display = 'flex';
         });
         
         document.getElementById('addCoordinatorChapterModalBtn').addEventListener('click', () => {
