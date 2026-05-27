@@ -1057,7 +1057,134 @@
             </div>
         </div>
 
-        </main>
+        <!-- Add Navigator Modal -->
+    <div class="modal-overlay" id="addNavigatorModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add New Navigator</h2>
+                <button type="button" class="close-modal" id="closeAddNavigatorModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-content">
+                <div id="addNavigatorMessage"></div>
+                <form id="addNavigatorForm">
+                    <div class="form-group">
+                        <label for="navigatorName">Full Name</label>
+                        <input type="text" id="navigatorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="navigatorEmail">Email</label>
+                        <input type="email" id="navigatorEmail" required>
+                    </div>
+                    <button type="submit" title="Add a new navigator to the system"><i class="fas fa-user-plus"></i> Add Navigator</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Coordinator Modal -->
+    <div class="modal-overlay" id="addCoordinatorModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add New Coordinator</h2>
+                <button type="button" class="close-modal" id="closeAddCoordinatorModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-content">
+                <div id="addCoordinatorMessage"></div>
+                <form id="addCoordinatorForm">
+                    <div class="form-group">
+                        <label for="coordinatorName">Full Name</label>
+                        <input type="text" id="coordinatorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorEmail">Email</label>
+                        <input type="email" id="coordinatorEmail" required>
+                    </div>
+                    <button type="submit" title="Add a new community coordinator to the system"><i class="fas fa-user-plus"></i> Add Community Coordinator</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter Modal -->
+    <div class="modal-overlay" id="chapterModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create/Edit Chapter</h2>
+                <button type="button" class="close-modal" id="closeChapterModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-content">
+                <div id="chapterFormMessage"></div>
+                <form id="chapterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="chapterId">Chapter ID</label>
+                            <input type="number" id="chapterId" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chapterOrder">Order</label>
+                            <input type="number" id="chapterOrder" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterTitle">Title</label>
+                        <input type="text" id="chapterTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterPdfUrl">PDF URL</label>
+                        <input type="text" id="chapterPdfUrl" placeholder="/pdfs/chapter1.pdf">
+                    </div>
+                    <div class="form-group">
+                        <label for="chapterVersion">Version</label>
+                        <input type="number" id="chapterVersion" min="1" value="1" required>
+                    </div>
+                    <button type="submit" id="saveChapterBtn" title="Save chapter information"><i class="fas fa-save"></i> Save Chapter</button>
+                    <button type="button" class="btn-secondary" id="incrementVersionBtn" title="Increment chapter version number"><i class="fas fa-plus-circle"></i> Increment Version</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coordinator Chapter Modal -->
+    <div class="modal-overlay" id="coordinatorChapterModal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Create/Edit Coordinator Chapter</h2>
+                <button type="button" class="close-modal" id="closeCoordinatorChapterModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-content">
+                <div id="coordinatorChapterFormMessage"></div>
+                <form id="coordinatorChapterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="coordinatorChapterId">Chapter ID</label>
+                        <input type="number" id="coordinatorChapterId" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coordinatorChapterOrder">Order</label>
+                            <input type="number" id="coordinatorChapterOrder" min="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorChapterTitle">Title</label>
+                        <input type="text" id="coordinatorChapterTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorChapterPdfUrl">PDF URL</label>
+                        <input type="text" id="coordinatorChapterPdfUrl" placeholder="/pdfs/coordinator/chapter1.pdf">
+                    </div>
+                    <div class="form-group">
+                        <label for="coordinatorChapterVersion">Version</label>
+                        <input type="number" id="coordinatorChapterVersion" min="1" value="1" required>
+                    </div>
+                    <button type="submit" id="saveCoordinatorChapterBtn" title="Save chapter information"><i class="fas fa-save"></i> Save Chapter</button>
+                    <button type="button" class="btn-secondary" id="incrementCoordinatorVersionBtn" title="Increment chapter version number"><i class="fas fa-plus-circle"></i> Increment Version</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+</main>
         
         <!-- Floating Action Button -->
         <button class="fab" id="fabButton" title="Add new user or chapter">
@@ -2818,132 +2945,6 @@
     </script>
 
     
-    <!-- Add Navigator Modal -->
-    <div class="modal-overlay" id="addNavigatorModal" style="display: none;">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Add New Navigator</h2>
-                <button type="button" class="close-modal" id="closeAddNavigatorModal"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div id="addNavigatorMessage"></div>
-                <form id="addNavigatorForm">
-                    <div class="form-group">
-                        <label for="navigatorName">Full Name</label>
-                        <input type="text" id="navigatorName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="navigatorEmail">Email</label>
-                        <input type="email" id="navigatorEmail" required>
-                    </div>
-                    <button type="submit" title="Add a new navigator to the system"><i class="fas fa-user-plus"></i> Add Navigator</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Coordinator Modal -->
-    <div class="modal-overlay" id="addCoordinatorModal" style="display: none;">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Add New Coordinator</h2>
-                <button type="button" class="close-modal" id="closeAddCoordinatorModal"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div id="addCoordinatorMessage"></div>
-                <form id="addCoordinatorForm">
-                    <div class="form-group">
-                        <label for="coordinatorName">Full Name</label>
-                        <input type="text" id="coordinatorName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="coordinatorEmail">Email</label>
-                        <input type="email" id="coordinatorEmail" required>
-                    </div>
-                    <button type="submit" title="Add a new community coordinator to the system"><i class="fas fa-user-plus"></i> Add Community Coordinator</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Chapter Modal -->
-    <div class="modal-overlay" id="chapterModal" style="display: none;">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Create/Edit Chapter</h2>
-                <button type="button" class="close-modal" id="closeChapterModal"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div id="chapterFormMessage"></div>
-                <form id="chapterForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="chapterId">Chapter ID</label>
-                            <input type="number" id="chapterId" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="chapterOrder">Order</label>
-                            <input type="number" id="chapterOrder" min="1" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="chapterTitle">Title</label>
-                        <input type="text" id="chapterTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="chapterPdfUrl">PDF URL</label>
-                        <input type="text" id="chapterPdfUrl" placeholder="/pdfs/chapter1.pdf">
-                    </div>
-                    <div class="form-group">
-                        <label for="chapterVersion">Version</label>
-                        <input type="number" id="chapterVersion" min="1" value="1" required>
-                    </div>
-                    <button type="submit" id="saveChapterBtn" title="Save chapter information"><i class="fas fa-save"></i> Save Chapter</button>
-                    <button type="button" class="btn-secondary" id="incrementVersionBtn" title="Increment chapter version number"><i class="fas fa-plus-circle"></i> Increment Version</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Coordinator Chapter Modal -->
-    <div class="modal-overlay" id="coordinatorChapterModal" style="display: none;">
-        <div class="modal">
-            <div class="modal-header">
-                <h2>Create/Edit Coordinator Chapter</h2>
-                <button type="button" class="close-modal" id="closeCoordinatorChapterModal"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="modal-content">
-                <div id="coordinatorChapterFormMessage"></div>
-                <form id="coordinatorChapterForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="coordinatorChapterId">Chapter ID</label>
-                        <input type="number" id="coordinatorChapterId" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="coordinatorChapterOrder">Order</label>
-                            <input type="number" id="coordinatorChapterOrder" min="1" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="coordinatorChapterTitle">Title</label>
-                        <input type="text" id="coordinatorChapterTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="coordinatorChapterPdfUrl">PDF URL</label>
-                        <input type="text" id="coordinatorChapterPdfUrl" placeholder="/pdfs/coordinator/chapter1.pdf">
-                    </div>
-                    <div class="form-group">
-                        <label for="coordinatorChapterVersion">Version</label>
-                        <input type="number" id="coordinatorChapterVersion" min="1" value="1" required>
-                    </div>
-                    <button type="submit" id="saveCoordinatorChapterBtn" title="Save chapter information"><i class="fas fa-save"></i> Save Chapter</button>
-                    <button type="button" class="btn-secondary" id="incrementCoordinatorVersionBtn" title="Increment chapter version number"><i class="fas fa-plus-circle"></i> Increment Version</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Edit User Modal -->
     <div class="modal-overlay" id="editUserModal" style="display: none;">
         <div class="modal">
