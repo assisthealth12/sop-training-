@@ -1186,34 +1186,9 @@
     
 </main>
         
-        <!-- Floating Action Button -->
-        <button class="fab" id="fabButton" title="Add new user or chapter">
-            <i class="fas fa-plus"></i>
-        </button>
         
-        <!-- Add User/Chapter Modal -->
-        <div class="fab-modal" id="addModal">
-            <div class="fab-modal-content">
-                <div class="fab-modal-header">
-                    <h2 class="fab-modal-title">Add New Item</h2>
-                    <button class="close-modal" id="closeModal">&times;</button>
-                </div>
-                <div class="fab-modal-buttons">
-                    <button class="fab-modal-button" id="addNavigatorModalBtn">
-                        <i class="fas fa-user"></i> Add Navigator
-                    </button>
-                    <button class="fab-modal-button" id="addCoordinatorModalBtn">
-                        <i class="fas fa-user-friends"></i> Add Coordinator
-                    </button>
-                    <button class="fab-modal-button secondary" id="addChapterModalBtn">
-                        <i class="fas fa-book"></i> Add Navigator Chapter
-                    </button>
-                    <button class="fab-modal-button secondary" id="addCoordinatorChapterModalBtn">
-                        <i class="fas fa-book-reader"></i> Add Coordinator Chapter
-                    </button>
-                </div>
-            </div>
-        </div>
+        
+        
 
         <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
@@ -2270,7 +2245,7 @@
 
         // Edit chapter
         async function editChapter(chapterId) {
-    showAddModal("chapterModal");
+    document.getElementById("chapterModal").style.display = "flex";
 
             try {
                 // First, activate the chapters menu and submenu
@@ -2317,7 +2292,7 @@
         }        
         // Edit coordinator chapter
         async function editCoordinatorChapter(chapterId) {
-    showAddModal("coordinatorChapterModal");
+    document.getElementById("coordinatorChapterModal").style.display = "flex";
 
             try {
                 // First, activate the chapters menu and submenu
