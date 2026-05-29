@@ -9,6 +9,7 @@ import type { Chapter } from '../components/tables/ChaptersTable';
 import AddUserModal from '../components/modals/AddUserModal';
 import AddChapterModal from '../components/modals/AddChapterModal';
 import ManageQuizModal from '../components/modals/ManageQuizModal';
+import ViewUserResultsModal from '../components/modals/ViewUserResultsModal';
 import { useConfirm } from '../components/ui/ToastConfirm';
 import { db } from '../config/firebase';
 import { collection, getDocs, doc, setDoc, deleteDoc, query, where, getDoc } from 'firebase/firestore';
@@ -31,8 +32,10 @@ const AdminDashboard: React.FC = () => {
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
   const [isAddChapterModalOpen, setIsAddChapterModalOpen] = useState(false);
   const [isManageQuizModalOpen, setIsManageQuizModalOpen] = useState(false);
+  const [isViewResultsModalOpen, setIsViewResultsModalOpen] = useState(false);
   const [quizChapterId, setQuizChapterId] = useState('');
   const [quizChapterTitle, setQuizChapterTitle] = useState('');
+  const [viewingUser, setViewingUser] = useState<User | null>(null);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [editingChapter, setEditingChapter] = useState<Chapter | null>(null);
 
@@ -182,6 +185,7 @@ const AdminDashboard: React.FC = () => {
                   onAdd={() => { setEditingUser(null); setIsAddUserModalOpen(true); }}
                   onEdit={(u) => { setEditingUser(u as User); setIsAddUserModalOpen(true); }}
                   onDelete={(id) => handleDeleteUser(id, navigators.find(n => n.id === id)?.email)}
+                  onViewResults={(u) => { setViewingUser(u); setIsViewResultsModalOpen(true); }}
                 />
               )}
 
@@ -194,6 +198,7 @@ const AdminDashboard: React.FC = () => {
                   onAdd={() => { setEditingUser(null); setIsAddUserModalOpen(true); }}
                   onEdit={(u) => { setEditingUser(u as User); setIsAddUserModalOpen(true); }}
                   onDelete={(id) => handleDeleteUser(id, coordinators.find(c => c.id === id)?.email)}
+                  onViewResults={(u) => { setViewingUser(u); setIsViewResultsModalOpen(true); }}
                 />
               )}
             </div>
@@ -349,7 +354,14 @@ const AdminDashboard: React.FC = () => {
         onClose={() => setIsManageQuizModalOpen(false)}
         chapterId={quizChapterId}
         chapterTitle={quizChapterTitle}
-        collectionName={chapterSubTab === 'coordChapters' ? 'coordinatorChapters' : 'chapters'}
+        collectionName={chapterSubTab === 'navChapters' ? 'chapters' : 'coordinatorChapters'}
+      />
+
+      <ViewUserResultsModal 
+        isOpen={isViewResultsModalOpen}
+        onClose={() => { setIsViewResultsModalOpen(false); setViewingUser(null); }}
+        user={viewingUser}
+        chapters={viewingUser?.role === 'navigator' ? navChapters : coordChapters}
       />
     </div>
   );

@@ -646,6 +646,56 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
                   </p>
                 )}
               </div>
+
+              {/* Quiz Grading Settings */}
+              <div style={{ 
+                background: 'var(--bg-body)', border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-lg)', padding: '20px'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                  <div>
+                    <h3 style={{ margin: '0 0 2px 0', fontSize: '15px' }}>
+                      <i className="fas fa-percent" style={{ marginRight: '8px', color: 'var(--text-muted)' }}></i>
+                      Grading & Pass Rate
+                    </h3>
+                    <p style={{ fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>
+                      Minimum score required to pass the quiz.
+                    </p>
+                  </div>
+                </div>
+
+                <div style={{ 
+                  display: 'flex', alignItems: 'center', gap: '12px',
+                  background: 'var(--bg-card)', border: '1px solid var(--border)',
+                  borderRadius: 'var(--radius-md)', padding: '12px 14px'
+                }}>
+                  <div style={{ 
+                    width: '36px', height: '36px', borderRadius: '8px', flexShrink: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'var(--success)', color: '#fff', fontSize: '14px'
+                  }}>
+                    <i className="fas fa-check-circle"></i>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text-primary)' }}>Passing Percentage</div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Users scoring below this will fail and cannot see correct answers.</div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <input 
+                      type="number" min="1" max="100" 
+                      value={passingPercentage} 
+                      onChange={e => setPassingPercentage(Number(e.target.value))}
+                      style={{ 
+                        width: '70px', padding: '6px 10px', fontSize: '14px', fontWeight: 600,
+                        textAlign: 'center', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)',
+                        background: 'var(--bg-card)'
+                      }}
+                    />
+                    <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>%</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           )}
 

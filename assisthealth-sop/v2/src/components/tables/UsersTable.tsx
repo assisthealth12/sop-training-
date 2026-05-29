@@ -21,9 +21,10 @@ interface UsersTableProps {
   onAdd: () => void;
   onEdit: (user: User) => void;
   onDelete: (id: string) => void;
+  onViewResults?: (user: User) => void;
 }
 
-const UsersTable: React.FC<UsersTableProps> = ({ title, users, allChapters = [], currentSopVersion = 0, onAdd, onEdit, onDelete }) => {
+const UsersTable: React.FC<UsersTableProps> = ({ title, users, allChapters = [], currentSopVersion = 0, onAdd, onEdit, onDelete, onViewResults }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredUsers = users.filter(user =>
@@ -149,6 +150,11 @@ const UsersTable: React.FC<UsersTableProps> = ({ title, users, allChapters = [],
                     </td>
                     <td>
                       <div style={{ display: 'flex', gap: '6px' }}>
+                        {onViewResults && (
+                          <button className="icon-btn" style={{ color: 'var(--primary)' }} title="View Results" onClick={() => onViewResults(user)}>
+                            <i className="fas fa-chart-bar"></i>
+                          </button>
+                        )}
                         <button className="icon-btn" title="Edit" onClick={() => onEdit(user)}>
                           <i className="fas fa-pen"></i>
                         </button>
