@@ -2,21 +2,36 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import TopNavbar from '../components/layout/TopNavbar';
 import { db } from '../config/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import type { Chapter } from '../components/tables/ChaptersTable';
+import { useAuth } from '../context/AuthContext';
 
 
 const NavigatorDashboard: React.FC = () => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [quizResults, setQuizResults] = useState<Record<string, { passed: boolean, score: number, total: number }>>({});
 
   useEffect(() => {
-    const fetchChapters = async () => {
+    const fetchChaptersAndResults = async () => {
       const snap = await getDocs(collection(db, 'chapters'));
       setChapters(snap.docs.map(d => ({ id: d.id, ...d.data() } as Chapter)).sort((a, b) => a.order - b.order));
+      
+      if (user) {
+        const resSnap = await getDocs(query(collection(db, 'quizResults'), where('userId', '==', user.uid)));
+        const resultsMap: Record<string, { passed: boolean, score: number, total: number }> = {};
+        resSnap.forEach(doc => {
+          const data = doc.data();
+          resultsMap[data.chapterId] = { passed: data.passed, score: data.score, total: data.total };
+        });
+        setQuizResults(resultsMap);
+      }
     };
-    fetchChapters();
-  }, []);
+    fetchChaptersAndResults();
+  }, [user]);
+
+  const passedCount = Object.values(quizResults).filter(r => r.passed).length;
 
   return (
     <div className="dashboard-container">
@@ -48,8 +63,10 @@ const NavigatorDashboard: React.FC = () => {
                     <i className="fas fa-graduation-cap"></i>
                   </div>
                   <div className="summary-card-info">
-                    <h3>Start Training</h3>
-                    <div className="summary-card-count" style={{ fontSize: '16px', fontWeight: 500 }}>Begin your SOP chapters →</div>
+                    <h3>Training Progress</h3>
+                    <div className="summary-card-count" style={{ fontSize: '16px', fontWeight: 500 }}>
+                      Completed {passedCount} of {chapters.length} Chapters
+                    </div>
                   </div>
                 </div>
               </div>
@@ -69,6 +86,11 @@ const NavigatorDashboard: React.FC = () => {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                       <span className="badge badge-neutral" style={{ fontSize: '14px', fontWeight: 700 }}>{chapter.order}</span>
                       <h3 style={{ fontSize: '16px', fontWeight: 600, margin: 0 }}>{chapter.title}</h3>
+                      {quizResults[chapter.id] && (
+                        <span className={`badge ${quizResults[chapter.id].passed ? 'badge-success' : 'badge-danger'}`} style={{ marginLeft: 'auto', fontSize: '12px' }}>
+                          {quizResults[chapter.id].passed ? 'Passed' : 'Failed'} ({Math.round((quizResults[chapter.id].score / quizResults[chapter.id].total) * 100)}%)
+                        </span>
+                      )}
                     </div>
                     {chapter.content && (
                       <p style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '16px', lineHeight: 1.5 }}>
@@ -87,10 +109,11 @@ const NavigatorDashboard: React.FC = () => {
                         </a>
                       )}
                       <button
-                        className="btn btn-primary btn-sm"
+                        className={`btn btn-sm ${quizResults[chapter.id]?.passed ? 'btn-outline' : 'btn-primary'}`}
                         onClick={() => window.location.href = `/quiz/${chapter.id}`}
                       >
-                        <i className="fas fa-clipboard-check"></i> Take Quiz
+                        <i className={quizResults[chapter.id]?.passed ? "fas fa-redo" : "fas fa-clipboard-check"}></i> 
+                        {quizResults[chapter.id]?.passed ? ' Retake Quiz' : ' Take Quiz'}
                       </button>
                     </div>
                   </div>

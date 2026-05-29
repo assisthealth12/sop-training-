@@ -35,6 +35,8 @@ const Quiz: React.FC = () => {
   const [showSectionModal, setShowSectionModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
+  const [passingPercentage, setPassingPercentage] = useState<number>(70);
+  const [isPassed, setIsPassed] = useState<boolean | null>(null);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -48,7 +50,12 @@ const Quiz: React.FC = () => {
       }
       
       if (chDoc.exists()) {
-        setChapter({ id: chDoc.id, ...chDoc.data() });
+        const data = chDoc.data();
+        setChapter({ id: chDoc.id, ...data });
+        setTimeLimits(data.timeLimits || {});
+        if (data.passingPercentage !== undefined) {
+          setPassingPercentage(data.passingPercentage);
+        }
         
         const qSnap = await getDocs(collection(chDoc.ref, 'questions'));
         let fetchedQuestions: Question[] = [];
@@ -188,6 +195,9 @@ const Quiz: React.FC = () => {
       if (answers[q.id] === q.correctAnswer) calculatedScore++;
     });
 
+    const scorePct = questions.length > 0 ? Math.round((calculatedScore / questions.length) * 100) : 0;
+    const passed = scorePct >= passingPercentage;
+    setIsPassed(passed);
     setFinalScore(calculatedScore);
     setSubmitted(true);
     setShowResultModal(true);
@@ -198,6 +208,8 @@ const Quiz: React.FC = () => {
         chapterId,
         score: calculatedScore,
         total: questions.length,
+        passingPercentage,
+        passed,
         answers,
         submittedAt: new Date(),
         role
@@ -279,8 +291,11 @@ const Quiz: React.FC = () => {
           <div className="quiz-options-container">
             {currentQuestion.options.map((opt, oIdx) => {
               const isSelected = answers[currentQuestion.id] === oIdx;
-              const isCorrect = submitted && currentQuestion.correctAnswer === oIdx;
-              const isWrong = submitted && isSelected && !isCorrect;
+              const isCorrectAnswer = currentQuestion.correctAnswer === oIdx;
+              
+              // Only reveal the correct answer if they passed, OR if they selected it.
+              const isCorrect = submitted && isCorrectAnswer && (isPassed || isSelected);
+              const isWrong = submitted && isSelected && !isCorrectAnswer;
               
               let cardClass = 'quiz-option-card';
               if (isSelected && !submitted) cardClass += ' selected';
@@ -387,8 +402,16 @@ const Quiz: React.FC = () => {
               <span className="quiz-score-big">{finalScore}</span>
               <span className="quiz-score-total">/{totalQuestions}</span>
             </div>
-            <div className="quiz-score-percent">{scorePercent}% Correct</div>
-            <div className="quiz-modal-actions">
+            <div className="quiz-score-percent" style={{ color: isPassed ? 'var(--success)' : 'var(--danger)' }}>
+              {scorePercent}% - {isPassed ? 'Passed' : 'Failed'}
+            </div>
+            {!isPassed && (
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', textAlign: 'center', marginTop: '10px' }}>
+                You did not meet the {passingPercentage}% passing requirement. 
+                Correct answers are hidden until you pass.
+              </p>
+            )}
+            <div className="quiz-modal-actions" style={{ marginTop: '20px' }}>
               <button className="quiz-nav-btn quiz-nav-btn-secondary" onClick={() => setShowResultModal(false)}>
                 Review Answers
               </button>

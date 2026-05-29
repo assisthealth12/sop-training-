@@ -37,9 +37,10 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
   const [options, setOptions] = useState<string[]>(['', '', '', '']);
   const [correctAnswer, setCorrectAnswer] = useState(0);
 
-  // Time Limits State
+  // Time Limits & Settings State
   const [timeLimits, setTimeLimits] = useState<Record<string, number>>({});
-  const [savingTimeLimits, setSavingTimeLimits] = useState(false);
+  const [passingPercentage, setPassingPercentage] = useState<number>(70); // Default 70%
+  const [savingSettings, setSavingSettings] = useState(false);
 
   // Bulk Import State
   const [showBulk, setShowBulk] = useState(false);
@@ -65,7 +66,11 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
     try {
       const chDoc = await getDoc(doc(db, collectionName, chapterId));
       if (chDoc.exists()) {
-        setTimeLimits(chDoc.data().timeLimits || {});
+        const data = chDoc.data();
+        setTimeLimits(data.timeLimits || {});
+        if (data.passingPercentage !== undefined) {
+          setPassingPercentage(data.passingPercentage);
+        }
       }
     } catch (error) {
       console.error("Error fetching settings:", error);
@@ -236,16 +241,19 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
     }
   };
 
-  const handleSaveTimeLimits = async () => {
-    setSavingTimeLimits(true);
+  const handleSaveSettings = async () => {
+    setSavingSettings(true);
     try {
-      await updateDoc(doc(db, collectionName, chapterId), { timeLimits });
-      showToast('Time limits saved successfully!', 'success');
+      await updateDoc(doc(db, collectionName, chapterId), { 
+        timeLimits,
+        passingPercentage 
+      });
+      showToast('Settings saved successfully!', 'success');
     } catch (error) {
       console.error(error);
-      showToast('Error saving time limits.', 'error');
+      showToast('Error saving settings.', 'error');
     }
-    setSavingTimeLimits(false);
+    setSavingSettings(false);
   };
 
   const uniqueSections = Array.from(new Set(questions.map(q => q.section).filter(Boolean))).sort() as string[];
@@ -558,8 +566,8 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
                       Set time limits in minutes. Empty or 0 means unlimited.
                     </p>
                   </div>
-                  <button className="btn btn-primary btn-sm" onClick={handleSaveTimeLimits} disabled={savingTimeLimits}>
-                    <i className="fas fa-save"></i> {savingTimeLimits ? 'Saving...' : 'Save'}
+                  <button className="btn btn-primary btn-sm" onClick={handleSaveSettings} disabled={savingSettings}>
+                    <i className="fas fa-save"></i> {savingSettings ? 'Saving...' : 'Save All Settings'}
                   </button>
                 </div>
 
