@@ -142,6 +142,36 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
     }
   };
 
+  const handleDeleteAllQuestions = async () => {
+    if (questions.length === 0) {
+      showToast('No questions to delete.', 'info');
+      return;
+    }
+    const ok = await confirm({ 
+      title: 'Delete All Questions', 
+      message: 'Are you absolutely sure you want to delete ALL questions for this chapter? This action cannot be undone.', 
+      confirmText: 'Delete All', 
+      variant: 'danger' 
+    });
+    
+    if (ok) {
+      setLoading(true);
+      try {
+        const batch = writeBatch(db);
+        questions.forEach(q => {
+          batch.delete(doc(db, collectionName, chapterId, 'questions', q.id));
+        });
+        await batch.commit();
+        await fetchQuestions();
+        showToast('All questions deleted successfully.', 'success');
+      } catch (error) {
+        console.error(error);
+        showToast('Error deleting questions.', 'error');
+      }
+      setLoading(false);
+    }
+  };
+
   const handleBulkImport = async () => {
     try {
       const data = JSON.parse(bulkJson);
@@ -406,7 +436,15 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
                   <h3 style={{ margin: 0, fontSize: '15px', flexShrink: 0 }}>
                     Questions ({filteredQuestions.length})
                   </h3>
-                  <div style={{ display: 'flex', gap: '8px', flex: 1, justifyContent: 'flex-end' }}>
+                  <div style={{ display: 'flex', gap: '8px', flex: 1, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                    <button 
+                      className="btn btn-outline btn-sm" 
+                      style={{ color: 'var(--danger)', borderColor: 'var(--danger-border)', background: 'var(--danger-bg)' }}
+                      onClick={handleDeleteAllQuestions}
+                      disabled={questions.length === 0}
+                    >
+                      <i className="fas fa-trash-alt"></i> Delete All
+                    </button>
                     {uniqueSections.length > 0 && (
                       <select
                         value={filterSection}
