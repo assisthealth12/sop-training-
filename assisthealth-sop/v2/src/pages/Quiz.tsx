@@ -36,17 +36,15 @@ const Quiz: React.FC = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
 
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const fetchQuiz = async () => {
       if (!chapterId) return;
       
       let chDoc = await getDoc(doc(db, 'chapters', chapterId));
-      let collectionName = 'chapters';
       if (!chDoc.exists()) {
         chDoc = await getDoc(doc(db, 'coordinatorChapters', chapterId));
-        collectionName = 'coordinatorChapters';
       }
       
       if (chDoc.exists()) {

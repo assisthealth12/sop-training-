@@ -4,12 +4,11 @@ import TopNavbar from '../components/layout/TopNavbar';
 import { db } from '../config/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import type { Chapter } from '../components/tables/ChaptersTable';
-import { useAuth } from '../context/AuthContext';
+
 
 const NavigatorDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [chapters, setChapters] = useState<Chapter[]>([]);
-  const { user } = useAuth();
 
   useEffect(() => {
     const fetchChapters = async () => {

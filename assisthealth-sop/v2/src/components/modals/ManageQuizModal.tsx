@@ -166,7 +166,7 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
         });
       }
       
-      allQuestions.forEach((q: any, idx: number) => {
+      allQuestions.forEach((q: any) => {
         const qRef = doc(collection(db, collectionName, chapterId, 'questions'));
         
         let formattedOptions = [];
@@ -457,7 +457,7 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
                             {secName} ({secQuestions.length})
                           </div>
                         )}
-                        {secQuestions.map((q, idx) => (
+                        {secQuestions.map((q) => (
                           <div key={q.id} style={{ 
                             border: '1px solid var(--border)', padding: '12px 14px', borderRadius: 'var(--radius-md)',
                             background: editingId === q.id ? 'var(--info-bg)' : 'var(--bg-card)',

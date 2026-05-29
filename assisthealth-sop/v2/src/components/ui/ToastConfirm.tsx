@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext, useCallback, useRef } from 'react';
+import React, { useState, createContext, useContext, useCallback, useRef } from 'react';
 
 /* ============================================
    Toast Notification System
