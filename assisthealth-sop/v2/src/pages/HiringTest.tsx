@@ -11,6 +11,15 @@ interface Question {
   section?: string;
 }
 
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const newArr = [...array];
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+  }
+  return newArr;
+};
+
 const HiringTest: React.FC = () => {
   // Candidate Info State
   const [step, setStep] = useState<'registration' | 'quiz' | 'result'>('registration');
@@ -47,7 +56,23 @@ const HiringTest: React.FC = () => {
         
         const qSnap = await getDocs(collection(db, 'hiring', 'quiz', 'questions'));
         if (!qSnap.empty) {
-          const fetchedQuestions = qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question));
+          let fetchedQuestions = qSnap.docs.map(d => ({ id: d.id, ...d.data() } as Question));
+          
+          // 1. Shuffle the answer options for each question
+          fetchedQuestions = fetchedQuestions.map(q => {
+            const originalCorrectText = q.options[q.correctAnswer];
+            const shuffledOptions = shuffleArray(q.options);
+            const newCorrectIndex = shuffledOptions.indexOf(originalCorrectText);
+            return {
+              ...q,
+              options: shuffledOptions,
+              correctAnswer: newCorrectIndex
+            };
+          });
+
+          // 2. Shuffle the questions themselves
+          fetchedQuestions = shuffleArray(fetchedQuestions);
+
           setQuestions(fetchedQuestions);
           
           const uniqueSections = Array.from(new Set(fetchedQuestions.map(q => q.section || 'General'))).sort();
