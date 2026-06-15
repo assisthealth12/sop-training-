@@ -11,20 +11,24 @@ import AddChapterModal from '../components/modals/AddChapterModal';
 import ManageQuizModal from '../components/modals/ManageQuizModal';
 import ViewUserResultsModal from '../components/modals/ViewUserResultsModal';
 import { useConfirm } from '../components/ui/ToastConfirm';
+import HiringResultsTable from '../components/tables/HiringResultsTable';
+import type { HiringResult } from '../components/tables/HiringResultsTable';
 import { db } from '../config/firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc, query, where, getDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc, deleteDoc, query, where, getDoc, orderBy } from 'firebase/firestore';
 
 const AdminDashboard: React.FC = () => {
   const { confirm } = useConfirm();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [userSubTab, setUserSubTab] = useState<'navigators' | 'coordinators'>('navigators');
   const [chapterSubTab, setChapterSubTab] = useState<'navChapters' | 'coordChapters'>('navChapters');
+  const [hiringSubTab, setHiringSubTab] = useState<'questions' | 'results'>('questions');
 
   // Data
   const [navigators, setNavigators] = useState<User[]>([]);
   const [coordinators, setCoordinators] = useState<User[]>([]);
   const [navChapters, setNavChapters] = useState<Chapter[]>([]);
   const [coordChapters, setCoordChapters] = useState<Chapter[]>([]);
+  const [hiringResults, setHiringResults] = useState<HiringResult[]>([]);
   const [navSopVersion, setNavSopVersion] = useState(0);
   const [coordSopVersion, setCoordSopVersion] = useState(0);
 
@@ -56,6 +60,9 @@ const AdminDashboard: React.FC = () => {
 
       const coordChSnap = await getDocs(collection(db, 'coordinatorChapters'));
       setCoordChapters(coordChSnap.docs.map(d => ({ id: d.id, ...d.data() } as Chapter)).sort((a, b) => a.order - b.order));
+
+      const hiringResultsSnap = await getDocs(query(collection(db, 'hiringResults'), orderBy('timestamp', 'desc')));
+      setHiringResults(hiringResultsSnap.docs.map(d => ({ id: d.id, ...d.data() } as HiringResult)));
 
       const navSettings = await getDoc(doc(db, 'settings', 'sop'));
       if (navSettings.exists()) setNavSopVersion(navSettings.data().currentSopVersion || 0);
@@ -261,6 +268,50 @@ const AdminDashboard: React.FC = () => {
             </div>
           )}
 
+          {/* ======== HIRING TEST TAB ======== */}
+          {activeTab === 'hiring' && (
+            <div className="fade-in">
+              <div className="page-header">
+                <h1>Pre-Employment Test</h1>
+                <p>Manage candidate quiz questions and view test results.</p>
+              </div>
+
+              <div className="tab-bar">
+                <button className={`tab-item ${hiringSubTab === 'questions' ? 'active' : ''}`} onClick={() => setHiringSubTab('questions')}>
+                  <i className="fas fa-list-ol"></i> Manage Quiz
+                </button>
+                <button className={`tab-item ${hiringSubTab === 'results' ? 'active' : ''}`} onClick={() => setHiringSubTab('results')}>
+                  <i className="fas fa-chart-bar"></i> Candidate Results
+                </button>
+              </div>
+
+              {hiringSubTab === 'questions' && (
+                <div className="table-card" style={{ padding: '40px', textAlign: 'center' }}>
+                  <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+                    <div style={{ width: '64px', height: '64px', background: 'var(--primary-light)', color: 'var(--primary)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', margin: '0 auto 20px' }}>
+                      <i className="fas fa-laptop-code"></i>
+                    </div>
+                    <h2 style={{ marginBottom: '12px' }}>Hiring Quiz Configuration</h2>
+                    <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', lineHeight: 1.5 }}>
+                      Add or edit questions, set time limits, and configure passing scores for the pre-employment candidate test.
+                    </p>
+                    <button className="btn btn-primary" onClick={() => {
+                      setQuizChapterId('quiz');
+                      setQuizChapterTitle('Pre-Employment Candidate Test');
+                      setIsManageQuizModalOpen(true);
+                    }}>
+                      <i className="fas fa-cog"></i> Open Quiz Manager
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {hiringSubTab === 'results' && (
+                <HiringResultsTable results={hiringResults} />
+              )}
+            </div>
+          )}
+
           {/* ======== SETTINGS TAB ======== */}
           {activeTab === 'settings' && (
             <div className="fade-in">
@@ -354,7 +405,7 @@ const AdminDashboard: React.FC = () => {
         onClose={() => setIsManageQuizModalOpen(false)}
         chapterId={quizChapterId}
         chapterTitle={quizChapterTitle}
-        collectionName={chapterSubTab === 'navChapters' ? 'chapters' : 'coordinatorChapters'}
+        collectionName={activeTab === 'hiring' ? 'hiring' : (chapterSubTab === 'navChapters' ? 'chapters' : 'coordinatorChapters')}
       />
 
       <ViewUserResultsModal 

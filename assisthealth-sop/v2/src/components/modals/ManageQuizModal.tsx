@@ -8,7 +8,7 @@ interface ManageQuizModalProps {
   onClose: () => void;
   chapterId: string;
   chapterTitle: string;
-  collectionName: 'chapters' | 'coordinatorChapters';
+  collectionName: 'chapters' | 'coordinatorChapters' | 'hiring';
 }
 
 interface Question {

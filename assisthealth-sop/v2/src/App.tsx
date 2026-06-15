@@ -8,6 +8,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import NavigatorDashboard from './pages/NavigatorDashboard';
 import CoordinatorDashboard from './pages/CoordinatorDashboard';
 import Quiz from './pages/Quiz';
+import HiringTest from './pages/HiringTest';
 
 const ProtectedRoute = ({ children, allowedRole }: { children: React.ReactNode, allowedRole?: string }) => {
   const { user, role } = useAuth();
@@ -58,6 +59,7 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route path="/hiring-test" element={<HiringTest />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>

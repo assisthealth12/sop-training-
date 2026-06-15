@@ -23,6 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     { id: 'dashboard', icon: 'fas fa-th-large', label: 'Dashboard' },
     { id: 'users', icon: 'fas fa-users', label: 'User Management' },
     { id: 'chapters', icon: 'fas fa-book-open', label: 'SOP Chapters' },
+    { id: 'hiring', icon: 'fas fa-user-plus', label: 'Hiring Test' },
     { id: 'settings', icon: 'fas fa-sliders-h', label: 'Settings' },
   ];
 
