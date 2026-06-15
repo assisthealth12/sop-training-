@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../config/firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc, writeBatch, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, setDoc, deleteDoc, writeBatch, getDoc } from 'firebase/firestore';
 import { useToast, useConfirm } from '../ui/ToastConfirm';
 
 interface ManageQuizModalProps {
