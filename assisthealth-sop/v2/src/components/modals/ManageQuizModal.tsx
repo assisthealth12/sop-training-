@@ -244,10 +244,10 @@ const ManageQuizModal: React.FC<ManageQuizModalProps> = ({ isOpen, onClose, chap
   const handleSaveSettings = async () => {
     setSavingSettings(true);
     try {
-      await updateDoc(doc(db, collectionName, chapterId), { 
+      await setDoc(doc(db, collectionName, chapterId), { 
         timeLimits,
         passingPercentage 
-      });
+      }, { merge: true });
       showToast('Settings saved successfully!', 'success');
     } catch (error) {
       console.error(error);
