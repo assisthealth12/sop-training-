@@ -194,15 +194,15 @@ const HiringTest: React.FC = () => {
           
           <form onSubmit={handleStartQuiz} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'block' }}>Full Name</label>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'block' }}>Full Name <span style={{color: 'var(--danger)'}}>*</span></label>
               <input type="text" required value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Jane Doe" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '15px' }} />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'block' }}>Email Address</label>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'block' }}>Email Address <span style={{color: 'var(--danger)'}}>*</span></label>
               <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="e.g. jane@example.com" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '15px' }} />
             </div>
             <div className="form-group" style={{ marginBottom: 0 }}>
-              <label style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'block' }}>Phone Number</label>
+              <label style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '8px', display: 'block' }}>Phone Number <span style={{color: 'var(--danger)'}}>*</span></label>
               <input type="tel" required value={phone} onChange={e => setPhone(e.target.value)} placeholder="e.g. +1 234 567 8900" style={{ width: '100%', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border)', fontSize: '15px' }} />
             </div>
             
