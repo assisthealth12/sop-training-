@@ -459,7 +459,7 @@
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .quiz-content-area {
-    padding: 16px 12px 30px;
+    padding: 16px 12px 100px;
   }
 
   .quiz-timer-bar {
